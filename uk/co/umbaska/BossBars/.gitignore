@@ -1,0 +1,14 @@
+/CondBarHasFlag.class
+/EffAddFlagToBar.class
+/EffAddPlayerToBossBar.class
+/EffHideBossBar.class
+/EffRemoveAllPlayersFromBar.class
+/EffRemovePlayerFromBossBar.class
+/EffShowBossBar.class
+/ExprBossBarColor.class
+/ExprBossBarProgress.class
+/ExprBossBarStyle.class
+/ExprBossBarTitle.class
+/ExprFlagsOfBar.class
+/ExprNewBossBar.class
+/ExprPlayersOfBar.class

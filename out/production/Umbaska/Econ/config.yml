@@ -1,0 +1,8 @@
+# This config is based off of Essentials Economy's since it works and people understand it.
+
+currency-symbol: $
+starting-balance: 0
+minimum-balance-allowed: -10000 # Set to -1 for no minimum
+maximum-balance-allowed: -1 # Set to -1 for infinite
+
+economy-version: 1.0
