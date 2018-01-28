@@ -1,0 +1,7 @@
+name: Umbaska
+main: uk.co.umbaska.Main
+authors: [nfell2009, Gatt]
+version: 2.0 Beta 5.2
+depend: [Skript]
+softdepend: [PlotMe, Vault, Towny, NametagEdit, Dynmap, ProtocolLib, WorldEdit, PlotSquared]
+loadbefore: [SkQuery]
