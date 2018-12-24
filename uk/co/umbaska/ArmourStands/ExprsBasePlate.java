@@ -1,13 +1,13 @@
 package uk.co.umbaska.ArmourStands;
 
-import ch.njol.skript.classes.Changer.ChangeMode;
-import ch.njol.skript.expressions.base.SimplePropertyExpression;
-import ch.njol.skript.lang.Expression;
-import ch.njol.util.coll.CollectionUtils;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.classes.Changer;
+import ch.njol.skript.expressions.base.SimplePropertyExpression;
+import ch.njol.util.coll.CollectionUtils;
 
 public class ExprsBasePlate
   extends SimplePropertyExpression<Entity, Boolean>

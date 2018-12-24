@@ -2,6 +2,7 @@ package uk.co.umbaska.PlaceHolderAPI;
 
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
 import java.util.HashMap;
@@ -47,7 +48,7 @@ public class EffAddPlugin
 
   public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.variable = expressions[0];
+    this.variable = (Expression<String>) expressions[0];
     return true;
   }
 }

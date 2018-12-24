@@ -1,12 +1,13 @@
 package uk.co.umbaska.JSON;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 
@@ -38,10 +39,11 @@ public class EffJSONFormatSlotRun
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.chunk = expressions[0];
-    this.location = expressions[0];
+    this.chunk = (Expression<Chunk>) expressions[0];
+    this.location = (Expression<Location>) expressions[0];
     return true;
   }
 }

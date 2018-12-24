@@ -1,14 +1,16 @@
 package uk.co.umbaska.Bungee;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.Main;
 
 public class EffChangeServer extends Effect
@@ -44,10 +46,11 @@ public class EffChangeServer extends Effect
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.player = expressions[0];
-    this.server = expressions[1];
+    this.player = (Expression<Player>) expressions[0];
+    this.server = (Expression<String>) expressions[1];
     return true;
   }
 }

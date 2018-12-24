@@ -1,9 +1,10 @@
 package uk.co.umbaska.Bungee;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.Main;
 
 public class EffBungeeBroadcast extends ch.njol.skript.lang.Effect
@@ -27,9 +28,10 @@ public class EffBungeeBroadcast extends ch.njol.skript.lang.Effect
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.msg = expressions[0];
+    this.msg = (Expression<String>) expressions[0];
     return true;
   }
 }

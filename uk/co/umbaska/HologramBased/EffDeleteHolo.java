@@ -1,12 +1,13 @@
 package uk.co.umbaska.HologramBased;
 
+import javax.annotation.Nullable;
+
+import org.bukkit.event.Event;
+
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import java.util.HashMap;
-import javax.annotation.Nullable;
-import org.bukkit.event.Event;
 
 
 
@@ -15,9 +16,10 @@ public class EffDeleteHolo
 {
   private Expression<String> HologramName;
   
-  public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
   {
-    this.HologramName = exprs[0];
+    this.HologramName = (Expression<String>) exprs[0];
     return true;
   }
   
@@ -26,7 +28,8 @@ public class EffDeleteHolo
   }
   
 
-  protected void execute(Event event)
+  @SuppressWarnings("unlikely-arg-type")
+protected void execute(Event event)
   {
     String holoName = (String)this.HologramName.getSingle(event);
     if (holoName == null) {

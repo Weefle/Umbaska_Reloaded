@@ -2,6 +2,7 @@ package uk.co.umbaska.mcMMO;
 
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
 import com.gmail.nossr50.api.ChatAPI;
@@ -45,9 +46,9 @@ public class EffSendPartyMessage
 
   public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.sender = expressions[2];
-    this.party = expressions[1];
-    this.message = expressions[0];
+    this.sender = (Expression<String>) expressions[2];
+    this.party = (Expression<Party>) expressions[1];
+    this.message = (Expression<String>) expressions[0];
     return true;
   }
 }

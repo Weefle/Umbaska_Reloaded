@@ -1,8 +1,7 @@
 package uk.co.umbaska.Enums;
 
 import java.util.HashMap;
-import net.minecraft.server.v1_9_R1.EntityHuman;
-import net.minecraft.server.v1_9_R1.EntityPlayer;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -11,6 +10,9 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import net.minecraft.server.v1_9_R1.EntityHuman;
+import net.minecraft.server.v1_9_R1.EntityPlayer;
 
 public class AnvilGUI
 {

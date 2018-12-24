@@ -1,15 +1,15 @@
 package uk.co.umbaska.Attributes;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 public class EffRemoveAttributeModifer
@@ -36,11 +36,12 @@ public class EffRemoveAttributeModifer
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.attribute = expressions[1];
-    this.entities = expressions[2];
-    this.modifier = expressions[0];
+    this.attribute = (Expression<Attribute>) expressions[1];
+    this.entities = (Expression<Entity>) expressions[2];
+    this.modifier = (Expression<AttributeModifier>) expressions[0];
     return true;
   }
 }

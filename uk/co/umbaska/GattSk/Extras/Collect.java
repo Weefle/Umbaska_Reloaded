@@ -28,7 +28,7 @@ public class Collect
   
   public static <T> T[] newArray(Class<?> type, int size)
   {
-    return (Object[])java.lang.reflect.Array.newInstance(type, size);
+    return (T[])java.lang.reflect.Array.newInstance(type, size);
   }
   
   public static String[] asSkriptProperty(String property, String fromType) {

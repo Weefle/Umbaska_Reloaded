@@ -1,12 +1,14 @@
 package uk.co.umbaska.HologramBased;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
+
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 public class EffHoloFollow
   extends Effect
@@ -14,10 +16,11 @@ public class EffHoloFollow
   private Expression<String> HologramName;
   private Expression<Entity> ent;
   
-  public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
   {
-    this.HologramName = exprs[0];
-    this.ent = exprs[1];
+    this.HologramName = (Expression<String>) exprs[0];
+    this.ent = (Expression<Entity>) exprs[1];
     return true;
   }
   

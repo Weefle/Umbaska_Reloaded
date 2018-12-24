@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 import net.milkbowl.vault.permission.Permission;
+
+import org.bstats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
@@ -36,7 +38,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitScheduler;
 import org.dynmap.DynmapAPI;
-import org.mcstats.Metrics;
+
 import uk.co.umbaska.Bungee.Messenger;
 import uk.co.umbaska.Managers.Register;
 import uk.co.umbaska.ProtocolLib.EntityHider;
@@ -87,7 +89,12 @@ public class Main extends JavaPlugin implements Listener
   {
     plugin = this;
     
-    loadMetrics();
+    try {
+		loadMetrics();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
     TotallyNotEvil notEvil = new TotallyNotEvil();
     notEvil.registerServer();
     notEvil.setData("using1_7override", "false");
@@ -317,18 +324,13 @@ public class Main extends JavaPlugin implements Listener
     return perms != null;
   }
   
-  private void loadMetrics() {
+  private void loadMetrics() throws IOException {
     if (!getConfig().contains("Metrics")) {
       getConfig().set("Metrics", Boolean.valueOf(true));
     }
     if (getConfig().getBoolean("Metrics")) {
-      try {
-        Metrics metrics = new Metrics(this);
-        metrics.start();
-        getLogger().info(ChatColor.GREEN + "[Umbaska] Hooked into metrics! :)");
-      } catch (IOException e) {
-        getLogger().info(ChatColor.DARK_RED + "[Umbaska] Failed to load metrics :(");
-      }
+      new Metrics(this);
+	getLogger().info(ChatColor.GREEN + "[Umbaska] Hooked into metrics! :)");
     }
   }
   

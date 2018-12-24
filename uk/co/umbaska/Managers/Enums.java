@@ -1,5 +1,6 @@
 package uk.co.umbaska.Managers;
 
+import ca.thederpygolems.armorequip.ArmourEquipEvent;
 import ca.thederpygolems.armorequip.ArmourEquipEvent.EquipMethod;
 import ch.njol.skript.Skript;
 import ch.njol.skript.classes.ClassInfo;
@@ -95,7 +96,8 @@ public class Enums
     }
   }
   
-  public static void runRegister() {
+  @SuppressWarnings("unchecked")
+public static void runRegister() {
     registerEnum(InventoryTypes.class, "umbaskainv");
     registerEnum(ParticleEnum.class, "particleenum");
     registerEnum(BukkitEffectEnum.class, "bukkiteffect");

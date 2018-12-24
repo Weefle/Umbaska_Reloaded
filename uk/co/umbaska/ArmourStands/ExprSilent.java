@@ -1,12 +1,12 @@
 package uk.co.umbaska.ArmourStands;
 
-import ch.njol.skript.classes.Changer.ChangeMode;
-import ch.njol.skript.expressions.base.SimplePropertyExpression;
-import ch.njol.skript.lang.Expression;
-import ch.njol.util.coll.CollectionUtils;
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
 import org.bukkit.craftbukkit.v1_9_R1.entity.CraftEntity;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.classes.Changer;
+import ch.njol.skript.expressions.base.SimplePropertyExpression;
+import ch.njol.util.coll.CollectionUtils;
+import net.minecraft.server.v1_9_R1.NBTTagCompound;
 
 
 

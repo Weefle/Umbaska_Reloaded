@@ -2,11 +2,10 @@ package uk.co.umbaska.ArmourStands;
 
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.event.Event;
 
@@ -17,9 +16,10 @@ public class EffSpawnArmorStand
 {
   private Expression<Location> loc;
   
-  public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
   {
-    this.loc = exprs[0];
+    this.loc = (Expression<Location>) exprs[0];
     
     return true;
   }

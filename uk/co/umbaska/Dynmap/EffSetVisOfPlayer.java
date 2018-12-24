@@ -1,12 +1,12 @@
 package uk.co.umbaska.Dynmap;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import org.dynmap.DynmapAPI;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.Main;
 
 
@@ -37,10 +37,11 @@ public class EffSetVisOfPlayer
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.player = expressions[0];
-    this.vis = expressions[1];
+    this.player = (Expression<Player>) expressions[0];
+    this.vis = (Expression<Boolean>) expressions[1];
     return true;
   }
 }

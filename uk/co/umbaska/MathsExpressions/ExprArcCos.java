@@ -1,6 +1,7 @@
 package uk.co.umbaska.MathsExpressions;
 
 import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
@@ -26,7 +27,7 @@ public class ExprArcCos
 
   public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.input = args[0];
+    this.input = (Expression<Number>) args[0];
     return true;
   }
   

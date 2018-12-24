@@ -28,3 +28,5 @@
 /RepairEvent.class
 /TeleportCallEvent.class
 /WorldChangeEvent.class
+/EffOpenInventory$1.class
+/EffTrailEntity$TrailEntity$1.class

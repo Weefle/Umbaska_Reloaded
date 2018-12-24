@@ -1,1 +1,0 @@
-By decompiling this .JAR file, you agree not to share any resources or included contents anywhere, unless given permission by the original authors (The Umbaska Project)

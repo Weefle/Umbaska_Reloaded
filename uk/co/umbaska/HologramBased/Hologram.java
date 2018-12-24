@@ -1,5 +1,6 @@
 package uk.co.umbaska.HologramBased;
 
+import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.PacketType.Play.Server;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
@@ -9,6 +10,7 @@ import com.comphenix.protocol.wrappers.WrappedWatchableObject;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Map.Entry;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -488,16 +490,16 @@ public class Hologram
               }
             }
           } else if (lines.length > this.entityIds.size()) { PacketContainer[] packets1_7;
-            PacketContainer[] packet1_8; for (; i < lines.length; i++) {
+            PacketContainer[] packet1_81; for (; i < lines.length; i++) {
               Map.Entry<Integer, Integer> entry = new java.util.AbstractMap.SimpleEntry(Integer.valueOf(getId()), Integer.valueOf(getId()));
               this.entityIds.add(entry);
               
               packets1_7 = makeSpawnPackets1_7(i, ((Integer)entry.getKey()).intValue(), ((Integer)entry.getValue()).intValue(), lines[i]);
-              packet1_8 = makeSpawnPacket1_8(i, ((Integer)entry.getKey()).intValue(), lines[i]);
+              packet1_81 = makeSpawnPacket1_8(i, ((Integer)entry.getKey()).intValue(), lines[i]);
               for (Player p : players) {
                 try {
                   if (HologramCentral.is1_8(p)) {
-                    for (PacketContainer packet : packet1_8) {
+                    for (PacketContainer packet : packet1_81) {
                       ProtocolLibrary.getProtocolManager().sendServerPacket(p, packet, false);
                     }
                   } else {

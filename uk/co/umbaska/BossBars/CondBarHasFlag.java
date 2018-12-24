@@ -1,12 +1,13 @@
 package uk.co.umbaska.BossBars;
 
-import ch.njol.skript.lang.Condition;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BossBar;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Condition;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 
@@ -26,10 +27,11 @@ public class CondBarHasFlag
     return "bar has flag";
   }
   
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.bar = expressions[0];
-    this.flag = expressions[1];
+    this.bar = (Expression<BossBar>) expressions[0];
+    this.flag = (Expression<BarFlag>) expressions[1];
     return true;
   }
 }
