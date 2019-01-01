@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import org.bukkit.Server;
+
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +19,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
+
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Utils.Disguise.DisguiseUTIL.Disguise;
 import uk.co.umbaska.Utils.Disguise.DisguiseUTIL.PlayerDisguise;
@@ -27,7 +28,7 @@ public class DisguiseAPI
 {
   private static DisguiseAPI api = new DisguiseAPI();
   
-  private Set<Disguise> disguises = new java.util.HashSet();
+  private Set<Disguise> disguises = new java.util.HashSet<>();
   private JavaPlugin plugin;
   
   public static DisguiseAPI getAPI()
@@ -158,7 +159,7 @@ public class DisguiseAPI
 
   public List<Entity> getDisguised()
   {
-    List<Entity> s = new ArrayList();
+    List<Entity> s = new ArrayList<>();
     for (Disguise d : this.disguises) {
       s.add(d.getPlayer());
     }
@@ -193,7 +194,7 @@ public class DisguiseAPI
   }
   
   public Collection<Player> online() {
-    return new ArrayList(org.bukkit.Bukkit.getServer().getOnlinePlayers());
+    return new ArrayList<>(org.bukkit.Bukkit.getServer().getOnlinePlayers());
   }
   
 

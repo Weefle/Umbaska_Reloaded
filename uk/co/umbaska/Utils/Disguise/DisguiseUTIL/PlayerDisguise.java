@@ -1,17 +1,17 @@
 package uk.co.umbaska.Utils.Disguise.DisguiseUTIL;
 
 import java.util.Collection;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
+import org.bukkit.entity.Player;
+
 import net.minecraft.server.v1_9_R1.EntityPlayer;
 import net.minecraft.server.v1_9_R1.PacketPlayOutEntityDestroy;
 import net.minecraft.server.v1_9_R1.PacketPlayOutNamedEntitySpawn;
 import net.minecraft.server.v1_9_R1.PacketPlayOutPlayerInfo;
-import net.minecraft.server.v1_9_R1.PacketPlayOutPlayerInfo.EnumPlayerInfoAction;
 import net.minecraft.server.v1_9_R1.PlayerConnection;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Server;
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
-import org.bukkit.entity.Player;
 
 public class PlayerDisguise extends Disguise
 {

@@ -1,13 +1,14 @@
 package uk.co.umbaska.WorldBorder;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 
@@ -80,22 +81,23 @@ public class EffWorldBorder
 
 
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.world = expressions[0];
+    this.world = (Expression<World>) expressions[0];
     this.matchType = Integer.valueOf(i);
     if (i == 0) {
-      this.location = expressions[1];
+      this.location = (Expression<Location>) expressions[1];
     } else if (i == 1) {
-      this.c1 = expressions[1];
-      this.c2 = expressions[2];
+      this.c1 = (Expression<Double>) expressions[1];
+      this.c2 = (Expression<Double>) expressions[2];
     } else if ((i == 2) || (i == 3) || (i == 4) || (i == 5)) {
-      this.c1 = expressions[1];
+      this.c1 = (Expression<Double>) expressions[1];
       if (i == 5) {
-        this.s1 = expressions[2];
+        this.s1 = (Expression<Long>) expressions[2];
       }
     } else if ((i == 6) || (i == 7)) {
-      this.s1 = expressions[1];
+      this.s1 = (Expression<Long>) expressions[1];
     }
     return true;
   }

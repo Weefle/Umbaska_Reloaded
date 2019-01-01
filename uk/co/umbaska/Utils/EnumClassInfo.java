@@ -1,13 +1,14 @@
 package uk.co.umbaska.Utils;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import ch.njol.skript.classes.ClassInfo;
 import ch.njol.skript.classes.EnumSerializer;
 import ch.njol.skript.classes.Parser;
 import ch.njol.skript.expressions.base.EventValueExpression;
 import ch.njol.skript.lang.ParseContext;
 import ch.njol.skript.registrations.Classes;
-import java.util.HashMap;
-import java.util.Map.Entry;
 
 
 
@@ -17,16 +18,18 @@ public class EnumClassInfo<E extends Enum<E>>
 {
   private final Class<E> enumType;
   private final String codeName;
-  private final EventValueExpression defaultExpression;
+  @SuppressWarnings("rawtypes")
+private final EventValueExpression defaultExpression;
   private final ClassInfo<E> classInfo;
-  private final HashMap<String, String> synonyms = new HashMap();
+  private final HashMap<String, String> synonyms = new HashMap<>();
   
-  private EnumClassInfo(Class<E> enumType, String codeName)
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+private EnumClassInfo(Class<E> enumType, String codeName)
   {
     this.enumType = enumType;
     this.codeName = codeName;
     this.defaultExpression = new EventValueExpression(enumType);
-    this.classInfo = new ClassInfo(enumType, codeName);
+    this.classInfo = new ClassInfo<E>(enumType, codeName);
   }
   
   private EnumClassInfo(Class<E> enumType, String codeName, EventValueExpression<E> defaultExpression)
@@ -34,17 +37,17 @@ public class EnumClassInfo<E extends Enum<E>>
     this.enumType = enumType;
     this.codeName = codeName;
     this.defaultExpression = defaultExpression;
-    this.classInfo = new ClassInfo(enumType, codeName);
+    this.classInfo = new ClassInfo<E>(enumType, codeName);
   }
   
   public static <E extends Enum<E>> EnumClassInfo<E> create(Class<E> enumType, String codeName)
   {
-    return new EnumClassInfo(enumType, codeName);
+    return new EnumClassInfo<E>(enumType, codeName);
   }
   
   public static <E extends Enum<E>> EnumClassInfo<E> create(Class<E> enumType, String codeName, EventValueExpression<E> defaultExpression)
   {
-    return new EnumClassInfo(enumType, codeName, defaultExpression);
+    return new EnumClassInfo<E>(enumType, codeName, defaultExpression);
   }
   
   public EnumClassInfo<E> addSynonym(String regex, String actualValue)
@@ -65,9 +68,10 @@ public class EnumClassInfo<E extends Enum<E>>
     return this;
   }
   
-  public void register()
+  @SuppressWarnings("unchecked")
+public void register()
   {
-    Classes.registerClass(this.classInfo.user(new String[] { this.codeName + "s?" }).parser(new Parser()
+    Classes.registerClass(this.classInfo.user(new String[] { this.codeName + "s?" }).parser((Parser<? extends E>) new Parser<Object>()
     {
       public E parse(String s, ParseContext parseContext)
       {
@@ -87,18 +91,18 @@ public class EnumClassInfo<E extends Enum<E>>
         return null;
       }
       
-      public String toString(E e, int i)
+      public String toString(Object e, int i)
       {
         return e.toString();
       }
       
-      public String toVariableNameString(E e)
+      public String toVariableNameString(Object e)
       {
         return EnumClassInfo.this.codeName + ':' + e.toString();
       }
       
 
 
-      public String getVariableNamePattern() { return EnumClassInfo.this.codeName + ":.+"; } }).serializer(new EnumSerializer(this.enumType)).defaultExpression(this.defaultExpression));
+      public String getVariableNamePattern() { return EnumClassInfo.this.codeName + ":.+"; } }).serializer(new EnumSerializer<E>(this.enumType)).defaultExpression(this.defaultExpression));
   }
 }

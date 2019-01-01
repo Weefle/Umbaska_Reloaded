@@ -3,17 +3,16 @@ package uk.co.umbaska.VaultEcon;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.UUID;
+
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 
 public class EconPlayer
 {
-  private static HashMap<OfflinePlayer, EconPlayer> econPlayerHashMap = new HashMap();
+  private static HashMap<OfflinePlayer, EconPlayer> econPlayerHashMap = new HashMap<>();
   private OfflinePlayer player;
   
   public static EconPlayer getEconPlayer(OfflinePlayer p) { if (econPlayerHashMap.containsKey(p)) {
@@ -34,7 +33,7 @@ public class EconPlayer
   }
   
   public EconPlayer(OfflinePlayer p) {
-    this.player = p;
+    this.setPlayer(p);
     econPlayerHashMap.put(p, this);
     
     if (this.customConfigFile == null) {
@@ -87,4 +86,12 @@ public class EconPlayer
     this.customConfig.set("balance", this.balance);
     saveConfig();
   }
+
+public OfflinePlayer getPlayer() {
+	return player;
+}
+
+public void setPlayer(OfflinePlayer player) {
+	this.player = player;
+}
 }

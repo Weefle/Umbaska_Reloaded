@@ -1,12 +1,12 @@
 package uk.co.umbaska.WorldEdit;
 
+import org.bukkit.Location;
+import org.bukkit.event.Event;
+
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
-import org.bukkit.Location;
-import org.bukkit.event.Event;
 
 
 
@@ -30,7 +30,8 @@ public class EffPasteSchematicNoAir
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
     this.location = (Expression<Location>) expressions[1];
     this.schemname = (Expression<String>) expressions[0];

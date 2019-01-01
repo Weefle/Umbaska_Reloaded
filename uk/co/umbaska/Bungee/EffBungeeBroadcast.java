@@ -15,7 +15,7 @@ public class EffBungeeBroadcast extends ch.njol.skript.lang.Effect
   {
     String message = (String)this.msg.getSingle(event);
     for (String server : Main.messenger.cache.allServers) {
-      for (String ps : (java.util.List)Main.messenger.cache.playersOnlineServer.get(server)) {
+      for (String ps : Main.messenger.cache.playersOnlineServer.get(server)) {
         Main.messenger.sendMsgToPlayer(ps, message);
       }
     }

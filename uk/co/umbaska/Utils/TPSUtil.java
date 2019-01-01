@@ -14,7 +14,7 @@ public class TPSUtil extends org.bukkit.scheduler.BukkitRunnable
   
   public TPSUtil(Plugin plugin) {
     this.lastTick = System.currentTimeMillis();
-    this.tickIntervals = new ArrayDeque(Collections.nCopies(this.resolution, Long.valueOf(50L)));
+    this.tickIntervals = new ArrayDeque<Long>(Collections.nCopies(this.resolution, Long.valueOf(50L)));
     runTaskTimer(plugin, 1L, 1L);
   }
   
@@ -29,7 +29,7 @@ public class TPSUtil extends org.bukkit.scheduler.BukkitRunnable
   
   public double getTPS() {
     int base = 0;
-    for (Iterator i$ = this.tickIntervals.iterator(); i$.hasNext();) { long delta = ((Long)i$.next()).longValue();
+    for (Iterator<Long> i$ = this.tickIntervals.iterator(); i$.hasNext();) { long delta = ((Long)i$.next()).longValue();
       base = (int)(base + delta);
     }
     return 1000.0D / (base / this.resolution);

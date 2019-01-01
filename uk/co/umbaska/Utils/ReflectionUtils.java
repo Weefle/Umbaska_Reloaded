@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.bukkit.Bukkit;
 
 
@@ -444,8 +445,10 @@ public final class ReflectionUtils
     FLOAT(Float.TYPE, Float.class), 
     DOUBLE(Double.TYPE, Double.class), 
     BOOLEAN(Boolean.TYPE, Boolean.class);
+	  
+	  private static final Map<Class<?>, DataType> CLASS_MAP;
     
-    static { CLASS_MAP = new HashMap();
+    static { CLASS_MAP = new HashMap<>();
       
 
 
@@ -456,10 +459,6 @@ public final class ReflectionUtils
         CLASS_MAP.put(type.reference, type);
       }
     }
-    
-
-
-    private static final Map<Class<?>, DataType> CLASS_MAP;
     
 
     private DataType(Class<?> primitive, Class<?> reference)

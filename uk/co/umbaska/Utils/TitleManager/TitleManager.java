@@ -1,13 +1,12 @@
 package uk.co.umbaska.Utils.TitleManager;
 
-import net.minecraft.server.v1_9_R1.EntityPlayer;
-import net.minecraft.server.v1_9_R1.IChatBaseComponent;
-import net.minecraft.server.v1_9_R1.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_9_R1.PacketPlayOutTitle;
-import net.minecraft.server.v1_9_R1.PlayerConnection;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+
+import net.minecraft.server.v1_9_R1.IChatBaseComponent;
+import net.minecraft.server.v1_9_R1.PacketPlayOutTitle;
+import net.minecraft.server.v1_9_R1.PlayerConnection;
 
 public class TitleManager implements org.bukkit.event.Listener
 {

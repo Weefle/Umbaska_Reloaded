@@ -123,7 +123,7 @@ public class Register
     org.bukkit.plugin.Plugin pl = org.bukkit.Bukkit.getServer().getPluginManager().getPlugin("PlotSquared");
     if (pl != null) {
       Skript.registerEvent("PlotSquared Enter", SimpleEvent.class, PlayerEnterPlotEvent.class, new String[] { "plot enter" });
-      EventValues.registerEventValue(PlayerEnterPlotEvent.class, String.class, new Getter()
+      EventValues.registerEventValue(PlayerEnterPlotEvent.class, String.class, new Getter<String, PlayerEnterPlotEvent>()
       {
         public String get(PlayerEnterPlotEvent event) { return event.getPlot().getId().toString(); } }, 0);
       

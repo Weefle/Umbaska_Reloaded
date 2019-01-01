@@ -1,20 +1,20 @@
 package uk.co.umbaska.HologramBased;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
+
+import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+
 import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.PacketType.Play.Server;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import com.comphenix.protocol.wrappers.WrappedWatchableObject;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-import org.bukkit.Location;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 
 public class Hologram
 {
@@ -47,9 +47,9 @@ public class Hologram
 
 
 
-  private ArrayList<Map.Entry<Integer, Integer>> entityIds = new ArrayList();
+  private ArrayList<Map.Entry<Integer, Integer>> entityIds = new ArrayList<>();
   protected Location entityLastLocation;
-  private ArrayList<String> hologramPlayers = new ArrayList();
+  private ArrayList<String> hologramPlayers = new ArrayList<>();
   private HologramTarget hologramTarget = HologramTarget.BLACKLIST;
   private boolean isUsingWitherSkull = HologramCentral.isUsingWitherSkulls();
   private boolean keepAliveAfterEntityDies;
@@ -64,7 +64,7 @@ public class Hologram
   private boolean setRelativePitch;
   private boolean setRelativeYaw;
   private int viewDistance = 100;
-  private java.util.List<Entity> holoItems = new ArrayList();
+  private java.util.List<Entity> holoItems = new ArrayList<>();
   
   public Hologram(Location location, String... lines)
   {
@@ -130,7 +130,7 @@ public class Hologram
   }
   
   private ArrayList<Player> getPlayers() {
-    ArrayList<Player> players = new ArrayList();
+    ArrayList<Player> players = new ArrayList<>();
     for (Player player : org.bukkit.Bukkit.getServer().getOnlinePlayers()) {
       if (isVisible(player, player.getLocation())) {
         players.add(player);
@@ -212,7 +212,7 @@ public class Hologram
     this.displayPackets1_8 = new PacketContainer[this.lines.length * (isUsingWitherSkull() ? 2 : 1)];
     int b = 0;
     while (itel.hasNext()) {
-      Map.Entry<Integer, Integer> entry = (Map.Entry)itel.next();
+      Map.Entry<Integer, Integer> entry = itel.next();
       PacketContainer[] packets = makeSpawnPacket1_8(b, ((Integer)entry.getKey()).intValue(), this.lines[(this.lines.length - 1 - b)]);
       for (int a = 0; a < (isUsingWitherSkull() ? 2 : 1); a++) {
         this.displayPackets1_8[(b + a)] = packets[a];
@@ -238,7 +238,7 @@ public class Hologram
       
       packets[1] = new PacketContainer(PacketType.Play.Server.ENTITY_METADATA);
       packets[1].getIntegers().write(0, Integer.valueOf(witherId));
-      ArrayList<WrappedWatchableObject> list = new ArrayList();
+      ArrayList<WrappedWatchableObject> list = new ArrayList<>();
       list.add(new WrappedWatchableObject(0, Byte.valueOf((byte)0)));
       list.add(new WrappedWatchableObject(2, horseName));
       list.add(new WrappedWatchableObject(3, Byte.valueOf((byte)1)));
@@ -442,10 +442,10 @@ public class Hologram
         PacketContainer packet1_7;
         PacketContainer packet1_8; for (; i < Math.min(this.entityIds.size(), lines.length); i++) {
           if ((oldLines.length <= i) || (!oldLines[i].equals(lines[i]))) {
-            Map.Entry<Integer, Integer> entry = (Map.Entry)this.entityIds.get(i);
+            Map.Entry<Integer, Integer> entry = this.entityIds.get(i);
             packet1_7 = new PacketContainer(PacketType.Play.Server.ENTITY_METADATA);
             packet1_7.getIntegers().write(0, entry.getValue());
-            ArrayList<WrappedWatchableObject> list = new ArrayList();
+            ArrayList<WrappedWatchableObject> list = new ArrayList<>();
             list.add(new WrappedWatchableObject(0, Byte.valueOf((byte)0)));
             list.add(new WrappedWatchableObject(1, Short.valueOf((short)300)));
             list.add(new WrappedWatchableObject(10, lines[i]));
@@ -454,7 +454,7 @@ public class Hologram
             packet1_7.getWatchableCollectionModifier().write(0, list);
             packet1_8 = new PacketContainer(PacketType.Play.Server.ENTITY_METADATA);
             packet1_8.getIntegers().write(0, entry.getKey());
-            list = new ArrayList();
+            list = new ArrayList<>();
             list.add(new WrappedWatchableObject(0, Byte.valueOf((byte)32)));
             list.add(new WrappedWatchableObject(2, lines[i]));
             list.add(new WrappedWatchableObject(3, Byte.valueOf((byte)1)));
@@ -475,7 +475,7 @@ public class Hologram
             int[] destroyIds = new int[(this.entityIds.size() - lines.length) * 2];
             int e = 0;
             while (this.entityIds.size() > lines.length) {
-              Map.Entry<Integer, Integer> entry = (Map.Entry)this.entityIds.remove(this.entityIds.size() - 1);
+              Map.Entry<Integer, Integer> entry = this.entityIds.remove(this.entityIds.size() - 1);
               destroyIds[(e++)] = ((Integer)entry.getKey()).intValue();
               destroyIds[(e++)] = ((Integer)entry.getValue()).intValue();
             }
@@ -491,7 +491,7 @@ public class Hologram
             }
           } else if (lines.length > this.entityIds.size()) { PacketContainer[] packets1_7;
             PacketContainer[] packet1_81; for (; i < lines.length; i++) {
-              Map.Entry<Integer, Integer> entry = new java.util.AbstractMap.SimpleEntry(Integer.valueOf(getId()), Integer.valueOf(getId()));
+              Map.Entry<Integer, Integer> entry = new java.util.AbstractMap.SimpleEntry<Integer, Integer>(Integer.valueOf(getId()), Integer.valueOf(getId()));
               this.entityIds.add(entry);
               
               packets1_7 = makeSpawnPackets1_7(i, ((Integer)entry.getKey()).intValue(), ((Integer)entry.getValue()).intValue(), lines[i]);
@@ -522,7 +522,7 @@ public class Hologram
           }
         }
         for (int i = this.entityIds.size(); i < lines.length; i++) {
-          Map.Entry<Integer, Integer> entry = new java.util.AbstractMap.SimpleEntry(Integer.valueOf(getId()), Integer.valueOf(getId()));
+          Map.Entry<Integer, Integer> entry = new java.util.AbstractMap.SimpleEntry<Integer, Integer>(Integer.valueOf(getId()), Integer.valueOf(getId()));
           this.entityIds.add(entry);
         }
       }
@@ -591,7 +591,7 @@ public class Hologram
     if (!isInUse()) {
       for (int i = this.entityIds.size(); i < this.lines.length; i++) {
         int entityId = getId();
-        this.entityIds.add(new java.util.AbstractMap.SimpleEntry(Integer.valueOf(getId()), Integer.valueOf(entityId)));
+        this.entityIds.add(new java.util.AbstractMap.SimpleEntry<Integer, Integer>(Integer.valueOf(getId()), Integer.valueOf(entityId)));
       }
       makeDestroyPacket();
       makeDisplayPackets();
@@ -603,4 +603,34 @@ public class Hologram
   public Hologram stop() {
     return remove();
   }
+
+
+
+
+
+
+
+
+
+
+
+
+public java.util.List<Entity> getHoloItems() {
+	return holoItems;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+public void setHoloItems(java.util.List<Entity> holoItems) {
+	this.holoItems = holoItems;
+}
 }

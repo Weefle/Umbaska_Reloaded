@@ -6,13 +6,12 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.logging.Logger;
-import net.md_5.bungee.api.ChatColor;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
+
+import net.md_5.bungee.api.ChatColor;
 
 public class UpdateChecker
 {

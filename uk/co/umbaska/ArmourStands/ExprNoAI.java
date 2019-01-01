@@ -18,7 +18,6 @@ public class ExprNoAI
     if (ent == null) {
       return null;
     }
-    net.minecraft.server.v1_9_R1.Entity nmsarmorstand = ((CraftEntity)ent).getHandle();
     NBTTagCompound compoundTag = new NBTTagCompound();
     if (compoundTag.hasKey("NoAI")) {
       if (compoundTag.getInt("NoAI") == 1) {

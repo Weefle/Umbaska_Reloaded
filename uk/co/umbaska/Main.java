@@ -50,7 +50,7 @@ import uk.co.umbaska.Utils.ItemManager;
 
 public class Main extends JavaPlugin implements Listener
 {
-  public static HashMap<String, String> syntaxWarnings = new HashMap();
+  public static HashMap<String, String> syntaxWarnings = new HashMap<>();
   public static Boolean warnPlotMeUse = Boolean.valueOf(false);
   public static org.bukkit.entity.Entity armorStand;
   public static DynmapAPI api;
@@ -63,17 +63,17 @@ public class Main extends JavaPlugin implements Listener
   private ProtocolManager protocolManager;
   public Debugger debugger = new Debugger(this, Boolean.valueOf(true));
   public ClientThread client;
-  public List<String> oq = Collections.synchronizedList(new ArrayList());
+  public List<String> oq = Collections.synchronizedList(new ArrayList<>());
   public Integer qc = Integer.valueOf(0);
   public String spacer = "@@UMB@@";
-  public static HashMap<UUID, String> tokenTracker = new HashMap();
-  public static HashMap<String, String> globalKeyCache = new HashMap();
+  public static HashMap<UUID, String> tokenTracker = new HashMap<>();
+  public static HashMap<String, String> globalKeyCache = new HashMap<>();
   public static String bungeeServerName;
   public static Boolean usingUmbaskaCord = Boolean.valueOf(true);
   public static com.google.common.io.ByteArrayDataInput bytein;
   public static Messenger messenger;
   public static Boolean disableSkRambled;
-  public static HashMap<UUID, InetAddress> addressMap = new HashMap();
+  public static HashMap<UUID, InetAddress> addressMap = new HashMap<>();
   
   public static Integer bcheartbeat;
   
@@ -92,7 +92,6 @@ public class Main extends JavaPlugin implements Listener
     try {
 		loadMetrics();
 	} catch (IOException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
     TotallyNotEvil notEvil = new TotallyNotEvil();
@@ -145,7 +144,7 @@ public class Main extends JavaPlugin implements Listener
     for (String key : Register.effectList.keySet()) {
       String url = getConfig().getString("admin_url");
       String syntax = "";
-      for (String s : (List)Register.effectList.get(key)) {
+      for (String s : Register.effectList.get(key)) {
         syntax = syntax + s + "||";
       }
       key = key.replaceAll(" ", "_");
@@ -167,7 +166,7 @@ public class Main extends JavaPlugin implements Listener
     for (String key : Register.expressionList.keySet()) {
       String url = getConfig().getString("admin_url");
       String syntax = "";
-      for (String s : (List)Register.expressionList.get(key)) {
+      for (String s : Register.expressionList.get(key)) {
         syntax = syntax + s + "||";
       }
       key = key.replaceAll(" ", "_");
@@ -189,7 +188,7 @@ public class Main extends JavaPlugin implements Listener
     for (String key : Register.simpleexpressionList.keySet()) {
       String url = getConfig().getString("admin_url");
       String syntax = "";
-      for (String s : (List)Register.simpleexpressionList.get(key)) {
+      for (String s : Register.simpleexpressionList.get(key)) {
         syntax = syntax + s + "||";
       }
       key = key.replaceAll(" ", "_");

@@ -1,14 +1,17 @@
 package uk.co.umbaska.WorldEdit;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.Main;
 
 
@@ -43,7 +46,7 @@ public class ExprAllSchematics
   protected String[] get(Event arg0)
   {
     File dir = new File(Main.schemFolder);
-    List<String> schematics = new ArrayList();
+    List<String> schematics = new ArrayList<>();
     if (!dir.exists())
       dir.mkdirs();
     File[] listOfFiles = dir.listFiles();

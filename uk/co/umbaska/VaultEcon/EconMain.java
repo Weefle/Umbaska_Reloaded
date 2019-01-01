@@ -6,11 +6,9 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.util.UUID;
-import java.util.logging.Logger;
-import net.milkbowl.vault.economy.Economy;
+
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.Server;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -18,9 +16,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
-import org.bukkit.plugin.ServicesManager;
+
+import net.milkbowl.vault.economy.Economy;
 
 public class EconMain
   implements Listener
@@ -41,8 +39,8 @@ public class EconMain
   
   public EconMain(Plugin p)
   {
-    p = p;
-    this.handler = new VaultHandler(this);
+    EconMain.p = p;
+    this.setHandler(new VaultHandler(this));
     Bukkit.getPluginManager().registerEvents(this, p);
     p.getDataFolder().mkdirs();
     File file = new File(p.getDataFolder() + "/Econ/base.yml");
@@ -170,4 +168,12 @@ public class EconMain
   public EconPlayer getAccount(String playerName, String uuid) {
     return getPlayer(UUID.fromString(uuid));
   }
+
+public VaultHandler getHandler() {
+	return handler;
+}
+
+public void setHandler(VaultHandler handler) {
+	this.handler = handler;
+}
 }

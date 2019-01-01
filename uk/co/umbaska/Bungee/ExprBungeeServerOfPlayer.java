@@ -1,14 +1,14 @@
 package uk.co.umbaska.Bungee;
 
+import java.util.Iterator;
+import javax.annotation.Nullable;
+
+import org.bukkit.event.Event;
+
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import javax.annotation.Nullable;
-import org.bukkit.event.Event;
 import uk.co.umbaska.Main;
 
 
@@ -30,9 +30,10 @@ public class ExprBungeeServerOfPlayer
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.player = args[0];
+    this.player = (Expression<String>) args[0];
     return true;
   }
   
@@ -46,17 +47,17 @@ public class ExprBungeeServerOfPlayer
   protected String[] get(Event arg0)
   {
     String p = (String)this.player.getSingle(arg0);
+    String server;
     
     if (p == null) {
       return null;
     }
     
-    for (Iterator i$ = Main.messenger.cache.allServers.iterator(); i$.hasNext();) { server = (String)i$.next();
-      for (String ps : (List)Main.messenger.cache.playersOnlineServer.get(server))
+    for (Iterator<String> i$ = Main.messenger.cache.allServers.iterator(); i$.hasNext();) { server = (String)i$.next();
+      for (String ps : Main.messenger.cache.playersOnlineServer.get(server))
         if (ps == p)
           return new String[] { server };
     }
-    String server;
     return null;
   }
 }

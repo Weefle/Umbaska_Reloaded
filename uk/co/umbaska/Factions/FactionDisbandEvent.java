@@ -1,12 +1,10 @@
 package uk.co.umbaska.Factions;
 
-import com.massivecraft.factions.entity.Faction;
-import com.massivecraft.factions.event.EventFactionsDisband;
-import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.PluginManager;
+
+import com.massivecraft.factions.event.EventFactionsDisband;
 
 public class FactionDisbandEvent implements Listener
 {

@@ -1,27 +1,29 @@
 package uk.co.umbaska.WorldGuard;
 
-import ch.njol.skript.classes.Changer.ChangeMode;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
-import com.sk89q.worldguard.protection.flags.Flag;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import java.util.Map;
-import java.util.Set;
 import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
 import org.bukkit.event.Event;
 
+import com.sk89q.worldguard.protection.flags.Flag;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+
+import ch.njol.skript.classes.Changer;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 
 
+
+@SuppressWarnings("rawtypes")
 public class ExprFlagsOfRegion
   extends SimpleExpression<Flag>
 {
   private Expression<ProtectedRegion> region;
   
-  public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult)
   {
-    this.region = exprs[0];
+    this.region = (Expression<ProtectedRegion>) exprs[0];
     return true;
   }
   

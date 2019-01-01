@@ -1,11 +1,11 @@
 package uk.co.umbaska.UmbaskaCord;
 
+import org.bukkit.event.Event;
+
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import java.util.List;
-import org.bukkit.event.Event;
 import uk.co.umbaska.Main;
 
 public class EffSendBungeeTitleAll
@@ -37,13 +37,14 @@ public class EffSendBungeeTitleAll
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.title = expressions[0];
-    this.subtitle = expressions[1];
-    this.fadeIn = expressions[2];
-    this.fadeOut = expressions[4];
-    this.stay = expressions[3];
+    this.title = (Expression<String>) expressions[0];
+    this.subtitle = (Expression<String>) expressions[1];
+    this.fadeIn = (Expression<Number>) expressions[2];
+    this.fadeOut = (Expression<Number>) expressions[4];
+    this.stay = (Expression<Number>) expressions[3];
     
     return true;
   }

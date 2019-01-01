@@ -3,9 +3,10 @@ package uk.co.umbaska.Bungee;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitScheduler;
+
 import uk.co.umbaska.Main;
 
 
@@ -13,10 +14,10 @@ import uk.co.umbaska.Main;
 
 public class Cache
 {
-  public HashMap<String, Integer> online = new HashMap();
-  public HashMap<String, List<String>> playersOnlineServer = new HashMap();
-  public List<String> allPlayersOnline = new ArrayList();
-  public List<String> allServers = new ArrayList();
+  public HashMap<String, Integer> online = new HashMap<>();
+  public HashMap<String, List<String>> playersOnlineServer = new HashMap<>();
+  public List<String> allPlayersOnline = new ArrayList<>();
+  public List<String> allServers = new ArrayList<>();
   public short playersOnline = 0;
   
   public Cache() {}

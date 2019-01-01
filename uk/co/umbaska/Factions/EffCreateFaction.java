@@ -1,9 +1,8 @@
 package uk.co.umbaska.Factions;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+
 import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.FactionColl;
@@ -11,10 +10,12 @@ import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.factions.entity.MPlayerColl;
 import com.massivecraft.factions.event.EventFactionsCreate;
 import com.massivecraft.factions.event.EventFactionsMembershipChange;
-import com.massivecraft.factions.event.EventFactionsMembershipChange.MembershipChangeReason;
 import com.massivecraft.massivecore.store.MStore;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 public class EffCreateFaction
@@ -61,10 +62,11 @@ public class EffCreateFaction
   
 
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.factionname = expressions[0];
-    this.player = expressions[1];
+    this.factionname = (Expression<String>) expressions[0];
+    this.player = (Expression<Player>) expressions[1];
     return true;
   }
 }

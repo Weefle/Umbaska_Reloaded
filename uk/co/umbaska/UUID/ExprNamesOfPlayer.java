@@ -1,16 +1,19 @@
 package uk.co.umbaska.UUID;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
 import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 
 
 
@@ -34,9 +37,10 @@ public class ExprNamesOfPlayer
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.uuid = args[0];
+    this.uuid = (Expression<String>) args[0];
     return true;
   }
   

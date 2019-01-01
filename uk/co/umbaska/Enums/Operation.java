@@ -16,7 +16,7 @@ public enum Operation {
   
   public static Operation fromId(int id)
   {
-    for (Operation op : ) {
+    for (Operation op : values()) {
       if (op.getId() == id) {
         return op;
       }

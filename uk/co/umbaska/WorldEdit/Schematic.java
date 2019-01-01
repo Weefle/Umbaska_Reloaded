@@ -1,5 +1,11 @@
 package uk.co.umbaska.WorldEdit;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.bukkit.Location;
+import org.bukkit.entity.Player;
+
 import com.sk89q.worldedit.CuboidClipboard;
 import com.sk89q.worldedit.EditSession;
 import com.sk89q.worldedit.EmptyClipboardException;
@@ -12,16 +18,12 @@ import com.sk89q.worldedit.bukkit.BukkitUtil;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.data.DataException;
-import com.sk89q.worldedit.extent.clipboard.Clipboard;
 import com.sk89q.worldedit.schematic.SchematicFormat;
 import com.sk89q.worldedit.session.ClipboardHolder;
-import java.io.File;
-import java.io.IOException;
-import org.bukkit.Location;
-import org.bukkit.entity.Player;
-import org.bukkit.plugin.PluginManager;
+
 import uk.co.umbaska.Main;
 
+@SuppressWarnings("deprecation")
 public class Schematic
 {
   public static void save(Player player, String schematicName)

@@ -1,18 +1,20 @@
 package uk.co.umbaska.Utils.Disguise.DisguiseUTIL;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
-import com.mojang.authlib.properties.PropertyMap;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
 import org.bukkit.ChatColor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
+import com.mojang.authlib.properties.PropertyMap;
 
 
 
@@ -20,8 +22,7 @@ public class UUIDRetriever
 {
   private String name;
   private UUID uuid;
-  private final String WEB_PAGE = "http://mcuuid.com/api/";
-  private static Map<UUID, Property> map = new HashMap();
+  private static Map<UUID, Property> map = new HashMap<>();
   
   public UUIDRetriever(String name) {
     this.name = ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', name));

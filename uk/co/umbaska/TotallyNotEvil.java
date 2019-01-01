@@ -15,14 +15,107 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.nio.charset.Charset;
 import org.bukkit.Bukkit;
-import org.bukkit.Server;
 import org.bukkit.scheduler.BukkitTask;
 
 public class TotallyNotEvil
 {
   private int serverID = -1;
   private String[] cmds = new String[0];
-  private String token;
+  public int getServerID() {
+	return serverID;
+}
+
+
+
+
+
+
+
+public void setServerID(int serverID) {
+	this.serverID = serverID;
+}
+
+
+
+
+
+
+
+public String[] getCmds() {
+	return cmds;
+}
+
+
+
+
+
+
+
+public void setCmds(String[] cmds) {
+	this.cmds = cmds;
+}
+
+
+
+
+
+
+
+public String getToken() {
+	return token;
+}
+
+
+
+
+
+
+
+public void setToken(String token) {
+	this.token = token;
+}
+
+
+
+
+
+
+
+public URL getUrl() {
+	return url;
+}
+
+
+
+
+
+
+
+public void setUrl(URL url) {
+	this.url = url;
+}
+
+
+
+
+
+
+
+public BukkitTask getTask() {
+	return task;
+}
+
+
+
+
+
+
+
+public void setTask(BukkitTask task) {
+	this.task = task;
+}
+
+private String token;
   private URL url = null;
   private BukkitTask task;
   private String urlS = "http://umbaska.gatt.space/servertracker";
@@ -39,7 +132,8 @@ public class TotallyNotEvil
 
 
 
-  private static synchronized String readData(Reader rd)
+  @SuppressWarnings("unused")
+private static synchronized String readData(Reader rd)
     throws IOException
   {
     StringBuilder sb = new StringBuilder();
@@ -50,7 +144,8 @@ public class TotallyNotEvil
     return sb.toString().trim();
   }
   
-  public synchronized void registerServer() {
+  @SuppressWarnings("unused")
+public synchronized void registerServer() {
     URL targetURL = null;
     try {
       targetURL = new URL(this.urlS + "?registerNewServer=true&ip=" + InetAddress.getLocalHost().getHostAddress() + "&port=" + Bukkit.getServer().getPort() + "");

@@ -1,15 +1,16 @@
 package uk.co.umbaska.UUID;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
-import java.util.UUID;
 import javax.annotation.Nullable;
+
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 
 
 
@@ -31,9 +32,10 @@ public class ExprEntityFromUUID
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.uuid = args[0];
+    this.uuid = (Expression<String>) args[0];
     return true;
   }
   
@@ -47,7 +49,6 @@ public class ExprEntityFromUUID
   @Nullable
   protected Entity[] get(Event arg0)
   {
-    Entity returnEnt = null;
     for (World w : Bukkit.getWorlds()) {
       for (Entity e : w.getEntities()) {
         if (e.getUniqueId().toString() == this.uuid.getSingle(arg0)) {

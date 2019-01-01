@@ -3,6 +3,7 @@ package uk.co.umbaska.Utils;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -12,8 +13,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 
 
@@ -21,13 +20,13 @@ public class FreezeListener
   implements Listener
 {
   private Plugin p;
-  private List<Player> frozen = new ArrayList();
-  private HashMap<Player, Float> flightSpeedHolder = new HashMap();
+  private List<Player> frozen = new ArrayList<>();
+  private HashMap<Player, Float> flightSpeedHolder = new HashMap<>();
   private FlightTracker flightTracker;
   
   public FreezeListener(Plugin p) {
-    this.p = p;
-    this.flightTracker = new FlightTracker(p);
+    this.setP(p);
+    this.setFlightTracker(new FlightTracker(p));
     Bukkit.getPluginManager().registerEvents(this, p);
   }
   
@@ -68,17 +67,42 @@ public class FreezeListener
     }
   }
   
-  private class FlightTracker {
-    BukkitTask task;
+  public Plugin getP() {
+	return p;
+}
+
+public void setP(Plugin p) {
+	this.p = p;
+}
+
+public FlightTracker getFlightTracker() {
+	return flightTracker;
+}
+
+public void setFlightTracker(FlightTracker flightTracker) {
+	this.flightTracker = flightTracker;
+}
+
+private class FlightTracker {
+    private BukkitTask task;
     
     public FlightTracker(Plugin p) {
-      this.task = Bukkit.getScheduler().runTaskTimer(p, new Runnable()
+      this.setTask(Bukkit.getScheduler().runTaskTimer(p, new Runnable()
       {
         public void run() {
           for (Player p : FreezeListener.this.frozen) {
             p.setAllowFlight(true);
             p.setFlying(true);
-            p.setFlySpeed(0.0F); } } }, 1L, 1L);
+            p.setFlySpeed(0.0F); } } }, 1L, 1L));
     }
+
+	@SuppressWarnings("unused")
+	public BukkitTask getTask() {
+		return task;
+	}
+
+	public void setTask(BukkitTask task) {
+		this.task = task;
+	}
   }
 }

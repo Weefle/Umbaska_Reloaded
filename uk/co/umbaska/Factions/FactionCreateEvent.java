@@ -1,12 +1,11 @@
 package uk.co.umbaska.Factions;
 
-import com.massivecraft.factions.event.EventFactionsCreate;
 import org.bukkit.Bukkit;
-import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.PluginManager;
+
+import com.massivecraft.factions.event.EventFactionsCreate;
 
 public class FactionCreateEvent implements Listener
 {

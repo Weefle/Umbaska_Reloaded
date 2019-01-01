@@ -8,14 +8,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class UUIDFetcher implements java.util.concurrent.Callable<Map<String, UUID>>
 {
-  private static final double PROFILES_PER_REQUEST = 100.0D;
-  private static final String PROFILE_URL = "https://api.mojang.com/profiles/minecraft";
   private final JSONParser jsonParser = new JSONParser();
   private final List<String> names;
   private final boolean rateLimiting;
@@ -30,7 +29,7 @@ public class UUIDFetcher implements java.util.concurrent.Callable<Map<String, UU
   }
   
   public Map<String, UUID> call() throws Exception {
-    Map<String, UUID> uuidMap = new HashMap();
+    Map<String, UUID> uuidMap = new HashMap<>();
     int requests = (int)Math.ceil(this.names.size() / 100.0D);
     for (int i = 0; i < requests; i++) {
       HttpURLConnection connection = createConnection();

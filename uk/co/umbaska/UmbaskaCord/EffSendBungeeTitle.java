@@ -1,11 +1,11 @@
 package uk.co.umbaska.UmbaskaCord;
 
+import org.bukkit.event.Event;
+
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import java.util.List;
-import org.bukkit.event.Event;
 import uk.co.umbaska.Main;
 
 public class EffSendBungeeTitle extends Effect
@@ -35,14 +35,15 @@ public class EffSendBungeeTitle extends Effect
     return "Set Bungee Server Icon\t";
   }
   
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.player = expressions[2];
-    this.title = expressions[0];
-    this.subtitle = expressions[1];
-    this.fadeIn = expressions[3];
-    this.fadeOut = expressions[5];
-    this.stay = expressions[4];
+    this.player = (Expression<String>) expressions[2];
+    this.title = (Expression<String>) expressions[0];
+    this.subtitle = (Expression<String>) expressions[1];
+    this.fadeIn = (Expression<Number>) expressions[3];
+    this.fadeOut = (Expression<Number>) expressions[5];
+    this.stay = (Expression<Number>) expressions[4];
     
     return true;
   }

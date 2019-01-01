@@ -1,12 +1,7 @@
 package uk.co.umbaska.Utils.Disguise.DisguiseUTIL;
 
 import java.util.Collection;
-import net.minecraft.server.v1_9_R1.EntityLiving;
-import net.minecraft.server.v1_9_R1.EntityPlayer;
-import net.minecraft.server.v1_9_R1.PacketPlayOutEntityDestroy;
-import net.minecraft.server.v1_9_R1.PacketPlayOutEntityHeadRotation;
-import net.minecraft.server.v1_9_R1.PacketPlayOutSpawnEntityLiving;
-import net.minecraft.server.v1_9_R1.PlayerConnection;
+
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_9_R1.entity.CraftEntity;
 import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
@@ -14,6 +9,13 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.scheduler.BukkitTask;
+
+import net.minecraft.server.v1_9_R1.EntityLiving;
+import net.minecraft.server.v1_9_R1.EntityPlayer;
+import net.minecraft.server.v1_9_R1.PacketPlayOutEntityDestroy;
+import net.minecraft.server.v1_9_R1.PacketPlayOutEntityHeadRotation;
+import net.minecraft.server.v1_9_R1.PacketPlayOutSpawnEntityLiving;
+import net.minecraft.server.v1_9_R1.PlayerConnection;
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Utils.Disguise.DisguiseAPI;
 
@@ -66,7 +68,8 @@ public class EntityDisguise extends Disguise
 
 
 
-  public String getName()
+  @SuppressWarnings("deprecation")
+public String getName()
   {
     String name = "Pig";
     switch (this.living.getBukkitEntity().getType()) {

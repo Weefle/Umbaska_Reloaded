@@ -1,13 +1,15 @@
 package uk.co.umbaska.WorldBorder;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
+
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 
 
 
@@ -34,9 +36,10 @@ public class ExprWorldBorder
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.world = args[0];
+    this.world = (Expression<World>) args[0];
     this.matchType = Integer.valueOf(arg1);
     return true;
   }

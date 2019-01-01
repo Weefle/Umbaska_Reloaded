@@ -44,18 +44,19 @@ public class EffParticle extends ch.njol.skript.lang.Effect
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, ch.njol.util.Kleenean kleenean, ch.njol.skript.lang.SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, ch.njol.util.Kleenean kleenean, ch.njol.skript.lang.SkriptParser.ParseResult parseResult)
   {
-    this.count = expressions[0];
-    this.particleName = expressions[1];
-    this.speed = expressions[2];
-    this.offx = expressions[3];
-    this.offy = expressions[4];
-    this.offz = expressions[5];
-    this.locations = expressions[6];
-    this.players = expressions[7];
-    this.data = expressions[8];
-    this.secondaryData = expressions[9];
+    this.count = (Expression<Number>) expressions[0];
+    this.particleName = (Expression<ParticleEnum>) expressions[1];
+    this.speed = (Expression<Number>) expressions[2];
+    this.offx = (Expression<Number>) expressions[3];
+    this.offy = (Expression<Number>) expressions[4];
+    this.offz = (Expression<Number>) expressions[5];
+    this.locations = (Expression<Location>) expressions[6];
+    this.players = (Expression<Player>) expressions[7];
+    this.data = (Expression<Number>) expressions[8];
+    this.secondaryData = (Expression<Number>) expressions[9];
     return true;
   }
 }

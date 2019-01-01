@@ -1,9 +1,9 @@
 package uk.co.umbaska;
 
-import ch.njol.skript.variables.Variables;
 import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
+
+import ch.njol.skript.variables.Variables;
 
 
 public class VariableTracker

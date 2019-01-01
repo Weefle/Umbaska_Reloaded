@@ -1,18 +1,20 @@
 package uk.co.umbaska.WorldGuard;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
-import com.sk89q.worldguard.bukkit.WGBukkit;
-import com.sk89q.worldguard.protection.ApplicableRegionSet;
-import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import java.util.Iterator;
 import java.util.LinkedList;
+
 import org.bukkit.Location;
 import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
 import org.bukkit.event.Event;
+
+import com.sk89q.worldguard.bukkit.WGBukkit;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 
 
 
@@ -21,9 +23,10 @@ public class ExprRegionAtLocation
 {
   private Expression<Location> location;
   
-  public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult)
   {
-    this.location = exprs[0];
+    this.location = (Expression<Location>) exprs[0];
     return true;
   }
   
@@ -32,8 +35,8 @@ public class ExprRegionAtLocation
     Location loc = (Location)this.location.getSingle(e);
     ApplicableRegionSet applicableregionset = WGBukkit.getRegionManager(loc.getWorld()).getApplicableRegions(loc);
     
-    LinkedList<ProtectedRegion> parents = new LinkedList();
-    LinkedList<ProtectedRegion> regions = new LinkedList();
+    LinkedList<ProtectedRegion> parents = new LinkedList<>();
+    LinkedList<ProtectedRegion> regions = new LinkedList<>();
     Iterator<ProtectedRegion> localIterator = applicableregionset.iterator();
     while (localIterator.hasNext()) {
       ProtectedRegion region = (ProtectedRegion)localIterator.next();

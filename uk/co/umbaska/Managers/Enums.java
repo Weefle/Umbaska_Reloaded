@@ -36,6 +36,7 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.inventory.ClickType;
+import org.bukkit.plugin.PluginBase;
 import org.bukkit.plugin.PluginManager;
 import uk.co.umbaska.Enums.BukkitEffectEnum;
 import uk.co.umbaska.Enums.InventoryTypes;
@@ -211,14 +212,14 @@ public static void runRegister() {
             return FactionColl.get().getByName(s);
           }
           
-          public String toString(Faction faction, int flags)
+          public String toString(Object faction, int flags)
           {
-            return faction.getName().toLowerCase();
+            return ((PluginBase) faction).getName().toLowerCase();
           }
           
-          public String toVariableNameString(Faction faction)
+          public String toVariableNameString(Object faction)
           {
-            return faction.getName().toLowerCase();
+            return ((PluginBase) faction).getName().toLowerCase();
           }
           
           public String getVariableNamePattern()
@@ -232,7 +233,7 @@ public static void runRegister() {
           @Nullable
           public Rel parse(String s, ParseContext context)
           {
-            return Rel.parse(s);
+            return Rel.valueOf(s);
           }
           
           public String toString(Rel rel, int flags)
@@ -358,7 +359,7 @@ public static void runRegister() {
           {
 
 
-            return DefaultFlag.fuzzyMatchFlag(s);
+            return DefaultFlag.fuzzyMatchFlag(null, s);
           }
           
           public String toString(Flag<?> flag, int flags)

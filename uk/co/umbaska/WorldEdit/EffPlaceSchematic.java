@@ -1,11 +1,12 @@
 package uk.co.umbaska.WorldEdit;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 
@@ -29,10 +30,11 @@ public class EffPlaceSchematic
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.location = expressions[1];
-    this.schemname = expressions[0];
+    this.location = (Expression<Location>) expressions[1];
+    this.schemname = (Expression<String>) expressions[0];
     return true;
   }
 }

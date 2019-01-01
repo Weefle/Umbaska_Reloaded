@@ -1,14 +1,12 @@
 package uk.co.umbaska.VaultEcon;
 
-import java.util.UUID;
+import org.bukkit.OfflinePlayer;
+
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
-import net.milkbowl.vault.economy.EconomyResponse.ResponseType;
-import org.bukkit.OfflinePlayer;
 
 public class VaultHandler implements Economy
 {
-  private final String name = "Umbaska Economy";
   private EconMain econMain;
   
   public VaultHandler(EconMain econMain)
@@ -180,7 +178,7 @@ public class VaultHandler implements Economy
   
   public java.util.List<String> getBanks()
   {
-    return new java.util.ArrayList();
+    return new java.util.ArrayList<>();
   }
   
   public boolean hasBankSupport()

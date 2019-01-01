@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -203,17 +204,18 @@ public class ItemManager
     private int quantity = 1;
     private short data = 0;
     private String name = "null";
-    private List<String> lore = new java.util.ArrayList();
+    private List<String> lore = new java.util.ArrayList<>();
     private boolean failed = false;
     private ItemStack itemstack;
-    private Map<Enchantment, Integer> enchants = new java.util.HashMap();
+    private Map<Enchantment, Integer> enchants = new java.util.HashMap<>();
     private boolean done = false;
     
     public ItemCreator(Material material) {
       this.material = material;
     }
     
-    public ItemCreator(int materialid)
+    @SuppressWarnings("deprecation")
+	public ItemCreator(int materialid)
     {
       try {
         this.material = Material.getMaterial(materialid);
@@ -332,7 +334,7 @@ public class ItemManager
     private static Enchantment glow;
     
     public EnchantGlow(int id) {
-      super();
+      super(id);
     }
     
     public boolean canEnchantItem(ItemStack item) {

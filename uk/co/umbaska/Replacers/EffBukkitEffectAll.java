@@ -1,12 +1,13 @@
 package uk.co.umbaska.Replacers;
 
+import org.bukkit.Location;
+import org.bukkit.event.Event;
+
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import org.bukkit.Location;
-import org.bukkit.event.Event;
 import uk.co.umbaska.Enums.BukkitEffectEnum;
 
 
@@ -40,12 +41,13 @@ public class EffBukkitEffectAll
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.particleName = expressions[0];
-    this.locations = expressions[1];
-    this.data = expressions[2];
-    this.secondaryData = expressions[3];
+    this.particleName = (Expression<BukkitEffectEnum>) expressions[0];
+    this.locations = (Expression<Location>) expressions[1];
+    this.data = (Expression<Number>) expressions[2];
+    this.secondaryData = (Expression<Number>) expressions[3];
     return true;
   }
 }

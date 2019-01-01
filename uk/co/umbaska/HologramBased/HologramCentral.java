@@ -24,10 +24,10 @@ import com.comphenix.protocol.events.PacketContainer;
 
 public class HologramCentral implements org.bukkit.event.Listener
 {
-  private static ArrayList<Hologram> holograms = new ArrayList();
-  private static HashMap<String, Boolean> is1_8 = new HashMap();
+  private static ArrayList<Hologram> holograms = new ArrayList<>();
+  private static HashMap<String, Boolean> is1_8 = new HashMap<>();
   
-  public static HashMap<Entity, ArrayList<String>> holoText = new HashMap();
+  public static HashMap<Entity, ArrayList<String>> holoText = new HashMap<>();
   
   private static boolean isWitherSkulls = true;
   
@@ -35,14 +35,14 @@ public class HologramCentral implements org.bukkit.event.Listener
   private static org.bukkit.plugin.Plugin plugin;
   
 
-  private static HashMap<String, ArrayList<Hologram>> viewableHolograms = new HashMap();
+  private static HashMap<String, ArrayList<Hologram>> viewableHolograms = new HashMap<>();
   
   static { plugin = Bukkit.getPluginManager().getPlugins()[0];
     Bukkit.getPluginManager().registerEvents(new HologramCentral(), plugin);
     BukkitRunnable runnable = new BukkitRunnable()
     {
       public void run() {
-        for (Hologram hologram : new ArrayList(HologramCentral.holograms)) {
+        for (Hologram hologram : HologramCentral.holograms) {
           if (hologram.getEntityFollowed() != null) {
             Entity entity = hologram.getEntityFollowed();
             if ((!entity.isValid()) && ((!(entity instanceof Player)) || (!((Player)entity).isOnline()))) {
@@ -59,7 +59,7 @@ public class HologramCentral implements org.bukkit.event.Listener
                 hologram.entityLastLocation = loc2;
                 Location toAdd = hologram.getRelativeToEntity();
                 if ((hologram.isRelativePitch()) || (hologram.isRelativeYaw())) {
-                  double r = Math.sqrt(toAdd.getX() * toAdd.getX() + toAdd.getY() * toAdd.getY() + toAdd.getZ() * toAdd.getZ());
+                 // double r = Math.sqrt(toAdd.getX() * toAdd.getX() + toAdd.getY() * toAdd.getY() + toAdd.getZ() * toAdd.getZ());
                   
                   if (hologram.isRelativePitchControlMoreThanHeight()) {}
                   
@@ -89,9 +89,9 @@ public class HologramCentral implements org.bukkit.event.Listener
       
       for (Player p : Bukkit.getServer().getOnlinePlayers()) {
         if (hologram.isVisible(p, p.getLocation())) {
-          ArrayList<Hologram> viewable = (ArrayList)viewableHolograms.get(p.getName());
+          ArrayList<Hologram> viewable = viewableHolograms.get(p.getName());
           if (viewable == null) {
-            viewable = new ArrayList();
+            viewable = new ArrayList<>();
             viewableHolograms.put(p.getName(), viewable);
           }
           viewable.add(hologram);
@@ -110,9 +110,9 @@ public class HologramCentral implements org.bukkit.event.Listener
   static void addHologram(Player p, Hologram hologram) {
     if ((holograms.contains(hologram)) && 
       (hologram.isVisible(p, p.getLocation()))) {
-      ArrayList<Hologram> viewable = (ArrayList)viewableHolograms.get(p.getName());
+      ArrayList<Hologram> viewable = viewableHolograms.get(p.getName());
       if (viewable == null) {
-        viewable = new ArrayList();
+        viewable = new ArrayList<>();
         viewableHolograms.put(p.getName(), viewable);
       }
       viewable.add(hologram);
@@ -144,8 +144,8 @@ public class HologramCentral implements org.bukkit.event.Listener
       holograms.remove(hologram);
       Iterator<Map.Entry<String, ArrayList<Hologram>>> itel = viewableHolograms.entrySet().iterator();
       while (itel.hasNext()) {
-        Map.Entry<String, ArrayList<Hologram>> entry = (Map.Entry)itel.next();
-        if (((ArrayList)entry.getValue()).remove(hologram)) {
+        Map.Entry<String, ArrayList<Hologram>> entry = itel.next();
+        if ((entry.getValue()).remove(hologram)) {
           Player player = Bukkit.getPlayerExact((String)entry.getKey());
           if (player != null) {
             try {
@@ -155,7 +155,7 @@ public class HologramCentral implements org.bukkit.event.Listener
               e.printStackTrace();
             }
           }
-          if ((player == null) || (((ArrayList)entry.getValue()).isEmpty())) {
+          if ((player == null) || ((entry.getValue()).isEmpty())) {
             itel.remove();
           }
         }
@@ -166,8 +166,8 @@ public class HologramCentral implements org.bukkit.event.Listener
   static void removeHologram(Player player, Hologram hologram) {
     if ((holograms.contains(hologram)) && 
       (viewableHolograms.containsKey(player.getName())) && 
-      (((ArrayList)viewableHolograms.get(player.getName())).remove(hologram)) && 
-      (((ArrayList)viewableHolograms.get(player.getName())).isEmpty())) {
+      ((viewableHolograms.get(player.getName())).remove(hologram)) && 
+      ((viewableHolograms.get(player.getName())).isEmpty())) {
       viewableHolograms.remove(player.getName());
       try {
         ProtocolLibrary.getProtocolManager().sendServerPacket(player, hologram.getDestroyPacket(player), false);
@@ -198,9 +198,9 @@ public class HologramCentral implements org.bukkit.event.Listener
   }
   
   private void doCheck(Player p, Location loc) {
-    ArrayList<Hologram> viewable = (ArrayList)viewableHolograms.get(p.getName());
+    ArrayList<Hologram> viewable = viewableHolograms.get(p.getName());
     if (viewable == null) {
-      viewable = new ArrayList();
+      viewable = new ArrayList<>();
     }
     for (Hologram hologram : holograms) {
       boolean view = hologram.isVisible(p, loc);
@@ -249,7 +249,7 @@ public class HologramCentral implements org.bukkit.event.Listener
   
   @EventHandler(priority=EventPriority.MONITOR, ignoreCancelled=true)
   public void onUnload(WorldUnloadEvent event) {
-    for (Hologram hologram : new ArrayList(holograms)) {
+    for (Hologram hologram : HologramCentral.holograms) {
       if (hologram.getLocation().getWorld() == event.getWorld()) {
         removeHologram(hologram);
       }

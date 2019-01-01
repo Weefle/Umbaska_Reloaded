@@ -23,5 +23,6 @@
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/worldguard-bukkit-6.2.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/SkQuery.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/mcMMO.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/NoteBlockAPI-1.2.4.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

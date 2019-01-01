@@ -1,6 +1,5 @@
 package uk.co.umbaska;
 
-import ch.njol.skript.variables.Variables;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -8,17 +7,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
+
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
+
+import ch.njol.skript.variables.Variables;
 
 
 
 public class VariableCache
 {
-  public HashMap<String, Object> variableValueCache = new HashMap();
+  public HashMap<String, Object> variableValueCache = new HashMap<>();
   
-  public List<String> definedGlobalVariables = new ArrayList();
+  public List<String> definedGlobalVariables = new ArrayList<>();
   String variablesLocation;
   
   public VariableCache(String variablesLocation)
@@ -42,7 +42,8 @@ public class VariableCache
         {
           String[] variableData = line.split(cvsSplitBy);
           this.variableValueCache.put(variableData[0], Variables.getVariable(variableData[0], new DummyEvent(), false));
-          Integer localInteger1 = readVariableAmount;Integer localInteger2 = readVariableAmount = Integer.valueOf(readVariableAmount.intValue() + 1);
+          Integer localInteger1 = readVariableAmount;
+          Integer localInteger2 = readVariableAmount = Integer.valueOf(readVariableAmount.intValue() + 1);
           float divideAmt = 2.0F;
           if (Main.getInstance().getConfig().getBoolean("enable_variable_change_event")) {
             new VariableTracker(line);

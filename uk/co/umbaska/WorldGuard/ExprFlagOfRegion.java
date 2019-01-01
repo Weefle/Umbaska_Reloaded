@@ -1,16 +1,17 @@
 package uk.co.umbaska.WorldGuard;
 
-import ch.njol.skript.classes.Changer.ChangeMode;
+import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
+import org.bukkit.event.Event;
+
+import com.sk89q.worldguard.protection.flags.Flag;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+
+import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import com.sk89q.worldguard.protection.flags.Flag;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import java.util.Map;
-import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
-import org.bukkit.event.Event;
 
 
 
@@ -22,17 +23,18 @@ public class ExprFlagOfRegion
   private Expression<Flag<?>> flag;
   private Expression<ProtectedRegion> region;
   
-  public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult)
   {
-    this.flag = exprs[0];
-    this.region = exprs[1];
+    this.flag = (Expression<Flag<?>>) exprs[0];
+    this.region = (Expression<ProtectedRegion>) exprs[1];
     return true;
   }
   
   protected String[] get(Event e)
   {
     ProtectedRegion region = (ProtectedRegion)this.region.getSingle(e);
-    Flag<?> flag = (Flag)this.flag.getSingle(e);
+    Flag<?> flag = this.flag.getSingle(e);
     try {
       if (flag != null) {
         return new String[] { region.getFlag(flag).toString() };
@@ -63,7 +65,7 @@ public class ExprFlagOfRegion
   public void change(Event e, Object[] delta, Changer.ChangeMode mode)
   {
     ProtectedRegion region = (ProtectedRegion)this.region.getSingle(e);
-    Flag<?> flag = (Flag)this.flag.getSingle(e);
+    Flag<?> flag = this.flag.getSingle(e);
     if (region == null) {
       return;
     }

@@ -1,23 +1,24 @@
 package uk.co.umbaska.Bungee;
 
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import net.md_5.bungee.api.ChatColor;
+
 import org.bukkit.Bukkit;
-import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
+
+import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
+
+import net.md_5.bungee.api.ChatColor;
 
 
 
@@ -106,7 +107,7 @@ public class Messenger
           }
         } else {
           String originalPlayerList = in.readUTF();
-          List<String> playersOnline = new ArrayList();
+          List<String> playersOnline = new ArrayList<>();
           for (String s : originalPlayerList.split(", ")) {
             playersOnline.add(s);
           }
@@ -185,7 +186,7 @@ public class Messenger
     {
       e.printStackTrace();
     }
-    return (List)this.cache.playersOnlineServer.get(server);
+    return this.cache.playersOnlineServer.get(server);
   }
   
   public List<String> getAllPlayers()
@@ -255,7 +256,7 @@ public class Messenger
   }
   
   public List<Player> getOnlinePlayers() {
-    List<Player> players = new ArrayList();
+    List<Player> players = new ArrayList<>();
     for (World w : Bukkit.getWorlds()) {
       for (Player e : w.getPlayers()) {
         players.add(e);

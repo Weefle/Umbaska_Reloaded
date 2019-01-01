@@ -1,16 +1,19 @@
 package uk.co.umbaska.Sound;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
+import java.io.File;
+
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+
 import com.xxmicloxx.NoteBlockAPI.NBSDecoder;
 import com.xxmicloxx.NoteBlockAPI.RadioSongPlayer;
 import com.xxmicloxx.NoteBlockAPI.Song;
 import com.xxmicloxx.NoteBlockAPI.SongPlayer;
-import java.io.File;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 
@@ -19,6 +22,7 @@ import org.bukkit.event.Event;
 
 
 
+@SuppressWarnings("deprecation")
 public class EffPlayTrack
   extends Effect
 {
@@ -48,10 +52,11 @@ public class EffPlayTrack
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.trk = expressions[0];
-    this.ply = expressions[1];
+    this.trk = (Expression<String>) expressions[0];
+    this.ply = (Expression<Player>) expressions[1];
     return true;
   }
 }

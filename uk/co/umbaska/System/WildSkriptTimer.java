@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class WildSkriptTimer implements Runnable
 {
   private transient long lastPoll = System.nanoTime();
-  private final LinkedList<Double> history = new LinkedList();
+  private final LinkedList<Double> history = new LinkedList<>();
   
   public WildSkriptTimer() {
     this.history.add(Double.valueOf(20.0D));

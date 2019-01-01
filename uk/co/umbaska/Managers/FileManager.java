@@ -7,7 +7,8 @@ import java.util.List;
 
 public class FileManager
 {
-  public void loadScripts(String folder)
+  @SuppressWarnings("deprecation")
+public void loadScripts(String folder)
   {
     File in = new File(folder);
     ch.njol.skript.ScriptLoader.loadScripts(in);
@@ -39,7 +40,7 @@ public class FileManager
 
   public String[] unrecursiveFileListing(String file)
   {
-    List<String> files = new java.util.ArrayList();
+    List<String> files = new java.util.ArrayList<>();
     File folder = new File(file);
     for (File fileEntry : folder.listFiles()) {
       files.add(fileEntry.getName());
@@ -54,7 +55,7 @@ public class FileManager
   
   public String[] recursiveFileListing(String file)
   {
-    List<String> files = new java.util.ArrayList();
+    List<String> files = new java.util.ArrayList<>();
     File folder = new File(file);
     for (File fileEntry : folder.listFiles()) {
       if (fileEntry.isDirectory()) {
@@ -82,7 +83,7 @@ public class FileManager
       return;
     }
     l = Integer.valueOf(l.intValue() - 1);
-    List<String> sss = new java.util.ArrayList();
+    List<String> sss = new java.util.ArrayList<>();
     BufferedReader br = new BufferedReader(new java.io.FileReader(file));
     try {
       String line;
@@ -113,7 +114,7 @@ public class FileManager
       return null;
     }
     l = Integer.valueOf(l.intValue() - 1);
-    List<String> sss = new java.util.ArrayList();
+    List<String> sss = new java.util.ArrayList<>();
     BufferedReader br = new BufferedReader(new java.io.FileReader(file));Throwable localThrowable2 = null;
     try { String line;
       while ((line = br.readLine()) != null) {
@@ -140,7 +141,7 @@ public class FileManager
     if (!f.exists()) {
       return null;
     }
-    List<String> sss = new java.util.ArrayList();
+    List<String> sss = new java.util.ArrayList<>();
     BufferedReader br = new BufferedReader(new java.io.FileReader(file));Throwable localThrowable2 = null;
     try { String line;
       while ((line = br.readLine()) != null) {
