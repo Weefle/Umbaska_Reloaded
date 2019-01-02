@@ -1,13 +1,14 @@
 package uk.co.umbaska.ProtocolLib;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.Main;
 
 
@@ -42,10 +43,11 @@ public class EffShowEntity
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.entity = expressions[0];
-    this.player = expressions[1];
+    this.entity = (Expression<Entity>) expressions[0];
+    this.player = (Expression<Player>) expressions[1];
     return true;
   }
 }

@@ -1,12 +1,12 @@
 package uk.co.umbaska.ProtocolLib.Disguises;
 
+import org.bukkit.entity.Entity;
+import org.bukkit.event.Event;
+
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.event.Event;
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Utils.Disguise.DisguiseAPI;
 
@@ -15,7 +15,6 @@ import uk.co.umbaska.Utils.Disguise.DisguiseAPI;
 public class EffUndisguise
   extends Effect
 {
-  private Expression<EntityType> enttype;
   private Expression<Entity> entity;
   
   protected void execute(Event event)
@@ -37,9 +36,10 @@ public class EffUndisguise
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.entity = expressions[0];
+    this.entity = (Expression<Entity>) expressions[0];
     return true;
   }
 }

@@ -1,11 +1,13 @@
 package uk.co.umbaska.System;
 
+import javax.annotation.Nullable;
+
+import org.bukkit.event.Event;
+
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import javax.annotation.Nullable;
-import org.bukkit.event.Event;
 import uk.co.umbaska.Managers.FileManager;
 
 
@@ -23,9 +25,10 @@ public class CondFileExists
 {
   private Expression<String> file;
   
-  public boolean init(Expression<?>[] expr, int i, Kleenean kl, SkriptParser.ParseResult pr)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expr, int i, Kleenean kl, SkriptParser.ParseResult pr)
   {
-    this.file = expr[0];
+    this.file = (Expression<String>) expr[0];
     return true;
   }
   

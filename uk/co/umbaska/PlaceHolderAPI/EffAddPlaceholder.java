@@ -1,11 +1,11 @@
 package uk.co.umbaska.PlaceHolderAPI;
 
+import org.bukkit.event.Event;
+
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import java.util.HashMap;
-import org.bukkit.event.Event;
 import uk.co.umbaska.Managers.Register;
 
 
@@ -44,12 +44,13 @@ public class EffAddPlaceholder
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.variable = expressions[0];
-    this.value = expressions[1];
+    this.variable = (Expression<String>) expressions[0];
+    this.value = (Expression<String>) expressions[1];
     if (i == 1) {
-      this.plugin = expressions[2];
+      this.plugin = (Expression<String>) expressions[2];
     }
     return true;
   }

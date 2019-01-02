@@ -1,15 +1,14 @@
 package uk.co.umbaska.PlaceHolderAPI;
 
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
-import java.util.HashMap;
 import me.clip.placeholderapi.PlaceholderAPI;
 import me.clip.placeholderapi.PlaceholderHook;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import uk.co.umbaska.Managers.Register;
 
 
@@ -46,7 +45,8 @@ public class EffAddPlugin
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
     this.variable = (Expression<String>) expressions[0];
     return true;

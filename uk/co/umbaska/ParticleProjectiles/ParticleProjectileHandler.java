@@ -1,14 +1,16 @@
 package uk.co.umbaska.ParticleProjectiles;
 
+import java.util.HashMap;
+
+import org.bukkit.Location;
+import org.bukkit.entity.Entity;
+
 import ch.njol.skript.Skript;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.skript.lang.ExpressionType;
 import ch.njol.skript.lang.util.SimpleEvent;
 import ch.njol.skript.registrations.EventValues;
 import ch.njol.skript.util.Getter;
-import java.util.HashMap;
-import org.bukkit.Location;
-import org.bukkit.entity.Entity;
 import uk.co.umbaska.ParticleProjectiles.Effects.EffNewParticleProjectile;
 import uk.co.umbaska.ParticleProjectiles.Effects.EffStopParticleProjectile;
 import uk.co.umbaska.ParticleProjectiles.Effects.EffUnpauseParticleProjectile;
@@ -21,7 +23,7 @@ import uk.co.umbaska.Utils.EnumClassInfo;
 
 public class ParticleProjectileHandler
 {
-  public static HashMap<String, ParticleProjectile> particleProjectiles = new HashMap();
+  public static HashMap<String, ParticleProjectile> particleProjectiles = new HashMap<>();
   
 
 
@@ -30,25 +32,25 @@ public class ParticleProjectileHandler
     EnumClassInfo.create(ProjectileType.class, "particleprojectiletype").register();
     
     Skript.registerEvent("Particle Hit", SimpleEvent.class, ParticleProjectileHitEvent.class, new String[] { "particle projectile hit [event]" });
-    EventValues.registerEventValue(ParticleProjectileHitEvent.class, Entity.class, new Getter()
+    EventValues.registerEventValue(ParticleProjectileHitEvent.class, Entity.class, new Getter<Entity, ParticleProjectileHitEvent>()
     {
       public Entity get(ParticleProjectileHitEvent event) { return event.getVictim(); } }, 0);
     
 
 
-    EventValues.registerEventValue(ParticleProjectileHitEvent.class, String.class, new Getter()
+    EventValues.registerEventValue(ParticleProjectileHitEvent.class, String.class, new Getter<String, ParticleProjectileHitEvent>()
     {
       public String get(ParticleProjectileHitEvent event) { return event.getParticleName(); } }, 0);
     
 
 
     Skript.registerEvent("Particle Land", SimpleEvent.class, ParticleProjectileLandEvent.class, new String[] { "particle projectile land [event]" });
-    EventValues.registerEventValue(ParticleProjectileLandEvent.class, Location.class, new Getter()
+    EventValues.registerEventValue(ParticleProjectileLandEvent.class, Location.class, new Getter<Location, ParticleProjectileLandEvent>()
     {
       public Location get(ParticleProjectileLandEvent event) { return event.getLocation(); } }, 0);
     
 
-    EventValues.registerEventValue(ParticleProjectileLandEvent.class, String.class, new Getter()
+    EventValues.registerEventValue(ParticleProjectileLandEvent.class, String.class, new Getter<String, ParticleProjectileLandEvent>()
     {
       public String get(ParticleProjectileLandEvent event) { return event.getParticleName(); } }, 0);
     

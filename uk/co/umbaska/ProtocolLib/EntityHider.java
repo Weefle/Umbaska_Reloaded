@@ -1,20 +1,9 @@
 package uk.co.umbaska.ProtocolLib;
 
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.PacketType.Play.Server;
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.reflect.StructureModifier;
-import com.google.common.base.Preconditions;
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Map;
-import org.bukkit.Server;
+
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,14 +13,24 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
+
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+import com.comphenix.protocol.events.PacketAdapter;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.events.PacketEvent;
+import com.google.common.base.Preconditions;
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 
 public class EntityHider implements Listener
 {
   protected Table<Integer, Integer, Boolean> observerEntityMap = HashBasedTable.create();
   
 
-  private static final PacketType[] ENTITY_PACKETS = { PacketType.Play.Server.ENTITY_EQUIPMENT, PacketType.Play.Server.BED, PacketType.Play.Server.ANIMATION, PacketType.Play.Server.NAMED_ENTITY_SPAWN, PacketType.Play.Server.COLLECT, PacketType.Play.Server.SPAWN_ENTITY, PacketType.Play.Server.SPAWN_ENTITY_LIVING, PacketType.Play.Server.SPAWN_ENTITY_PAINTING, PacketType.Play.Server.SPAWN_ENTITY_EXPERIENCE_ORB, PacketType.Play.Server.ENTITY_VELOCITY, PacketType.Play.Server.REL_ENTITY_MOVE, PacketType.Play.Server.ENTITY_LOOK, PacketType.Play.Server.ENTITY_MOVE_LOOK, PacketType.Play.Server.ENTITY_MOVE_LOOK, PacketType.Play.Server.ENTITY_TELEPORT, PacketType.Play.Server.ENTITY_HEAD_ROTATION, PacketType.Play.Server.ENTITY_STATUS, PacketType.Play.Server.ATTACH_ENTITY, PacketType.Play.Server.ENTITY_METADATA, PacketType.Play.Server.ENTITY_EFFECT, PacketType.Play.Server.REMOVE_ENTITY_EFFECT, PacketType.Play.Server.BLOCK_BREAK_ANIMATION };
+  @SuppressWarnings("deprecation")
+private static final PacketType[] ENTITY_PACKETS = { PacketType.Play.Server.ENTITY_EQUIPMENT, PacketType.Play.Server.BED, PacketType.Play.Server.ANIMATION, PacketType.Play.Server.NAMED_ENTITY_SPAWN, PacketType.Play.Server.COLLECT, PacketType.Play.Server.SPAWN_ENTITY, PacketType.Play.Server.SPAWN_ENTITY_LIVING, PacketType.Play.Server.SPAWN_ENTITY_PAINTING, PacketType.Play.Server.SPAWN_ENTITY_EXPERIENCE_ORB, PacketType.Play.Server.ENTITY_VELOCITY, PacketType.Play.Server.REL_ENTITY_MOVE, PacketType.Play.Server.ENTITY_LOOK, PacketType.Play.Server.ENTITY_MOVE_LOOK, PacketType.Play.Server.ENTITY_MOVE_LOOK, PacketType.Play.Server.ENTITY_TELEPORT, PacketType.Play.Server.ENTITY_HEAD_ROTATION, PacketType.Play.Server.ENTITY_STATUS, PacketType.Play.Server.ATTACH_ENTITY, PacketType.Play.Server.ENTITY_METADATA, PacketType.Play.Server.ENTITY_EFFECT, PacketType.Play.Server.REMOVE_ENTITY_EFFECT, PacketType.Play.Server.BLOCK_BREAK_ANIMATION };
   
 
   private ProtocolManager manager;
@@ -168,46 +167,44 @@ public class EntityHider implements Listener
 
 
 
-  private Listener constructBukkit()
-  {
-    new Listener() {
-      @EventHandler
-      public void onEntityDeath(EntityDeathEvent e) {
-        EntityHider.this.removeEntity(e.getEntity(), true);
-      }
-      
-      @EventHandler
-      public void onChunkUnload(ChunkUnloadEvent e) {
-        for (Entity entity : e.getChunk().getEntities()) {
-          EntityHider.this.removeEntity(entity, false);
-        }
-      }
-      
-      @EventHandler
-      public void onPlayerQuit(PlayerQuitEvent e) {
-        EntityHider.this.removePlayer(e.getPlayer());
-      }
-    };
-  }
+  private Listener constructBukkit() {
+		return new Listener() {
+			@EventHandler
+			public void onEntityDeath(EntityDeathEvent e) {
+				removeEntity(e.getEntity(), true);
+			}
+
+			@EventHandler
+			public void onChunkUnload(ChunkUnloadEvent e) {
+				for (Entity entity : e.getChunk().getEntities()) {
+					removeEntity(entity, false);
+				}
+			}
+
+			@EventHandler
+			public void onPlayerQuit(PlayerQuitEvent e) {
+				removePlayer(e.getPlayer());
+			}
+		};
+	}
   
 
 
 
 
-  private PacketAdapter constructProtocol(Plugin plugin)
-  {
-    new PacketAdapter(plugin, ENTITY_PACKETS)
-    {
-      public void onPacketSending(PacketEvent event) {
-        int entityID = ((Integer)event.getPacket().getIntegers().read(0)).intValue();
-        
+  private PacketAdapter constructProtocol(Plugin plugin) {
+		return new PacketAdapter(plugin, ENTITY_PACKETS) {
+			@Override
+			public void onPacketSending(PacketEvent event) {
+				int entityID = event.getPacket().getIntegers().read(0);
 
-        if (!EntityHider.this.isVisible(event.getPlayer(), entityID)) {
-          event.setCancelled(true);
-        }
-      }
-    };
-  }
+				// See if this packet should be cancelled
+				if (!isVisible(event.getPlayer(), entityID)) {
+					event.setCancelled(true);
+				}
+			}
+		};
+	}
   
 
 

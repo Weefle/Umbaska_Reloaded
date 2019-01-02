@@ -1,19 +1,16 @@
 package uk.co.umbaska.ParticleProjectiles;
 
 import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Server;
-import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
-import uk.co.umbaska.Enums.ParticleEnum;
+
 import uk.co.umbaska.Main;
+import uk.co.umbaska.Enums.ParticleEnum;
 import uk.co.umbaska.Replacers.ParticleFunction;
 
 

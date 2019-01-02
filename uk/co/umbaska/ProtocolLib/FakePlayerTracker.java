@@ -1,27 +1,30 @@
 package uk.co.umbaska.ProtocolLib;
 
-import com.mojang.authlib.GameProfile;
 import java.util.HashMap;
 import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
+import org.bukkit.entity.Player;
+
+import com.mojang.authlib.GameProfile;
+
 import net.minecraft.server.v1_9_R1.EntityPlayer;
 import net.minecraft.server.v1_9_R1.MinecraftServer;
 import net.minecraft.server.v1_9_R1.PacketPlayOutNamedEntitySpawn;
 import net.minecraft.server.v1_9_R1.PacketPlayOutPlayerInfo;
 import net.minecraft.server.v1_9_R1.PlayerConnection;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Server;
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
-import org.bukkit.entity.Player;
 import uk.co.umbaska.Utils.Disguise.DisguiseUTIL.UUIDRetriever;
 
 public class FakePlayerTracker
 {
-  public static HashMap<String, EntityPlayer> playertracker = new HashMap();
-  public static HashMap<String, String> displaynameholder = new HashMap();
-  public static HashMap<String, String> skinholder = new HashMap();
+  public static HashMap<String, EntityPlayer> playertracker = new HashMap<>();
+  public static HashMap<String, String> displaynameholder = new HashMap<>();
+  public static HashMap<String, String> skinholder = new HashMap<>();
   
-  public static Boolean registerNewPlayer(String id) {
+  @SuppressWarnings("deprecation")
+public static Boolean registerNewPlayer(String id) {
     if (playertracker.containsKey(id)) {
       return Boolean.valueOf(false);
     }
@@ -60,7 +63,8 @@ public class FakePlayerTracker
     return null;
   }
   
-  public static void setDisplayName(String id, String value)
+  @SuppressWarnings("deprecation")
+public static void setDisplayName(String id, String value)
   {
     EntityPlayer p = getPlayer(id);
     if (p != null) {
@@ -80,7 +84,8 @@ public class FakePlayerTracker
     }
   }
   
-  public static void setSkin(String id, String value) {
+  @SuppressWarnings("deprecation")
+public static void setSkin(String id, String value) {
     EntityPlayer p = getPlayer(id);
     if (p != null) {
       UUID uid = new UUIDRetriever(value).getUUID();
@@ -186,10 +191,10 @@ public class FakePlayerTracker
       ep.yaw = newloc.getYaw();
       ep.pitch = newloc.getPitch();
       for (Player p : Bukkit.getServer().getOnlinePlayers()) {
-        aep = ((CraftPlayer)p).getHandle();
+    	  EntityPlayer aep = ((CraftPlayer)p).getHandle();
+    	  aep.playerConnection.teleport(newloc);
       }
     }
-    EntityPlayer aep;
   }
   
   public static void refresh(EntityPlayer old, EntityPlayer newp) {

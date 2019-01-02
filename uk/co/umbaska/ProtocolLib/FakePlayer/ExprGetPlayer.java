@@ -1,14 +1,14 @@
 package uk.co.umbaska.ProtocolLib.FakePlayer;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
-import net.minecraft.server.v1_9_R1.EntityPlayer;
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.ProtocolLib.FakePlayerTracker;
 
 public class ExprGetPlayer extends SimpleExpression<Player>
@@ -41,9 +41,10 @@ public class ExprGetPlayer extends SimpleExpression<Player>
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.player = expressions[0];
+    this.player = (Expression<String>) expressions[0];
     return true;
   }
 }

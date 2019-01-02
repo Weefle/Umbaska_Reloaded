@@ -1,11 +1,12 @@
 package uk.co.umbaska.ProtocolLib.Disguises;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Utils.Disguise.DisguiseAPI;
 import uk.co.umbaska.Utils.Disguise.DisguiseUTIL.PlayerDisguise;
@@ -39,10 +40,11 @@ public class EffDisguiseAsPlayer
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.name = expressions[1];
-    this.entity = expressions[0];
+    this.name = (Expression<String>) expressions[1];
+    this.entity = (Expression<Entity>) expressions[0];
     return true;
   }
 }
