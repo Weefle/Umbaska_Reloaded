@@ -1,13 +1,14 @@
 package uk.co.umbaska.Factions;
 
-import ch.njol.skript.classes.Changer.ChangeMode;
-import ch.njol.skript.expressions.base.SimplePropertyExpression;
-import ch.njol.skript.lang.Expression;
-import ch.njol.util.coll.CollectionUtils;
-import com.massivecraft.factions.entity.Faction;
-import com.massivecraft.massivecore.ps.PS;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
+
+import com.massivecraft.factions.entity.Faction;
+import com.massivecraft.massivecore.ps.PS;
+
+import ch.njol.skript.classes.Changer;
+import ch.njol.skript.expressions.base.SimplePropertyExpression;
+import ch.njol.util.coll.CollectionUtils;
 
 public class ExprHomeOfFaction
   extends SimplePropertyExpression<Faction, Location>

@@ -1,7 +1,7 @@
 package uk.co.umbaska.GattSk.Extras;
 
-import ch.njol.skript.Skript;
 import java.util.HashMap;
+
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -9,10 +9,12 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import ch.njol.skript.Skript;
+
 public class ScoreboardManagers
 {
   public static org.bukkit.scoreboard.ScoreboardManager scoreboardManager;
-  public static HashMap<String, Scoreboard> boardList = new HashMap();
+  public static HashMap<String, Scoreboard> boardList = new HashMap<>();
   
   public static Scoreboard board;
   
@@ -205,18 +207,21 @@ public class ScoreboardManagers
     return board.getTeam(teamName);
   }
   
-  public static void addPlayerToTeam(String boardname, String teamName, OfflinePlayer p)
+  @SuppressWarnings("deprecation")
+public static void addPlayerToTeam(String boardname, String teamName, OfflinePlayer p)
   {
     Team team = getTeamActual(boardname, teamName);
     team.addPlayer(p);
   }
   
-  public static void removePlayerFromTeam(String boardname, String teamName, OfflinePlayer p) {
+  @SuppressWarnings("deprecation")
+public static void removePlayerFromTeam(String boardname, String teamName, OfflinePlayer p) {
     Team team = getTeamActual(boardname, teamName);
     team.removePlayer(p);
   }
   
-  public static void clearPlayers(String boardname, String teamName) {
+  @SuppressWarnings("deprecation")
+public static void clearPlayers(String boardname, String teamName) {
     Team team = getTeamActual(boardname, teamName);
     for (OfflinePlayer p : team.getPlayers()) {
       team.removePlayer(p);

@@ -1,20 +1,19 @@
 package uk.co.umbaska.JSON;
 
-import com.google.gson.stream.JsonWriter;
 import java.io.StringWriter;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.server.v1_9_R1.EntityPlayer;
-import net.minecraft.server.v1_9_R1.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_9_R1.PacketPlayOutChat;
-import net.minecraft.server.v1_9_R1.PlayerConnection;
+
 import org.bukkit.Achievement;
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import com.google.gson.stream.JsonWriter;
+
+import net.minecraft.server.v1_9_R1.IChatBaseComponent;
+import net.minecraft.server.v1_9_R1.PacketPlayOutChat;
 
 
 
@@ -27,16 +26,14 @@ public class JSONMessage
   private String jsonString;
   private boolean dirty;
   private Class<?> nmsTagCompound = Reflection.nmsClass("NBTTagCompound");
-  private Class<?> nmsPacketPlayOutChat = Reflection.nmsClass("PacketPlayOutChat");
   private Class<?> nmsAchievement = Reflection.nmsClass("Achievement");
-  private Class<?> nmsStatistic = Reflection.nmsClass("Statistic");
   private Class<?> nmsItemStack = Reflection.nmsClass("ItemStack");
   private Class<?> obcStatistic = Reflection.obcClass("CraftStatistic");
   private Class<?> obcItemStack = Reflection.obcClass("inventory.CraftItemStack");
   
   public JSONMessage(String firstPartText)
   {
-    this.messageParts = new ArrayList();
+    this.messageParts = new ArrayList<>();
     this.messageParts.add(new MessagePart(firstPartText));
     this.jsonString = null;
     this.dirty = false;

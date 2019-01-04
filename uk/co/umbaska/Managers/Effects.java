@@ -1,16 +1,15 @@
 package uk.co.umbaska.Managers;
 
-import ch.njol.skript.Skript;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
+
 import org.bukkit.Bukkit;
-import org.bukkit.Server;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.dynmap.DynmapAPI;
+
+import ch.njol.skript.Skript;
+import uk.co.umbaska.Main;
 import uk.co.umbaska.Attributes.EffAddAttributeModifer;
 import uk.co.umbaska.BossBars.EffAddPlayerToBossBar;
 import uk.co.umbaska.BossBars.EffRemoveAllPlayersFromBar;
@@ -34,7 +33,6 @@ import uk.co.umbaska.HologramBased.EffCreateFollowGram;
 import uk.co.umbaska.HologramBased.EffDeleteHolo;
 import uk.co.umbaska.HologramBased.EffHoloFollow;
 import uk.co.umbaska.HologramBased.EffHoloStart;
-import uk.co.umbaska.Main;
 import uk.co.umbaska.Misc.EffSetCommandBlockInfo;
 import uk.co.umbaska.Misc.JukeboxAPI.EffPlaySong;
 import uk.co.umbaska.Misc.NotVersionAffected.EffCopyDir;
@@ -46,7 +44,6 @@ import uk.co.umbaska.NametagEdit.EffSetSuffix;
 import uk.co.umbaska.ProtocolLib.EffHideEntity;
 import uk.co.umbaska.ProtocolLib.EffToggleVisibility;
 import uk.co.umbaska.ProtocolLib.EntityHider;
-import uk.co.umbaska.ProtocolLib.EntityHider.Policy;
 import uk.co.umbaska.ProtocolLib.FakePlayer.EffSetSkin;
 import uk.co.umbaska.Replacers.EffBukkitEffectAll;
 import uk.co.umbaska.Replacers.EffParticleAll;

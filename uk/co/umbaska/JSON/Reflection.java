@@ -35,7 +35,7 @@ public class Reflection
     }
   }
   
-  public static Class nmsClass(String nms)
+  public static Class<?> nmsClass(String nms)
   {
     try
     {
@@ -47,7 +47,7 @@ public class Reflection
     }
   }
   
-  public static Class obcClass(String obc)
+  public static Class<?> obcClass(String obc)
   {
     try
     {
@@ -137,7 +137,7 @@ public class Reflection
     return org.bukkit.Bukkit.getServer().getClass().getPackage().getName().replace(".", "@").split("@")[3];
   }
   
-  public static Class getCaller()
+  public static Class<?> getCaller()
   {
     try
     {

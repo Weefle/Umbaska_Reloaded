@@ -1,12 +1,13 @@
 package uk.co.umbaska.Misc.JukeboxAPI;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
-import com.oliverdunk.jukeboxapi.api.JukeboxAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
+import net.mcjukebox.plugin.bukkit.api.JukeboxAPI;
 
 
 
@@ -30,9 +31,10 @@ public class EffStopSong
     return "Jukebox API stop song";
   }
   
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.p = expressions[0];
+    this.p = (Expression<Player>) expressions[0];
     
     return true;
   }

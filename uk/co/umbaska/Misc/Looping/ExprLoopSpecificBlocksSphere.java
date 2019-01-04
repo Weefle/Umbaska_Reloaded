@@ -1,17 +1,19 @@
 package uk.co.umbaska.Misc.Looping;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.Nullable;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 
 
 
@@ -23,7 +25,6 @@ public class ExprLoopSpecificBlocksSphere
   private Expression<Location> loc;
   private Expression<Material> materialsToLoop;
   private Expression<Number> radius;
-  private Expression<Number> height;
   
   public Class<? extends Block> getReturnType()
   {
@@ -36,11 +37,12 @@ public class ExprLoopSpecificBlocksSphere
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.materialsToLoop = args[0];
-    this.loc = args[1];
-    this.radius = args[2];
+    this.materialsToLoop = (Expression<Material>) args[0];
+    this.loc = (Expression<Location>) args[1];
+    this.radius = (Expression<Number>) args[2];
     return true;
   }
   
@@ -53,7 +55,7 @@ public class ExprLoopSpecificBlocksSphere
   protected Block[] get(Event arg0)
   {
     Material[] materials = (Material[])this.materialsToLoop.getAll(arg0);
-    List<Material> matList = new ArrayList();
+    List<Material> matList = new ArrayList<>();
     for (Material m : materials) {
       matList.add(m);
     }
@@ -70,7 +72,7 @@ public class ExprLoopSpecificBlocksSphere
   }
   
   public ArrayList<Block> sphere(Location center, int radius) {
-    ArrayList<Block> sphere = new ArrayList();
+    ArrayList<Block> sphere = new ArrayList<>();
     for (int Y = -radius; Y < radius; Y++)
       for (int X = -radius; X < radius; X++)
         for (int Z = -radius; Z < radius; Z++)

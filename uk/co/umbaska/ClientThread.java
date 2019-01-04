@@ -48,8 +48,8 @@ public class ClientThread extends Thread
             Integer count = this.plugin.qc;
             if (size.intValue() > count.intValue()) {
               for (int i = count.intValue(); i < size.intValue(); i++) {
-                Integer localInteger1 = count;
-                Integer localInteger2 = count = Integer.valueOf(count.intValue() + 1);
+               // Integer localInteger1 = count;
+                //Integer localInteger2 = count = Integer.valueOf(count.intValue() + 1);
                 String output = (String)this.plugin.oq.get(i);
                 this.out.println(output);
                 output.replace("�", "@@COLORCODE@@");

@@ -1,14 +1,17 @@
 package uk.co.umbaska.PlotMe;
 
-import ch.njol.skript.Skript;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
-import com.worldcretornica.plotme.PlotManager;
 import javax.annotation.Nullable;
+
 import org.bukkit.Location;
 import org.bukkit.event.Event;
+
+import com.intellectualcrafters.plot.object.PlotManager;
+
+import ch.njol.skript.Skript;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.Main;
 
 
@@ -34,9 +37,10 @@ public class ExprPlotAtLoc
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.location = args[0];
+    this.location = (Expression<Location>) args[0];
     return true;
   }
   

@@ -1,12 +1,14 @@
 package uk.co.umbaska.PlotSquared;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
-import com.intellectualcrafters.plot.object.PlotPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
+import com.intellectualcrafters.plot.object.PlotPlayer;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 
@@ -71,11 +73,12 @@ public class EffToggleWorldEdit
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.player = expressions[0];
+    this.player = (Expression<Player>) expressions[0];
     if (i == 0) {
-      this.setting = expressions[1];
+      this.setting = (Expression<Boolean>) expressions[1];
     }
     this.matchType = Integer.valueOf(i);
     return true;

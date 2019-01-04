@@ -1,15 +1,16 @@
 package uk.co.umbaska.Factions;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+
 import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MPlayer;
-import java.util.List;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 public class EffKickPlayer
   extends Effect
@@ -31,7 +32,7 @@ public class EffKickPlayer
     if (mplayer.getRole() == Rel.LEADER) {
       fac.promoteNewLeader();
     }
-    fac.setInvited(mplayer, false);
+    fac.uninvite(mplayer);
     mplayer.resetFactionData();
   }
   
@@ -43,10 +44,11 @@ public class EffKickPlayer
   
 
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.faction = expressions[1];
-    this.player = expressions[0];
+    this.faction = (Expression<Faction>) expressions[1];
+    this.player = (Expression<Player>) expressions[0];
     return true;
   }
 }

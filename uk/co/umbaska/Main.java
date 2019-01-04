@@ -1,7 +1,5 @@
 package uk.co.umbaska;
 
-import com.comphenix.protocol.ProtocolLibrary;
-import com.comphenix.protocol.ProtocolManager;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,37 +14,32 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Logger;
-import net.milkbowl.vault.permission.Permission;
 
 import org.bstats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Server;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
-import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.dynmap.DynmapAPI;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+
+import net.milkbowl.vault.permission.Permission;
 import uk.co.umbaska.Bungee.Messenger;
 import uk.co.umbaska.Managers.Register;
 import uk.co.umbaska.ProtocolLib.EntityHider;
-import uk.co.umbaska.ProtocolLib.EntityHider.Policy;
 import uk.co.umbaska.System.WildSkriptTimer;
-import uk.co.umbaska.Utils.Disguise.DisguiseAPI;
 import uk.co.umbaska.Utils.FreezeListener;
 import uk.co.umbaska.Utils.ItemManager;
+import uk.co.umbaska.Utils.Disguise.DisguiseAPI;
 
 public class Main extends JavaPlugin implements Listener
 {
@@ -372,7 +365,8 @@ public class Main extends JavaPlugin implements Listener
     return data;
   }
   
-  private void saveData() {
+  @SuppressWarnings("unused")
+private void saveData() {
     try {
       java.io.OutputStream os = new FileOutputStream(new File(getDataFolder(), "data.txt"));
       PrintStream ps = new PrintStream(os);
@@ -387,7 +381,8 @@ public class Main extends JavaPlugin implements Listener
     }
   }
   
-  private void loadData()
+  @SuppressWarnings("unused")
+private void loadData()
   {
     try {
       File file = new File(getDataFolder(), "data.txt");

@@ -1,11 +1,12 @@
 package uk.co.umbaska.Factions;
 
-import ch.njol.skript.classes.Changer.ChangeMode;
-import ch.njol.skript.expressions.base.SimplePropertyExpression;
-import ch.njol.skript.lang.Expression;
-import ch.njol.util.coll.CollectionUtils;
-import com.massivecraft.factions.entity.Faction;
 import org.bukkit.event.Event;
+
+import com.massivecraft.factions.entity.Faction;
+
+import ch.njol.skript.classes.Changer;
+import ch.njol.skript.expressions.base.SimplePropertyExpression;
+import ch.njol.util.coll.CollectionUtils;
 
 public class ExprMOTDOfFaction extends SimplePropertyExpression<Faction, String>
 {

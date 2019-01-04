@@ -1,14 +1,15 @@
 package uk.co.umbaska.Misc.JukeboxAPI;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
-import com.oliverdunk.jukeboxapi.api.JukeboxAPI;
-import com.oliverdunk.jukeboxapi.api.ResourceType;
-import com.oliverdunk.jukeboxapi.api.models.Media;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
+import net.mcjukebox.plugin.bukkit.api.JukeboxAPI;
+import net.mcjukebox.plugin.bukkit.api.ResourceType;
+import net.mcjukebox.plugin.bukkit.api.models.Media;
 
 
 
@@ -33,10 +34,11 @@ public class EffPlaySoundEffect
     return "Jukebox API play sound effect";
   }
   
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.p = expressions[1];
-    this.url = expressions[0];
+    this.p = (Expression<Player>) expressions[1];
+    this.url = (Expression<String>) expressions[0];
     
     return true;
   }

@@ -36,10 +36,11 @@ public class ExprGetOwner
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.plot = args[0];
-    this.world = args[1];
+    this.plot = (Expression<String>) args[0];
+    this.world = (Expression<World>) args[1];
     return true;
   }
   

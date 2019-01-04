@@ -1,13 +1,10 @@
 package uk.co.umbaska.Managers;
 
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
+
 import ch.njol.skript.Skript;
 import ch.njol.skript.conditions.base.PropertyCondition;
-import java.util.logging.Logger;
-import org.bukkit.Bukkit;
-import org.bukkit.Server;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
 import uk.co.umbaska.Main;
 
 public class Conditions
@@ -17,11 +14,12 @@ public class Conditions
   
   private static String version = Register.getVersion();
   
-  private static void registerNewCondition(String name, String cls, String syntax, Boolean multiversion)
+  @SuppressWarnings("unused")
+private static void registerNewCondition(String name, String cls, String syntax, Boolean multiversion)
   {
     if (Skript.isAcceptRegistrations()) {
       if (multiversion.booleanValue()) {
-        Class newCls = Register.getClass(cls);
+        Class<?> newCls = Register.getClass(cls);
         if (newCls == null) {
           Bukkit.getLogger().info("Umbaska »»» Can't Register Condition for " + name + " due to Can't find Class!");
           return;
@@ -41,7 +39,7 @@ public class Conditions
     }
   }
   
-  private static void registerNewCondition(String name, Class cls, String syntax)
+  private static void registerNewCondition(String name, Class<?> cls, String syntax)
   {
     if (Skript.isAcceptRegistrations()) {
       registerNewCondition(cls, syntax);
@@ -54,8 +52,9 @@ public class Conditions
     }
   }
   
-  @Deprecated
-  private static void registerNewCondition(Class cls, String syntax)
+  @SuppressWarnings("unchecked")
+@Deprecated
+  private static void registerNewCondition(@SuppressWarnings("rawtypes") Class cls, String syntax)
   {
     if (Skript.isAcceptRegistrations()) {
       Skript.registerCondition(cls, new String[] { syntax });
@@ -83,4 +82,12 @@ public class Conditions
       }
     }
   }
+
+public static String getVersion() {
+	return version;
+}
+
+public static void setVersion(String version) {
+	Conditions.version = version;
+}
 }

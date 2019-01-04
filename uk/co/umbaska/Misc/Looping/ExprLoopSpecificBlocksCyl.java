@@ -1,17 +1,19 @@
 package uk.co.umbaska.Misc.Looping;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.Nullable;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 
 
 
@@ -36,12 +38,13 @@ public class ExprLoopSpecificBlocksCyl
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.materialsToLoop = args[0];
-    this.loc = args[1];
-    this.radius = args[2];
-    this.height = args[3];
+    this.materialsToLoop = (Expression<Material>) args[0];
+    this.loc = (Expression<Location>) args[1];
+    this.radius = (Expression<Number>) args[2];
+    this.height = (Expression<Number>) args[3];
     return true;
   }
   
@@ -54,14 +57,14 @@ public class ExprLoopSpecificBlocksCyl
   protected Block[] get(Event arg0)
   {
     Material[] materials = (Material[])this.materialsToLoop.getAll(arg0);
-    List<Material> matList = new ArrayList();
+    List<Material> matList = new ArrayList<>();
     for (Material m : materials) {
       matList.add(m);
     }
     Integer height = Integer.valueOf(((Number)this.height.getSingle(arg0)).intValue());
     Integer r = Integer.valueOf(((Number)this.radius.getSingle(arg0)).intValue());
     Location l = (Location)this.loc.getSingle(arg0);
-    List<Block> blks = new ArrayList();
+    List<Block> blks = new ArrayList<>();
     int cx = l.getBlockX();
     int cy = l.getBlockY();
     int cz = l.getBlockZ();

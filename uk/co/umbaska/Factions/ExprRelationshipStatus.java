@@ -1,15 +1,18 @@
 package uk.co.umbaska.Factions;
 
-import ch.njol.skript.classes.Changer.ChangeMode;
+import javax.annotation.Nullable;
+
+import org.bukkit.event.Event;
+
+import com.massivecraft.factions.Rel;
+import com.massivecraft.factions.entity.Faction;
+
+import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import com.massivecraft.factions.Rel;
-import com.massivecraft.factions.entity.Faction;
-import javax.annotation.Nullable;
-import org.bukkit.event.Event;
 
 
 
@@ -19,10 +22,11 @@ public class ExprRelationshipStatus
   private Expression<Faction> fac1;
   private Expression<Faction> fac2;
   
-  public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult)
   {
-    this.fac1 = exprs[0];
-    this.fac2 = exprs[1];
+    this.fac1 = (Expression<Faction>) exprs[0];
+    this.fac2 = (Expression<Faction>) exprs[1];
     return true;
   }
   

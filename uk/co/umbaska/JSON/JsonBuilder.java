@@ -2,14 +2,14 @@ package uk.co.umbaska.JSON;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import net.minecraft.server.v1_9_R1.EntityPlayer;
-import net.minecraft.server.v1_9_R1.IChatBaseComponent.ChatSerializer;
-import net.minecraft.server.v1_9_R1.PacketPlayOutChat;
+
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+
+import net.minecraft.server.v1_9_R1.IChatBaseComponent;
+import net.minecraft.server.v1_9_R1.PacketPlayOutChat;
 
 public class JsonBuilder
 {
@@ -21,7 +21,7 @@ public class JsonBuilder
   public static enum HoverAction { SHOW_TEXT;
     
     private HoverAction() {} }
-  private List<String> extras = new ArrayList();
+  private List<String> extras = new ArrayList<>();
   
   public JsonBuilder(String... text) {
     for (String extra : text)

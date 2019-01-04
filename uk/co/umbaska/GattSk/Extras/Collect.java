@@ -26,7 +26,8 @@ public class Collect
     return objects;
   }
   
-  public static <T> T[] newArray(Class<?> type, int size)
+  @SuppressWarnings("unchecked")
+public static <T> T[] newArray(Class<?> type, int size)
   {
     return (T[])java.lang.reflect.Array.newInstance(type, size);
   }
@@ -71,7 +72,9 @@ public class Collect
   public static String textPart(InputStream is)
   {
     if (is == null) return "";
-    Scanner s = new Scanner(is).useDelimiter("\\A");Throwable localThrowable2 = null;
+    @SuppressWarnings("resource")
+	Scanner s = new Scanner(is).useDelimiter("\\A");
+    Throwable localThrowable2 = null;
     try { return s.hasNext() ? s.next() : "";
     }
     catch (Throwable localThrowable3)
@@ -90,7 +93,7 @@ public class Collect
   }
   
   public static File[] getFiles(File root, FilenameFilter filter) {
-    ArrayList<File> files = getListFiles(root, filter, new ArrayList());
+    ArrayList<File> files = getListFiles(root, filter, new ArrayList<>());
     return (File[])files.toArray(new File[files.size()]);
   }
   

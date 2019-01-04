@@ -1,15 +1,14 @@
 package uk.co.umbaska.ParticleProjectiles.Effects;
 
-import ch.njol.skript.Skript;
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
-import java.util.HashMap;
-import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
 import org.bukkit.util.Vector;
+
+import ch.njol.skript.Skript;
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.ParticleProjectiles.ParticleProjectile;
 import uk.co.umbaska.ParticleProjectiles.ParticleProjectileHandler;
 import uk.co.umbaska.ParticleProjectiles.UmbError;
@@ -55,11 +54,12 @@ public class EffMakeShootParticleProjectile
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.name = expressions[1];
-    this.shooter = expressions[0];
-    this.speed = expressions[2];
+    this.name = (Expression<String>) expressions[1];
+    this.shooter = (Expression<Entity>) expressions[0];
+    this.speed = (Expression<Number>) expressions[2];
     return true;
   }
 }

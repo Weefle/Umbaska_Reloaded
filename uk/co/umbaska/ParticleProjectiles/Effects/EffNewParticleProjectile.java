@@ -1,12 +1,12 @@
 package uk.co.umbaska.ParticleProjectiles.Effects;
 
+import org.bukkit.event.Event;
+
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import java.util.HashMap;
-import org.bukkit.event.Event;
 import uk.co.umbaska.Enums.ParticleEnum;
 import uk.co.umbaska.ParticleProjectiles.ParticleProjectile;
 import uk.co.umbaska.ParticleProjectiles.ParticleProjectileHandler;
@@ -36,10 +36,11 @@ public class EffNewParticleProjectile
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.particle = expressions[0];
-    this.name = expressions[1];
+    this.particle = (Expression<ParticleEnum>) expressions[0];
+    this.name = (Expression<String>) expressions[1];
     return true;
   }
 }

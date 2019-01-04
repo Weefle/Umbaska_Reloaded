@@ -1,13 +1,15 @@
 package uk.co.umbaska.GattSk.Effects.InventoryClick;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 
@@ -23,9 +25,10 @@ public class EffSetClickedItem
 {
   Expression<ItemStack> item;
   
-  public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
   {
-    this.item = exprs[0];
+    this.item = (Expression<ItemStack>) exprs[0];
     return true;
   }
   

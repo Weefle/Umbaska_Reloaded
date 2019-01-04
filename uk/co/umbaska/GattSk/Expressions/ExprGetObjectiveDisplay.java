@@ -1,12 +1,14 @@
 package uk.co.umbaska.GattSk.Expressions;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 import org.bukkit.scoreboard.Objective;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.GattSk.Extras.Collect;
 import uk.co.umbaska.GattSk.Extras.ScoreboardManagers;
 
@@ -33,10 +35,11 @@ public class ExprGetObjectiveDisplay
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.slot = args[0];
-    this.board = args[1];
+    this.slot = (Expression<String>) args[0];
+    this.board = (Expression<String>) args[1];
     return true;
   }
   

@@ -1,16 +1,20 @@
 package uk.co.umbaska.PlotMe;
 
-import ch.njol.skript.Skript;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
-import com.worldcretornica.plotme.Plot;
-import com.worldcretornica.plotme.PlotManager;
 import java.util.HashMap;
+
 import javax.annotation.Nullable;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
+import com.intellectualcrafters.plot.object.Plot;
+import com.intellectualcrafters.plot.object.PlotManager;
+
+import ch.njol.skript.Skript;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.Main;
 
 
@@ -36,7 +40,8 @@ public class ExprGetPlayerPlots
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
     if (!Main.warnPlotMeUse.booleanValue()) {
       Skript.error("PlotMe is no longer being updated! Due to this the PlotMe expressions and effects in Umbaska have become deprecated. It's suggested to upgrade to PlotSquared! There are currently no syntax changes between the two");
@@ -44,7 +49,7 @@ public class ExprGetPlayerPlots
     
 
 
-    this.player = args[0];
+    this.player = (Expression<Player>) args[0];
     return true;
   }
   

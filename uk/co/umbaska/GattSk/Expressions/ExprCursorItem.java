@@ -1,18 +1,18 @@
 package uk.co.umbaska.GattSk.Expressions;
 
+import javax.annotation.Nullable;
+
+import org.bukkit.event.Event;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
+
 import ch.njol.skript.Skript;
-import ch.njol.skript.classes.Changer.ChangeMode;
+import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.log.ErrorQuality;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import javax.annotation.Nullable;
-import org.bukkit.entity.HumanEntity;
-import org.bukkit.event.Event;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.InventoryView;
-import org.bukkit.inventory.ItemStack;
 import uk.co.umbaska.GattSk.Extras.Collect;
 
 public class ExprCursorItem extends ch.njol.skript.lang.util.SimpleExpression<ItemStack>

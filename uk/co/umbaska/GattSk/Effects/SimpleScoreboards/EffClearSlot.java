@@ -1,11 +1,13 @@
 package uk.co.umbaska.GattSk.Effects.SimpleScoreboards;
 
+import javax.annotation.Nullable;
+
+import org.bukkit.event.Event;
+
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import javax.annotation.Nullable;
-import org.bukkit.event.Event;
 
 
 
@@ -16,10 +18,11 @@ public class EffClearSlot
   private Expression<Number> slot;
   private Expression<String> scoreboardName;
   
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.scoreboardName = args[1];
-    this.slot = args[0];
+    this.scoreboardName = (Expression<String>) args[1];
+    this.slot = (Expression<Number>) args[0];
     
     return true;
   }

@@ -31,7 +31,7 @@ public class AnimatedMessage
   }
   
   public List<BufferedImage> getFrames(File input) {
-    List<BufferedImage> images = new ArrayList();
+    List<BufferedImage> images = new ArrayList<>();
     try {
       ImageReader reader = (ImageReader)ImageIO.getImageReadersBySuffix("GIF").next();
       ImageInputStream in = ImageIO.createImageInputStream(input);

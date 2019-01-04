@@ -1,11 +1,12 @@
 package uk.co.umbaska.JSON;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 public class EffSendJson
@@ -28,10 +29,11 @@ public class EffSendJson
     return "json";
   }
   
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.json = expressions[0];
-    this.players = expressions[1];
+    this.json = (Expression<JSONMessage>) expressions[0];
+    this.players = (Expression<Player>) expressions[1];
     return true;
   }
 }

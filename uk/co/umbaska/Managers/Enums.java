@@ -1,31 +1,12 @@
 package uk.co.umbaska.Managers;
 
-import ca.thederpygolems.armorequip.ArmourEquipEvent;
-import ca.thederpygolems.armorequip.ArmourEquipEvent.EquipMethod;
-import ch.njol.skript.Skript;
-import ch.njol.skript.classes.ClassInfo;
-import ch.njol.skript.classes.Parser;
-import ch.njol.skript.expressions.base.EventValueExpression;
-import ch.njol.skript.lang.ParseContext;
-import ch.njol.skript.registrations.Classes;
-import com.gmail.nossr50.datatypes.party.Party;
-import com.gmail.nossr50.datatypes.skills.SkillType;
-import com.gmail.nossr50.party.PartyManager;
-import com.massivecraft.factions.Rel;
-import com.massivecraft.factions.entity.Faction;
-import com.massivecraft.factions.entity.FactionColl;
-import com.sk89q.worldguard.bukkit.WGBukkit;
-import com.sk89q.worldguard.protection.flags.DefaultFlag;
-import com.sk89q.worldguard.protection.flags.Flag;
-import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import java.util.Locale;
-import java.util.logging.Logger;
+
 import javax.annotation.Nullable;
+
 import org.bukkit.Bukkit;
 import org.bukkit.EntityEffect;
 import org.bukkit.Material;
-import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -34,20 +15,38 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.plugin.PluginBase;
-import org.bukkit.plugin.PluginManager;
+
+import com.gmail.nossr50.datatypes.party.Party;
+import com.gmail.nossr50.datatypes.skills.SkillType;
+import com.gmail.nossr50.party.PartyManager;
+import com.massivecraft.factions.Rel;
+import com.massivecraft.factions.entity.Faction;
+import com.massivecraft.factions.entity.FactionColl;
+import com.massivecraft.massivecore.store.EntityInternal;
+import com.sk89q.worldguard.bukkit.WGBukkit;
+import com.sk89q.worldguard.protection.flags.DefaultFlag;
+import com.sk89q.worldguard.protection.flags.Flag;
+import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+
+import ca.thederpygolems.armorequip.ArmourEquipEvent;
+import ch.njol.skript.Skript;
+import ch.njol.skript.classes.ClassInfo;
+import ch.njol.skript.classes.Parser;
+import ch.njol.skript.expressions.base.EventValueExpression;
+import ch.njol.skript.lang.ParseContext;
+import ch.njol.skript.registrations.Classes;
+import uk.co.umbaska.Main;
 import uk.co.umbaska.Enums.BukkitEffectEnum;
 import uk.co.umbaska.Enums.InventoryTypes;
 import uk.co.umbaska.Enums.Operation;
 import uk.co.umbaska.Enums.ParticleEnum;
 import uk.co.umbaska.JSON.JSONMessage;
 import uk.co.umbaska.JSON.JsonBuilder;
-import uk.co.umbaska.Main;
 import uk.co.umbaska.Misc.Date.DayOfWeek;
-import uk.co.umbaska.Utils.Disguise.EntityDisguise;
 import uk.co.umbaska.Utils.EnumClassInfo;
+import uk.co.umbaska.Utils.Disguise.EntityDisguise;
 
 
 public class Enums
@@ -55,11 +54,13 @@ public class Enums
   public static Boolean debugInfo = Boolean.valueOf(Main.getInstance().getConfig().getBoolean("debug_info"));
   private static String version = Register.getVersion();
   
-  private static void registerEnum(String cls, String name, Boolean multiversion) {
+  @SuppressWarnings("unused")
+private static void registerEnum(String cls, String name, Boolean multiversion) {
     if (Skript.isAcceptRegistrations()) {
       if (multiversion.booleanValue())
       {
-        Class newCls = Register.getClass(cls);
+        @SuppressWarnings("rawtypes")
+		Class newCls = Register.getClass(cls);
         if (newCls == null) {
           Bukkit.getLogger().info("Umbaska »»» Can't Register Enum for " + name + " due to \nWrong Spigot/Bukkit Version!");
         }
@@ -79,7 +80,8 @@ public class Enums
     }
   }
   
-  private static void registerEnum(Class cls, String name) {
+  @SuppressWarnings("unchecked")
+private static void registerEnum(@SuppressWarnings("rawtypes") Class cls, String name) {
     if (Skript.isAcceptRegistrations()) {
       EnumClassInfo.create(cls, name).register();
     }
@@ -88,7 +90,8 @@ public class Enums
     }
   }
   
-  private static void registerEnum(Class cls, String name, EventValueExpression defaultExpression) {
+  @SuppressWarnings({ "unused", "unchecked" })
+private static void registerEnum(@SuppressWarnings("rawtypes") Class cls, String name, @SuppressWarnings("rawtypes") EventValueExpression defaultExpression) {
     if (Skript.isAcceptRegistrations()) {
       EnumClassInfo.create(cls, name, defaultExpression).register();
     }
@@ -97,7 +100,7 @@ public class Enums
     }
   }
   
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "unchecked", "rawtypes" })
 public static void runRegister() {
     registerEnum(InventoryTypes.class, "umbaskainv");
     registerEnum(ParticleEnum.class, "particleenum");
@@ -142,12 +145,14 @@ public static void runRegister() {
         return false;
       }
       
-      public String toString(BossBar bar, int i)
+      @SuppressWarnings("unused")
+	public String toString(BossBar bar, int i)
       {
         return bar.toString();
       }
       
-      public String toVariableNameString(BossBar bar)
+      @SuppressWarnings("unused")
+	public String toVariableNameString(BossBar bar)
       {
         return "BossBar: " + bar.toString();
       }
@@ -180,12 +185,14 @@ public static void runRegister() {
         return false;
       }
       
-      public String toString(JSONMessage jsonMessage, int i)
+      @SuppressWarnings("unused")
+	public String toString(JSONMessage jsonMessage, int i)
       {
         return jsonMessage.toOldMessageFormat();
       }
       
-      public String toVariableNameString(JSONMessage jsonMessage)
+      @SuppressWarnings("unused")
+	public String toVariableNameString(JSONMessage jsonMessage)
       {
         return jsonMessage.toString();
       }
@@ -236,12 +243,12 @@ public static void runRegister() {
             return Rel.valueOf(s);
           }
           
-          public String toString(Rel rel, int flags)
+          public String toString(Object rel, int flags)
           {
             return rel.toString().toLowerCase();
           }
           
-          public String toVariableNameString(Rel rel)
+          public String toVariableNameString(Object rel)
           {
             return rel.toString().toLowerCase();
           }
@@ -264,14 +271,14 @@ public static void runRegister() {
             return PartyManager.getParty(s);
           }
           
-          public String toString(Party party, int flags)
+          public String toString(Object party, int flags)
           {
-            return party.getName().toLowerCase();
+            return ((PluginBase) party).getName().toLowerCase();
           }
           
-          public String toVariableNameString(Party party)
+          public String toVariableNameString(Object party)
           {
-            return party.getName().toLowerCase();
+            return ((PluginBase) party).getName().toLowerCase();
           }
           
           public String getVariableNamePattern()
@@ -295,14 +302,14 @@ public static void runRegister() {
             return null;
           }
           
-          public String toString(SkillType skill, int flags)
+          public String toString(Object skill, int flags)
           {
-            return skill.getName().toLowerCase();
+            return ((PluginBase) skill).getName().toLowerCase();
           }
           
-          public String toVariableNameString(SkillType skill)
+          public String toVariableNameString(Object skill)
           {
-            return skill.getName().toLowerCase();
+            return ((PluginBase) skill).getName().toLowerCase();
           }
           
           public String getVariableNamePattern()
@@ -334,14 +341,14 @@ public static void runRegister() {
             return null;
           }
           
-          public String toString(ProtectedRegion region, int flags)
+          public String toString(Object region, int flags)
           {
-            return region.getId().toLowerCase();
+            return ((EntityInternal<Faction>) region).getId().toLowerCase();
           }
           
-          public String toVariableNameString(ProtectedRegion region)
+          public String toVariableNameString(Object region)
           {
-            return region.getId().toLowerCase();
+            return ((EntityInternal<Faction>) region).getId().toLowerCase();
           }
           
           public String getVariableNamePattern()
@@ -362,14 +369,14 @@ public static void runRegister() {
             return DefaultFlag.fuzzyMatchFlag(null, s);
           }
           
-          public String toString(Flag<?> flag, int flags)
+          public String toString(Object flag, int flags)
           {
-            return flag.getName().toLowerCase();
+            return ((PluginBase) flag).getName().toLowerCase();
           }
           
-          public String toVariableNameString(Flag<?> flag)
+          public String toVariableNameString(Object flag)
           {
-            return flag.getName().toLowerCase();
+            return ((PluginBase) flag).getName().toLowerCase();
           }
           
           public String getVariableNamePattern()

@@ -1,16 +1,16 @@
 package uk.co.umbaska.GattSk.Expressions;
 
+import javax.annotation.Nullable;
+
+import org.bukkit.event.Event;
+import org.bukkit.event.inventory.InventoryClickEvent;
+
 import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import javax.annotation.Nullable;
-import org.bukkit.event.Event;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import uk.co.umbaska.GattSk.Extras.Collect;
 
 

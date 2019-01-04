@@ -179,4 +179,8 @@ public class ImageMessage
       player.sendMessage(line);
     }
   }
+
+public static char getTransparentChar() {
+	return TRANSPARENT_CHAR;
+}
 }

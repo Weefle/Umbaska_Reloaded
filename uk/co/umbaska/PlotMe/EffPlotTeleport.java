@@ -1,16 +1,17 @@
 package uk.co.umbaska.PlotMe;
 
-import ch.njol.skript.Skript;
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
-import com.worldcretornica.plotme.PlotManager;
-import com.worldcretornica.plotme.PlotMapInfo;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
+import com.intellectualcrafters.plot.object.PlotManager;
+
+import ch.njol.skript.Skript;
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.Main;
 
 
@@ -57,11 +58,12 @@ public class EffPlotTeleport
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.ply = expressions[0];
-    this.plot = expressions[1];
-    this.world = expressions[2];
+    this.ply = (Expression<Player>) expressions[0];
+    this.plot = (Expression<String>) expressions[1];
+    this.world = (Expression<World>) expressions[2];
     return true;
   }
 }

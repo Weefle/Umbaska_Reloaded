@@ -1,11 +1,13 @@
 package uk.co.umbaska.System;
 
+import java.io.IOException;
+
+import org.bukkit.event.Event;
+
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import java.io.IOException;
-import org.bukkit.event.Event;
 import uk.co.umbaska.Managers.FileManager;
 
 
@@ -41,11 +43,12 @@ public class EffSetLine
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.line = expressions[0];
-    this.file = expressions[1];
-    this.string = expressions[2];
+    this.line = (Expression<Integer>) expressions[0];
+    this.file = (Expression<String>) expressions[1];
+    this.string = (Expression<String>) expressions[2];
     return true;
   }
 }

@@ -1,13 +1,15 @@
 package uk.co.umbaska.PlotMe;
 
+import org.bukkit.World;
+import org.bukkit.event.Event;
+
+import com.intellectualcrafters.plot.object.PlotManager;
+
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import com.worldcretornica.plotme.PlotManager;
-import org.bukkit.World;
-import org.bukkit.event.Event;
 import uk.co.umbaska.Main;
 
 
@@ -55,11 +57,12 @@ public class EffMovePlot
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.plot1 = expressions[0];
-    this.plot2 = expressions[1];
-    this.world = expressions[2];
+    this.plot1 = (Expression<String>) expressions[0];
+    this.plot2 = (Expression<String>) expressions[1];
+    this.world = (Expression<World>) expressions[2];
     return true;
   }
 }

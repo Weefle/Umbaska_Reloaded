@@ -1,12 +1,11 @@
 package uk.co.umbaska.System;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 public class ExprPing extends ch.njol.skript.lang.util.SimpleExpression<Integer>
 {
@@ -27,7 +26,7 @@ public class ExprPing extends ch.njol.skript.lang.util.SimpleExpression<Integer>
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return tmp123_120;
+    return new Integer[] { null };
   }
   
 
@@ -40,9 +39,10 @@ public class ExprPing extends ch.njol.skript.lang.util.SimpleExpression<Integer>
     return getClass().getName();
   }
   
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.player = expressions[0];
+    this.player = (Expression<Player>) expressions[0];
     return true;
   }
 }

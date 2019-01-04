@@ -2,7 +2,6 @@ package uk.co.umbaska.Misc;
 
 import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.world.StructureGrowEvent;
-import org.bukkit.plugin.PluginManager;
 
 public class CropGrowEvent implements org.bukkit.event.Listener
 {

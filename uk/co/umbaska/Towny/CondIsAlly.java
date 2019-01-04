@@ -1,16 +1,18 @@
 package uk.co.umbaska.Towny;
 
-import ch.njol.skript.lang.Condition;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
-import com.palmergames.bukkit.towny.db.TownyDataSource;
+import javax.annotation.Nullable;
+
+import org.bukkit.event.Event;
+
 import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
 import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Town;
 import com.palmergames.bukkit.towny.object.TownyUniverse;
-import javax.annotation.Nullable;
-import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Condition;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 
@@ -27,10 +29,11 @@ public class CondIsAlly
   private Expression<String> twn1;
   private Expression<String> twn2;
   
-  public boolean init(Expression<?>[] expr, int i, Kleenean kl, SkriptParser.ParseResult pr)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expr, int i, Kleenean kl, SkriptParser.ParseResult pr)
   {
-    this.twn1 = expr[0];
-    this.twn2 = expr[1];
+    this.twn1 = (Expression<String>) expr[0];
+    this.twn2 = (Expression<String>) expr[1];
     return true;
   }
   

@@ -1,14 +1,16 @@
 package uk.co.umbaska.PlotSquared;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
+import org.bukkit.World;
+import org.bukkit.event.Event;
+
 import com.intellectualcrafters.plot.object.Plot;
 import com.intellectualcrafters.plot.object.PlotId;
 import com.intellectualcrafters.plot.util.MainUtil;
-import org.bukkit.World;
-import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 
@@ -51,11 +53,12 @@ public class EffMovePlot
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.plot1 = expressions[0];
-    this.plot2 = expressions[1];
-    this.world = expressions[2];
+    this.plot1 = (Expression<String>) expressions[0];
+    this.plot2 = (Expression<String>) expressions[1];
+    this.world = (Expression<World>) expressions[2];
     return true;
   }
 }

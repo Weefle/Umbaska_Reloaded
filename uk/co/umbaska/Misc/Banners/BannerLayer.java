@@ -2,6 +2,7 @@ package uk.co.umbaska.Misc.Banners;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.bukkit.DyeColor;
 import org.bukkit.block.banner.PatternType;
 
@@ -11,7 +12,7 @@ import org.bukkit.block.banner.PatternType;
 
 public class BannerLayer
 {
-  public final List<Layer> layers = new ArrayList();
+  public final List<Layer> layers = new ArrayList<>();
   
 
 

@@ -1,13 +1,15 @@
 package uk.co.umbaska.JSON;
 
+import java.util.ArrayList;
+
+import org.bukkit.ChatColor;
+import org.bukkit.event.Event;
+
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.skript.util.Color;
 import ch.njol.util.Kleenean;
-import java.util.ArrayList;
-import org.bukkit.ChatColor;
-import org.bukkit.event.Event;
 import uk.co.umbaska.GattSk.Extras.Collect;
 
 
@@ -23,7 +25,7 @@ public class ExprJsonMessageStyle
     if (j == null) {
       return null;
     }
-    ArrayList<ChatColor> styles = new ArrayList();
+    ArrayList<ChatColor> styles = new ArrayList<>();
     for (Color a : (Color[])this.append.getAll(event)) {
       switch (a.asChatColor())
       {
@@ -73,10 +75,11 @@ public class ExprJsonMessageStyle
     return ((JSONMessage)this.json.getSingle(event)).toOldMessageFormat();
   }
   
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.json = expressions[0];
-    this.append = expressions[1];
+    this.json = (Expression<JSONMessage>) expressions[0];
+    this.append = (Expression<Color>) expressions[1];
     return true;
   }
 }

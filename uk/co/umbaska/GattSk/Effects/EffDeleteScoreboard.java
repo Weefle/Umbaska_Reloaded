@@ -1,12 +1,14 @@
 package uk.co.umbaska.GattSk.Effects;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.GattSk.Extras.ScoreboardManagers;
 
 public class EffDeleteScoreboard
@@ -15,10 +17,11 @@ public class EffDeleteScoreboard
   private Expression<Player> players;
   private Expression<String> boardname;
   
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.players = args[0];
-    this.boardname = args[1];
+    this.players = (Expression<Player>) args[0];
+    this.boardname = (Expression<String>) args[1];
     
     return true;
   }

@@ -1,14 +1,15 @@
 package uk.co.umbaska.Misc.Banners;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.skript.util.Color;
-import ch.njol.util.Kleenean;
 import org.bukkit.Material;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BannerMeta;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.skript.util.Color;
+import ch.njol.util.Kleenean;
 
 
 public class ExprNewBanner
@@ -37,9 +38,10 @@ public class ExprNewBanner
     return "New Banner";
   }
   
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.color = expressions[0];
+    this.color = (Expression<Color>) expressions[0];
     return true;
   }
 }

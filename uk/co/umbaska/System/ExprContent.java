@@ -1,12 +1,14 @@
 package uk.co.umbaska.System;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.Managers.FileManager;
 
 public class ExprContent extends SimpleExpression<String>
@@ -42,9 +44,10 @@ public class ExprContent extends SimpleExpression<String>
     return getClass().getName();
   }
   
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.file = expressions[0];
+    this.file = (Expression<String>) expressions[0];
     return true;
   }
 }

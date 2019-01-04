@@ -1,11 +1,13 @@
 package uk.co.umbaska.GattSk.Effects;
 
+import javax.annotation.Nullable;
+
+import org.bukkit.event.Event;
+
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import javax.annotation.Nullable;
-import org.bukkit.event.Event;
 import uk.co.umbaska.GattSk.Extras.ScoreboardManagers;
 
 
@@ -18,11 +20,12 @@ public class EffSetTeamPrefix
   private Expression<String> value;
   private boolean prefix;
   
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.boardname = args[1];
-    this.teamName = args[0];
-    this.value = args[2];
+    this.boardname = (Expression<String>) args[1];
+    this.teamName = (Expression<String>) args[0];
+    this.value = (Expression<String>) args[2];
     this.prefix = (arg3.mark == 0);
     return true;
   }

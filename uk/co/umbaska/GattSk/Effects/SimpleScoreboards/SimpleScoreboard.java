@@ -1,23 +1,23 @@
 package uk.co.umbaska.GattSk.Effects.SimpleScoreboards;
 
-import ch.njol.skript.Skript;
 import java.util.HashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
+
+import ch.njol.skript.Skript;
 import uk.co.umbaska.GattSk.Extras.ScoreboardManagers;
 
 
 
 public class SimpleScoreboard
 {
-  private static HashMap<Scoreboard, HashMap<Integer, String>> ScoreboardTracker = new HashMap();
-  private static HashMap<String, Scoreboard> SimpleScoreboards = new HashMap();
+  private static HashMap<Scoreboard, HashMap<Integer, String>> ScoreboardTracker = new HashMap<>();
+  private static HashMap<String, Scoreboard> SimpleScoreboards = new HashMap<>();
   
   private static ScoreboardManager sbm = Bukkit.getScoreboardManager();
   
@@ -28,7 +28,7 @@ public class SimpleScoreboard
     Bukkit.broadcastMessage("Title: " + targetBoard.getObjective("SimpleScoreboard").getDisplayName());
     Bukkit.broadcastMessage("HashMap 'ScoreboardTracker': " + ScoreboardTracker.toString());
     Bukkit.broadcastMessage("HashMap 'SimpleScoreboards': " + SimpleScoreboards.toString());
-    Bukkit.broadcastMessage("HashMap 'ScoreboardTracker.get': " + ((HashMap)ScoreboardTracker.get(targetBoard)).toString());
+    Bukkit.broadcastMessage("HashMap 'ScoreboardTracker.get': " + (ScoreboardTracker.get(targetBoard)).toString());
   }
   
   public static void newSimpleScoreboard(String name) {
@@ -37,7 +37,7 @@ public class SimpleScoreboard
     newBoard.getObjective("SimpleScoreboard").setDisplaySlot(DisplaySlot.SIDEBAR);
     SimpleScoreboards.put(name, newBoard);
     ScoreboardManagers.boardList.put(name, newBoard);
-    HashMap<Integer, String> newMap = new HashMap();
+    HashMap<Integer, String> newMap = new HashMap<>();
     newMap.put(Integer.valueOf(1), "&1");
     newMap.put(Integer.valueOf(2), "&2");
     newMap.put(Integer.valueOf(3), "&3");
@@ -80,7 +80,7 @@ public class SimpleScoreboard
     Scoreboard targetBoard = (Scoreboard)SimpleScoreboards.get(scoreboardName);
     if (slot.intValue() <= 15) {
       if (slot.intValue() > 0) {
-        HashMap<Integer, String> hashMap = (HashMap)ScoreboardTracker.get(targetBoard);
+        HashMap<Integer, String> hashMap = ScoreboardTracker.get(targetBoard);
         String score2reset = (String)hashMap.get(slot);
         
         targetBoard.resetScores(score2reset);
@@ -137,12 +137,11 @@ public class SimpleScoreboard
     } else {
       return;
     }
-    Scoreboard targetBoard;
     if (slot.intValue() <= 15) {
       if (slot.intValue() > 0)
       {
 
-        HashMap<Integer, String> hashMap = (HashMap)ScoreboardTracker.get(targetBoard);
+        HashMap<Integer, String> hashMap = ScoreboardTracker.get(targetBoard);
         if (!((String)hashMap.get(slot)).equals(value)) {
           String score2reset = (String)hashMap.get(slot);
           targetBoard.resetScores(score2reset);

@@ -1,14 +1,16 @@
 package uk.co.umbaska.PlotMe;
 
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+
+import com.intellectualcrafters.plot.object.Plot;
+import com.intellectualcrafters.plot.object.PlotManager;
+
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import com.worldcretornica.plotme.Plot;
-import com.worldcretornica.plotme.PlotManager;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 import uk.co.umbaska.Main;
 
 
@@ -33,7 +35,7 @@ public class EffDenyPlayer
 
 
     String pl = (String)this.plot.getSingle(event);
-    String p = ((Player)this.player.getSingle(event)).toString();
+    Player p = ((Player)this.player.getSingle(event));
     if (pl == null)
       return;
     if (p == null) {
@@ -41,8 +43,8 @@ public class EffDenyPlayer
     }
     if (PlotManager.isValidId(pl)) {
       Plot plot = PlotManager.getPlotById(pl, pl);
-      plot.addDenied(p);
-      plot.removeAllowed(p);
+      plot.addDenied(p.getUniqueId());
+      plot.removeTrusted(p.getUniqueId());
     }
   }
   
@@ -53,10 +55,11 @@ public class EffDenyPlayer
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.plot = expressions[0];
-    this.player = expressions[1];
+    this.plot = (Expression<String>) expressions[0];
+    this.player = (Expression<Player>) expressions[1];
     return true;
   }
 }

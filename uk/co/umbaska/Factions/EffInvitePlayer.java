@@ -1,13 +1,16 @@
 package uk.co.umbaska.Factions;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
-import com.massivecraft.factions.entity.Faction;
-import com.massivecraft.factions.entity.MPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
+import com.massivecraft.factions.entity.Faction;
+import com.massivecraft.factions.entity.Invitation;
+import com.massivecraft.factions.entity.MPlayer;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 public class EffInvitePlayer
@@ -26,7 +29,8 @@ public class EffInvitePlayer
       return;
     }
     MPlayer mplayer = MPlayer.get(player);
-    fac.setInvited(mplayer, true);
+    Invitation inv = new Invitation();
+    fac.invite(mplayer.getId(), inv);
   }
   
 
@@ -37,10 +41,11 @@ public class EffInvitePlayer
   
 
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.faction = expressions[1];
-    this.player = expressions[0];
+    this.faction = (Expression<Faction>) expressions[1];
+    this.player = (Expression<Player>) expressions[0];
     return true;
   }
 }

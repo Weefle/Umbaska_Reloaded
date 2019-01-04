@@ -1,16 +1,18 @@
 package uk.co.umbaska.Misc.Looping;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.annotation.Nullable;
+
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 
 
 
@@ -32,11 +34,12 @@ public class ExprBlocksInCylinder
   }
   
 
-  public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean kl, SkriptParser.ParseResult pr)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean kl, SkriptParser.ParseResult pr)
   {
-    this.rad = expr[0];
-    this.height = expr[1];
-    this.l = expr[2];
+    this.rad = (Expression<Number>) expr[0];
+    this.height = (Expression<Number>) expr[1];
+    this.l = (Expression<Location>) expr[2];
     return true;
   }
   
@@ -52,8 +55,7 @@ public class ExprBlocksInCylinder
     Integer height = Integer.valueOf(((Number)this.height.getSingle(event)).intValue());
     Integer r = Integer.valueOf(((Number)this.rad.getSingle(event)).intValue());
     Location l = (Location)this.l.getSingle(event);
-    Block center = l.getBlock();
-    List<Block> blks = new ArrayList();
+    List<Block> blks = new ArrayList<>();
     int cx = l.getBlockX();
     int cy = l.getBlockY();
     int cz = l.getBlockZ();

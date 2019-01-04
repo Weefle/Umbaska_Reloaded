@@ -1,12 +1,14 @@
 package uk.co.umbaska.GattSk.Effects;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
+
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.GattSk.Extras.ScoreboardManagers;
 
 
@@ -19,11 +21,12 @@ public class EffTeamPlayer
   private Expression<OfflinePlayer> player;
   private boolean add;
   
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.boardname = args[2];
-    this.teamName = args[1];
-    this.player = args[0];
+    this.boardname = (Expression<String>) args[2];
+    this.teamName = (Expression<String>) args[1];
+    this.player = (Expression<OfflinePlayer>) args[0];
     this.add = (arg3.mark == 0);
     return true;
   }

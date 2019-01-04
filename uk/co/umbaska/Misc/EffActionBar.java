@@ -1,13 +1,15 @@
 package uk.co.umbaska.Misc;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.Utils.TitleManager.TitleManager;
 
 
@@ -22,10 +24,11 @@ public class EffActionBar
   private Expression<String> Actiontitle;
   private Expression<Player> Players;
   
-  public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
   {
-    this.Actiontitle = exprs[0];
-    this.Players = exprs[1];
+    this.Actiontitle = (Expression<String>) exprs[0];
+    this.Players = (Expression<Player>) exprs[1];
     return true;
   }
   

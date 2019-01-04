@@ -1,12 +1,14 @@
 package uk.co.umbaska.NametagEdit;
 
-import ca.wacos.nametagedit.NametagAPI;
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
+import com.nametagedit.plugin.api.NametagAPI;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 
@@ -41,11 +43,12 @@ public class EffSetNametag
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.player = expressions[0];
-    this.changeto = expressions[1];
-    this.changeto2 = expressions[2];
+    this.player = (Expression<Player>) expressions[0];
+    this.changeto = (Expression<String>) expressions[1];
+    this.changeto2 = (Expression<String>) expressions[2];
     return true;
   }
 }

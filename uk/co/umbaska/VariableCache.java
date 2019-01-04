@@ -42,8 +42,8 @@ public class VariableCache
         {
           String[] variableData = line.split(cvsSplitBy);
           this.variableValueCache.put(variableData[0], Variables.getVariable(variableData[0], new DummyEvent(), false));
-          Integer localInteger1 = readVariableAmount;
-          Integer localInteger2 = readVariableAmount = Integer.valueOf(readVariableAmount.intValue() + 1);
+         // Integer localInteger1 = readVariableAmount;
+         // Integer localInteger2 = readVariableAmount = Integer.valueOf(readVariableAmount.intValue() + 1);
           float divideAmt = 2.0F;
           if (Main.getInstance().getConfig().getBoolean("enable_variable_change_event")) {
             new VariableTracker(line);

@@ -1,29 +1,33 @@
 package uk.co.umbaska.Factions;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
-import com.massivecraft.factions.Rel;
-import com.massivecraft.factions.entity.Faction;
-import com.massivecraft.factions.entity.FactionColl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
 import org.bukkit.event.Event;
+
+import com.massivecraft.factions.Rel;
+import com.massivecraft.factions.entity.Faction;
+import com.massivecraft.factions.entity.FactionColl;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 
 public class ExprEnemiesOfFaction extends SimpleExpression<String>
 {
   private Expression<Faction> faction;
   final Collection<Faction> factions = FactionColl.get().getAll();
-  List<String> factionallies = new ArrayList();
+  List<String> factionallies = new ArrayList<>();
   
 
 
-  public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult)
   {
-    this.faction = exprs[0];
+    this.faction = (Expression<Faction>) exprs[0];
     return true;
   }
   

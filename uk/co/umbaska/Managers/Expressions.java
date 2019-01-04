@@ -1,29 +1,28 @@
 package uk.co.umbaska.Managers;
 
-import ch.njol.skript.Skript;
-import ch.njol.skript.expressions.base.SimplePropertyExpression;
-import ch.njol.skript.lang.ExpressionType;
-import com.massivecraft.factions.Rel;
-import com.massivecraft.factions.entity.Faction;
-import com.palmergames.bukkit.towny.object.Town;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BossBar;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
 import org.bukkit.scoreboard.Objective;
+
+import com.massivecraft.factions.Rel;
+import com.massivecraft.factions.entity.Faction;
+import com.palmergames.bukkit.towny.object.Town;
+
+import ch.njol.skript.Skript;
+import ch.njol.skript.expressions.base.SimplePropertyExpression;
+import ch.njol.skript.lang.ExpressionType;
+import uk.co.umbaska.Main;
 import uk.co.umbaska.ArmourStands.ExprNoAI;
 import uk.co.umbaska.ArmourStands.ExprsHeadDirectionX;
 import uk.co.umbaska.ArmourStands.ExprsHeadDirectionY;
@@ -45,7 +44,6 @@ import uk.co.umbaska.GattSk.Expressions.ExprClickType;
 import uk.co.umbaska.GattSk.Expressions.ExprClickedItem;
 import uk.co.umbaska.JSON.ExprJsonMessageStyle;
 import uk.co.umbaska.JSON.JSONMessage;
-import uk.co.umbaska.Main;
 import uk.co.umbaska.MathsExpressions.ExprAtan;
 import uk.co.umbaska.MathsExpressions.ExprFactorial;
 import uk.co.umbaska.MathsExpressions.ExprHyperbolicCos;
@@ -72,7 +70,8 @@ public class Expressions
   public static Boolean debugInfo = Boolean.valueOf(Main.getInstance().getConfig().getBoolean("debug_info"));
   public static String registeredPlotSystem = null;
   
-  private static void registerNewSimpleExpression(String name, String cls, Class returnType, String syntax1, String syntax2, Boolean multiversion) {
+  @SuppressWarnings({ "unchecked", "unused", "rawtypes" })
+private static void registerNewSimpleExpression(String name, String cls, Class returnType, String syntax1, String syntax2, Boolean multiversion) {
     Class newCls = Register.getClass(cls);
     if (Skript.isAcceptRegistrations()) {
       if (multiversion.booleanValue())
@@ -93,16 +92,17 @@ public class Expressions
     else {
       Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Skript Not Accepting Registrations");
     }
-    List<String> expressions = (List)Register.simpleexpressionList.get(name);
+    List<String> expressions = Register.simpleexpressionList.get(name);
     if (expressions == null) {
-      expressions = new ArrayList();
+      expressions = new ArrayList<>();
     }
     expressions.add(syntax1 + " " + syntax2);
     expressions.add("Example*: set " + syntax1 + " of %" + syntax2 + "% to %" + returnType.getSimpleName() + "%");
     Register.simpleexpressionList.put(name, expressions);
   }
   
-  private static void registerNewSimpleExpression(String name, Class cls, Class returnType, String syntax1, String syntax2, Boolean multiversion) {
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+private static void registerNewSimpleExpression(String name, Class cls, Class returnType, String syntax1, String syntax2, Boolean multiversion) {
     if (Skript.isAcceptRegistrations()) {
       if (debugInfo.booleanValue()) {
         Bukkit.getLogger().info("Umbaska »»» Registered Expression for " + name + " with syntax\n set " + syntax1 + " of " + syntax2 + " for Version " + Register.getVersion());
@@ -112,16 +112,17 @@ public class Expressions
     else {
       Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Skript Not Accepting Registrations");
     }
-    List<String> expressions = (List)Register.simpleexpressionList.get(name);
+    List<String> expressions = Register.simpleexpressionList.get(name);
     if (expressions == null) {
-      expressions = new ArrayList();
+      expressions = new ArrayList<>();
     }
     expressions.add(syntax1 + " " + syntax2);
     expressions.add("Example*: set " + syntax1 + " of %" + syntax2 + "% to %" + returnType.getSimpleName() + "%");
     Register.simpleexpressionList.put(name, expressions);
   }
   
-  private static void registerNewExpression(String name, String cls, Class returnType, ExpressionType expressionType, String syntax, Boolean multiversion) {
+  @SuppressWarnings("rawtypes")
+private static void registerNewExpression(String name, String cls, Class returnType, ExpressionType expressionType, String syntax, Boolean multiversion) {
     if (Skript.isAcceptRegistrations()) {
       if (multiversion.booleanValue()) {
         Class newCls = Register.getClass(cls);
@@ -146,7 +147,8 @@ public class Expressions
       Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Skript Not Accepting Registrations");
   }
   
-  private static void registerNewExpression(String name, Class cls, Class returnType, ExpressionType expressionType, String... syntaxes) {
+  @SuppressWarnings("rawtypes")
+private static void registerNewExpression(String name, Class cls, Class returnType, ExpressionType expressionType, String... syntaxes) {
     if (Skript.isAcceptRegistrations()) {
       registerNewExpression(cls, returnType, expressionType, syntaxes);
       if (debugInfo.booleanValue()) {
@@ -158,9 +160,9 @@ public class Expressions
     else {
       Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Skript Not Accepting Registrations");
     }
-    List<String> expressions = (List)Register.expressionList.get(name);
+    List<String> expressions = Register.expressionList.get(name);
     if (expressions == null) {
-      expressions = new ArrayList();
+      expressions = new ArrayList<>();
     }
     for (String s : syntaxes) {
       expressions.add(s);
@@ -168,7 +170,8 @@ public class Expressions
     Register.expressionList.put(name, expressions);
   }
   
-  private static void registerNewExpression(Class cls, Class returnType, ExpressionType expressionType, String... syntaxes) { if (Skript.isAcceptRegistrations()) {
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+private static void registerNewExpression(Class cls, Class returnType, ExpressionType expressionType, String... syntaxes) { if (Skript.isAcceptRegistrations()) {
       Skript.registerExpression(cls, returnType, expressionType, syntaxes);
       if (debugInfo.booleanValue()) {
         for (String syntax : syntaxes) {
