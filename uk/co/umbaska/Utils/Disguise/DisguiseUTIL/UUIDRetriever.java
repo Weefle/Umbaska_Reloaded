@@ -64,15 +64,31 @@ public class UUIDRetriever
     }
   }
   
+  public static String insertDashUUID(String uuid) {
+	  StringBuffer sb = new StringBuffer(uuid);
+	  sb.insert(8, "-");
+	   
+	  sb = new StringBuffer(sb.toString());
+	  sb.insert(13, "-");
+	   
+	  sb = new StringBuffer(sb.toString());
+	  sb.insert(18, "-");
+	   
+	  sb = new StringBuffer(sb.toString());
+	  sb.insert(23, "-");
+	   
+	  return sb.toString();
+	  }
+  
   private void retrieve() {
     try {
-      URL url = new URL("http://mcuuid.com/api/" + this.name);
+      URL url = new URL("https://api.mojang.com/users/profiles/minecraft/" + this.name);
       BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
       
       JSONParser parser = new JSONParser();
       JSONObject object = (JSONObject)parser.parse(reader);
-      String uid = (String)object.get("uuid_formatted");
-      this.uuid = UUID.fromString(uid);
+      String uid = (String)object.get("id");
+      this.uuid = UUID.fromString(insertDashUUID(uid));
       reader.close();
     } catch (Exception e) {
       e.printStackTrace();

@@ -1,13 +1,19 @@
 package uk.co.umbaska.HologramBased;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
@@ -30,23 +36,24 @@ public class Hologram
     private HologramTarget() {}
   }
   
-  private static int getId() { try { java.lang.reflect.Field field = Class.forName("net.minecraft.server." + org.bukkit.Bukkit.getServer().getClass().getName().split("\\.")[3] + ".Entity").getDeclaredField("entityCount");
+  private static int getId()
+  {
+    try
+    {
+      Field field = Class.forName("net.minecraft.server." + Bukkit.getServer().getClass().getName().split("\\.")[3] + ".Entity").getDeclaredField("entityCount");
       
-
       field.setAccessible(true);
       int id = field.getInt(null);
       field.set(null, Integer.valueOf(id + 1));
       return id;
-    } catch (Exception ex) {
+    }
+    catch (Exception ex)
+    {
       ex.printStackTrace();
     }
     return -1;
   }
   
-
-
-
-
   private ArrayList<Map.Entry<Integer, Integer>> entityIds = new ArrayList<>();
   protected Location entityLastLocation;
   private ArrayList<String> hologramPlayers = new ArrayList<>();
@@ -57,14 +64,14 @@ public class Hologram
   private String[] lines;
   private double lineSpacing = 1.0D;
   private Location location;
-  private org.bukkit.util.Vector moveVector;
+  private Vector moveVector;
   private boolean pitchControlsMoreThanY;
   private Entity relativeEntity;
   private Location relativeToEntity;
   private boolean setRelativePitch;
   private boolean setRelativeYaw;
   private int viewDistance = 100;
-  private java.util.List<Entity> holoItems = new ArrayList<>();
+  private List<Entity> holoItems = new ArrayList<>();
   
   public Hologram(Location location, String... lines)
   {
@@ -74,21 +81,11 @@ public class Hologram
     this.location = location.clone().add(0.0D, 54.6D, 0.0D);
   }
   
-
-
-
-
-
-
-
-
-
-
-
   public Hologram addPlayer(Player... players)
   {
     for (Player player : players) {
-      if (!this.hologramPlayers.contains(player.getName())) {
+      if (!this.hologramPlayers.contains(player.getName()))
+      {
         this.hologramPlayers.add(player.getName());
         if (isInUse()) {
           HologramCentral.addHologram(player, this);
@@ -98,40 +95,48 @@ public class Hologram
     return this;
   }
   
-  protected PacketContainer getDestroyPacket(Player player) {
+  protected PacketContainer getDestroyPacket(Player player)
+  {
     if (HologramCentral.is1_8(player)) {
       return this.destroyPacket1_8;
     }
     return this.destroyPacket1_7;
   }
   
-  public Entity getEntityFollowed() {
+  public Entity getEntityFollowed()
+  {
     return this.relativeEntity;
   }
   
-  protected ArrayList<Map.Entry<Integer, Integer>> getEntityIds() {
+  protected ArrayList<Map.Entry<Integer, Integer>> getEntityIds()
+  {
     return this.entityIds;
   }
   
-  public String[] getLines() {
+  public String[] getLines()
+  {
     return this.lines;
   }
   
-  public double getLineSpacing() {
+  public double getLineSpacing()
+  {
     return this.lineSpacing;
   }
   
-  public Location getLocation() {
+  public Location getLocation()
+  {
     return this.location.clone().subtract(0.0D, 54.6D, 0.0D);
   }
   
-  public org.bukkit.util.Vector getMovement() {
+  public Vector getMovement()
+  {
     return this.moveVector;
   }
   
-  private ArrayList<Player> getPlayers() {
+  private ArrayList<Player> getPlayers()
+  {
     ArrayList<Player> players = new ArrayList<>();
-    for (Player player : org.bukkit.Bukkit.getServer().getOnlinePlayers()) {
+    for (Player player : Bukkit.getServer().getOnlinePlayers()) {
       if (isVisible(player, player.getLocation())) {
         players.add(player);
       }
@@ -139,54 +144,66 @@ public class Hologram
     return players;
   }
   
-  public Location getRelativeToEntity() {
+  public Location getRelativeToEntity()
+  {
     return this.relativeToEntity;
   }
   
-  protected PacketContainer[] getSpawnPackets(Player player) {
+  protected PacketContainer[] getSpawnPackets(Player player)
+  {
     if (HologramCentral.is1_8(player)) {
       return this.displayPackets1_8;
     }
     return this.displayPackets1_7;
   }
   
-  public HologramTarget getTarget() {
+  public HologramTarget getTarget()
+  {
     return this.hologramTarget;
   }
   
-  public boolean hasPlayer(Player player) {
+  public boolean hasPlayer(Player player)
+  {
     return this.hologramPlayers.contains(player.getName());
   }
   
-  public boolean isInUse() {
+  public boolean isInUse()
+  {
     return HologramCentral.isInUse(this);
   }
   
-  public boolean isRelativePitch() {
+  public boolean isRelativePitch()
+  {
     return this.setRelativePitch;
   }
   
-  public boolean isRelativePitchControlMoreThanHeight() {
+  public boolean isRelativePitchControlMoreThanHeight()
+  {
     return this.pitchControlsMoreThanY;
   }
   
-  public boolean isRelativeYaw() {
+  public boolean isRelativeYaw()
+  {
     return this.setRelativeYaw;
   }
   
-  public boolean isRemovedOnEntityDeath() {
+  public boolean isRemovedOnEntityDeath()
+  {
     return this.keepAliveAfterEntityDies;
   }
   
-  public boolean isUsingArmorStand() {
+  public boolean isUsingArmorStand()
+  {
     return !this.isUsingWitherSkull;
   }
   
-  public boolean isUsingWitherSkull() {
+  public boolean isUsingWitherSkull()
+  {
     return this.isUsingWitherSkull;
   }
   
-  boolean isVisible(Player player, Location loc) {
+  boolean isVisible(Player player, Location loc)
+  {
     return ((getTarget() == HologramTarget.BLACKLIST) != hasPlayer(player)) && (loc.getWorld() == getLocation().getWorld()) && (loc.distance(getLocation()) <= this.viewDistance);
   }
   
@@ -195,7 +212,8 @@ public class Hologram
     int[] ids = new int[this.entityIds.size() * 2];
     int[] ids2 = new int[ids.length / 2];
     int i = 0;
-    for (Map.Entry<Integer, Integer> entry : this.entityIds) {
+    for (Map.Entry<Integer, Integer> entry : this.entityIds)
+    {
       ids2[(i / 2)] = ((Integer)entry.getKey()).intValue();
       ids[(i++)] = ((Integer)entry.getKey()).intValue();
       ids[(i++)] = ((Integer)entry.getValue()).intValue();
@@ -206,12 +224,14 @@ public class Hologram
     this.destroyPacket1_8.getIntegerArrays().write(0, ids2);
   }
   
-  private void makeDisplayPackets() {
+  private void makeDisplayPackets()
+  {
     Iterator<Map.Entry<Integer, Integer>> itel = this.entityIds.iterator();
     this.displayPackets1_7 = new PacketContainer[this.lines.length * 3];
     this.displayPackets1_8 = new PacketContainer[this.lines.length * (isUsingWitherSkull() ? 2 : 1)];
     int b = 0;
-    while (itel.hasNext()) {
+    while (itel.hasNext())
+    {
       Map.Entry<Integer, Integer> entry = itel.next();
       PacketContainer[] packets = makeSpawnPacket1_8(b, ((Integer)entry.getKey()).intValue(), this.lines[(this.lines.length - 1 - b)]);
       for (int a = 0; a < (isUsingWitherSkull() ? 2 : 1); a++) {
@@ -225,8 +245,10 @@ public class Hologram
     }
   }
   
-  private PacketContainer[] makeSpawnPacket1_8(int height, int witherId, String horseName) {
-    if (isUsingWitherSkull()) {
+  private PacketContainer[] makeSpawnPacket1_8(int height, int witherId, String horseName)
+  {
+    if (isUsingWitherSkull())
+    {
       PacketContainer[] packets = new PacketContainer[2];
       packets[0] = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY);
       StructureModifier<Integer> ints = packets[0].getIntegers();
@@ -297,17 +319,20 @@ public class Hologram
     return displayPackets;
   }
   
-  public Hologram moveHologram(Location location) {
+  public Hologram moveHologram(Location location)
+  {
     moveHologram(location, true);
     return this;
   }
   
-  public Hologram moveHologram(Location newLocation, boolean setNewRelativeLocation) {
+  public Hologram moveHologram(Location newLocation, boolean setNewRelativeLocation)
+  {
     ArrayList<Player> oldPlayers = getPlayers();
     Location loc = getLocation();
     this.location = newLocation.clone().add(0.0D, 54.6D, 0.0D);
-    if ((setNewRelativeLocation) && (getEntityFollowed() != null))
+    if ((setNewRelativeLocation) && (getEntityFollowed() != null)) {
       this.relativeToEntity = getLocation().subtract(getEntityFollowed().getLocation());
+    }
     PacketContainer[] packets1_7;
     PacketContainer[] packets1_8;
     if (isInUse())
@@ -315,21 +340,29 @@ public class Hologram
       makeDisplayPackets();
       ArrayList<Player> newPlayers = getPlayers();
       Iterator<Player> itel = oldPlayers.iterator();
-      
-      while (itel.hasNext()) {
+      while (itel.hasNext())
+      {
         Player p = (Player)itel.next();
-        if (!newPlayers.contains(p)) {
+        if (!newPlayers.contains(p))
+        {
           itel.remove();
-          try {
+          try
+          {
             ProtocolLibrary.getProtocolManager().sendServerPacket(p, getDestroyPacket(p), false);
-          } catch (InvocationTargetException e) {
+          }
+          catch (InvocationTargetException e)
+          {
             e.printStackTrace();
           }
         }
       }
       packets1_7 = null;
       packets1_8 = null;
-      int x; int z; int i; if (!oldPlayers.isEmpty()) {
+      int x;
+      int z;
+      int i;
+      if (!oldPlayers.isEmpty())
+      {
         this.lastMovement.add(this.location.getX() - loc.getX(), this.location.getY() - loc.getY(), this.location.getZ() - loc.getZ());
         x = (int)Math.floor(32.0D * this.lastMovement.getX());
         int y = (int)Math.floor(32.0D * this.lastMovement.getY());
@@ -337,9 +370,11 @@ public class Hologram
         packets1_7 = new PacketContainer[this.lines.length];
         packets1_8 = new PacketContainer[this.lines.length];
         i = 0;
-        if ((x >= -128) && (x < 128) && (y >= -128) && (y < 128) && (z >= -128) && (z < 128)) {
+        if ((x >= -128) && (x < 128) && (y >= -128) && (y < 128) && (z >= -128) && (z < 128))
+        {
           this.lastMovement.subtract(x / 32.0D, y / 32.0D, z / 32.0D);
-          for (Map.Entry<Integer, Integer> entityId : this.entityIds) {
+          for (Map.Entry<Integer, Integer> entityId : this.entityIds)
+          {
             packets1_7[i] = new PacketContainer(PacketType.Play.Server.REL_ENTITY_MOVE);
             packets1_7[i].getIntegers().write(0, entityId.getKey());
             StructureModifier<Byte> bytes = packets1_7[i].getBytes();
@@ -349,11 +384,14 @@ public class Hologram
             packets1_8[i] = packets1_7[i];
             i++;
           }
-        } else {
+        }
+        else
+        {
           x = (int)Math.floor(32.0D * this.location.getX());
           z = (int)Math.floor(32.0D * this.location.getZ());
           this.lastMovement = new Location(null, this.location.getX() - x / 32.0D, 0.0D, this.location.getZ() - z / 32.0D);
-          for (Map.Entry<Integer, Integer> entityId : this.entityIds) {
+          for (Map.Entry<Integer, Integer> entityId : this.entityIds)
+          {
             packets1_7[i] = new PacketContainer(PacketType.Play.Server.ENTITY_TELEPORT);
             StructureModifier<Integer> ints = packets1_7[i].getIntegers();
             ints.write(0, entityId.getKey());
@@ -368,12 +406,14 @@ public class Hologram
         }
       }
       for (Player p : newPlayers) {
-        try {
-          for (PacketContainer packet : oldPlayers.contains(p) ? packets1_7 : HologramCentral.is1_8(p) ? packets1_8 : getSpawnPackets(p))
-          {
+        try
+        {
+          for (PacketContainer packet : oldPlayers.contains(p) ? packets1_7 : HologramCentral.is1_8(p) ? packets1_8 : getSpawnPackets(p)) {
             ProtocolLibrary.getProtocolManager().sendServerPacket(p, packet, false);
           }
-        } catch (InvocationTargetException e) {
+        }
+        catch (InvocationTargetException e)
+        {
           e.printStackTrace();
         }
       }
@@ -381,14 +421,17 @@ public class Hologram
     return this;
   }
   
-  public Hologram remove() {
+  public Hologram remove()
+  {
     HologramCentral.removeHologram(this);
     return this;
   }
   
-  public Hologram removePlayer(Player... players) {
+  public Hologram removePlayer(Player... players)
+  {
     for (Player player : players) {
-      if (this.hologramPlayers.contains(player.getName())) {
+      if (this.hologramPlayers.contains(player.getName()))
+      {
         this.hologramPlayers.remove(player.getName());
         if (isInUse()) {
           HologramCentral.removeHologram(player, this);
@@ -398,12 +441,14 @@ public class Hologram
     return this;
   }
   
-  public Hologram setFollowEntity(Entity entity) {
+  public Hologram setFollowEntity(Entity entity)
+  {
     setFollowEntity(entity, true);
     return this;
   }
   
-  public Hologram setFollowEntity(Entity entity, boolean isRemoveOnEntityDeath) {
+  public Hologram setFollowEntity(Entity entity, boolean isRemoveOnEntityDeath)
+  {
     setFollowEntity(entity, isRemoveOnEntityDeath, false, false, false);
     return this;
   }
@@ -411,7 +456,8 @@ public class Hologram
   public Hologram setFollowEntity(Entity entity, boolean isRemoveOnEntityDeath, boolean setRelativeYaw, boolean setRelativePitch, boolean pitchControlsMoreThanY)
   {
     this.relativeEntity = entity;
-    if (entity != null) {
+    if (entity != null)
+    {
       this.keepAliveAfterEntityDies = isRemoveOnEntityDeath;
       this.relativeToEntity = getLocation().subtract(entity.getLocation());
       this.entityLastLocation = entity.getLocation();
@@ -430,18 +476,22 @@ public class Hologram
   
   public Hologram setLines(String... lines)
   {
-    if (!this.lines.equals(lines)) {
+    if (!this.lines.equals(lines))
+    {
       String[] oldLines = (String[])this.lines.clone();
       this.lines = lines;
       lines = (String[])lines.clone();
-      org.apache.commons.lang.ArrayUtils.reverse(lines);
-      org.apache.commons.lang.ArrayUtils.reverse(oldLines);
-      if (isInUse()) {
+      ArrayUtils.reverse(lines);
+      ArrayUtils.reverse(oldLines);
+      if (isInUse())
+      {
         int i = 0;
         ArrayList<Player> players = getPlayers();
         PacketContainer packet1_7;
-        PacketContainer packet1_8; for (; i < Math.min(this.entityIds.size(), lines.length); i++) {
-          if ((oldLines.length <= i) || (!oldLines[i].equals(lines[i]))) {
+        PacketContainer packet1_8;
+        for (; i < Math.min(this.entityIds.size(), lines.length); i++) {
+          if ((oldLines.length <= i) || (!oldLines[i].equals(lines[i])))
+          {
             Map.Entry<Integer, Integer> entry = this.entityIds.get(i);
             packet1_7 = new PacketContainer(PacketType.Play.Server.ENTITY_METADATA);
             packet1_7.getIntegers().write(0, entry.getValue());
@@ -460,21 +510,26 @@ public class Hologram
             list.add(new WrappedWatchableObject(3, Byte.valueOf((byte)1)));
             packet1_8.getWatchableCollectionModifier().write(0, list);
             for (Player p : players) {
-              try {
+              try
+              {
                 ProtocolLibrary.getProtocolManager().sendServerPacket(p, HologramCentral.is1_8(p) ? packet1_8 : packet1_7, false);
               }
-              catch (InvocationTargetException e) {
+              catch (InvocationTargetException e)
+              {
                 e.printStackTrace();
               }
             }
           }
         }
-        if (lines.length != this.entityIds.size()) { PacketContainer destroyPacket;
+        if (lines.length != this.entityIds.size())
+        {
+          PacketContainer destroyPacket;
           if (lines.length < this.entityIds.size())
           {
             int[] destroyIds = new int[(this.entityIds.size() - lines.length) * 2];
             int e = 0;
-            while (this.entityIds.size() > lines.length) {
+            while (this.entityIds.size() > lines.length)
+            {
               Map.Entry<Integer, Integer> entry = this.entityIds.remove(this.entityIds.size() - 1);
               destroyIds[(e++)] = ((Integer)entry.getKey()).intValue();
               destroyIds[(e++)] = ((Integer)entry.getValue()).intValue();
@@ -482,31 +537,42 @@ public class Hologram
             destroyPacket = new PacketContainer(PacketType.Play.Server.ENTITY_DESTROY);
             destroyPacket.getIntegerArrays().write(0, destroyIds);
             for (Player p : players) {
-              try {
+              try
+              {
                 ProtocolLibrary.getProtocolManager().sendServerPacket(p, destroyPacket, false);
               }
-              catch (InvocationTargetException b) {
+              catch (InvocationTargetException b)
+              {
                 b.printStackTrace();
               }
             }
-          } else if (lines.length > this.entityIds.size()) { PacketContainer[] packets1_7;
-            PacketContainer[] packet1_81; for (; i < lines.length; i++) {
-              Map.Entry<Integer, Integer> entry = new java.util.AbstractMap.SimpleEntry<Integer, Integer>(Integer.valueOf(getId()), Integer.valueOf(getId()));
+          }
+          else if (lines.length > this.entityIds.size())
+          {
+            PacketContainer[] packets1_7;
+            PacketContainer[] packets1_8;
+            for (; i < lines.length; i++)
+            {
+			Map.Entry<Integer, Integer> entry = new AbstractMap.SimpleEntry<>(Integer.valueOf(getId()), Integer.valueOf(getId()));
               this.entityIds.add(entry);
               
               packets1_7 = makeSpawnPackets1_7(i, ((Integer)entry.getKey()).intValue(), ((Integer)entry.getValue()).intValue(), lines[i]);
-              packet1_81 = makeSpawnPacket1_8(i, ((Integer)entry.getKey()).intValue(), lines[i]);
+              packets1_8 = makeSpawnPacket1_8(i, ((Integer)entry.getKey()).intValue(), lines[i]);
               for (Player p : players) {
-                try {
+                try
+                {
                   if (HologramCentral.is1_8(p)) {
-                    for (PacketContainer packet : packet1_81) {
+                    for (PacketContainer packet : packets1_8) {
                       ProtocolLibrary.getProtocolManager().sendServerPacket(p, packet, false);
                     }
                   } else {
-                    for (PacketContainer packet : packets1_7)
+                    for (PacketContainer packet : packets1_7) {
                       ProtocolLibrary.getProtocolManager().sendServerPacket(p, packet, false);
+                    }
                   }
-                } catch (InvocationTargetException e) {
+                }
+                catch (InvocationTargetException e)
+                {
                   e.printStackTrace();
                 }
               }
@@ -515,25 +581,29 @@ public class Hologram
           makeDestroyPacket();
         }
         makeDisplayPackets();
-      } else {
+      }
+      else
+      {
         if (lines.length < this.entityIds.size()) {
           while (this.entityIds.size() > lines.length) {
             this.entityIds.remove(this.entityIds.size() - 1);
           }
         }
-        for (int i = this.entityIds.size(); i < lines.length; i++) {
-          Map.Entry<Integer, Integer> entry = new java.util.AbstractMap.SimpleEntry<Integer, Integer>(Integer.valueOf(getId()), Integer.valueOf(getId()));
+        for (int i = this.entityIds.size(); i < lines.length; i++)
+        {
+		Map.Entry<Integer, Integer> entry = new AbstractMap.SimpleEntry<>(Integer.valueOf(getId()), Integer.valueOf(getId()));
           this.entityIds.add(entry);
         }
       }
     }
-    
     return this;
   }
   
-  public Hologram setLineSpacing(double newLineSpacing) {
+  public Hologram setLineSpacing(double newLineSpacing)
+  {
     this.lineSpacing = newLineSpacing;
-    if (isInUse()) {
+    if (isInUse())
+    {
       makeDisplayPackets();
       HologramCentral.removeHologram(this);
       HologramCentral.addHologram(this);
@@ -541,30 +611,37 @@ public class Hologram
     return this;
   }
   
-  public Hologram setMovement(org.bukkit.util.Vector vector) {
+  public Hologram setMovement(Vector vector)
+  {
     this.moveVector = vector;
     return this;
   }
   
-  public Hologram setRadius(int viewDistance) {
+  public Hologram setRadius(int viewDistance)
+  {
     assert (viewDistance > 0) : ("Why the hell are you setting the view distance to " + viewDistance + "?!?!");
     this.viewDistance = viewDistance;
-    if (isInUse()) {
+    if (isInUse())
+    {
       HologramCentral.removeHologram(this);
       HologramCentral.addHologram(this);
     }
     return this;
   }
   
-  public Hologram setRelativeToEntity(Location location) {
+  public Hologram setRelativeToEntity(Location location)
+  {
     this.relativeToEntity = location;
     return this;
   }
   
-  public Hologram setTarget(HologramTarget target) {
-    if (target != getTarget()) {
+  public Hologram setTarget(HologramTarget target)
+  {
+    if (target != getTarget())
+    {
       this.hologramTarget = target;
-      if (isInUse()) {
+      if (isInUse())
+      {
         HologramCentral.removeHologram(this);
         HologramCentral.addHologram(this);
       }
@@ -572,14 +649,16 @@ public class Hologram
     return this;
   }
   
-  public Hologram setUsingArmorStand() {
+  public Hologram setUsingArmorStand()
+  {
     this.isUsingWitherSkull = true;
     makeDisplayPackets();
     
     return this;
   }
   
-  public Hologram setUsingWitherSkull() {
+  public Hologram setUsingWitherSkull()
+  {
     this.isUsingWitherSkull = false;
     makeDisplayPackets();
     
@@ -588,10 +667,12 @@ public class Hologram
   
   public Hologram start()
   {
-    if (!isInUse()) {
-      for (int i = this.entityIds.size(); i < this.lines.length; i++) {
+    if (!isInUse())
+    {
+      for (int i = this.entityIds.size(); i < this.lines.length; i++)
+      {
         int entityId = getId();
-        this.entityIds.add(new java.util.AbstractMap.SimpleEntry<Integer, Integer>(Integer.valueOf(getId()), Integer.valueOf(entityId)));
+        this.entityIds.add(new AbstractMap.SimpleEntry<>(Integer.valueOf(getId()), Integer.valueOf(entityId)));
       }
       makeDestroyPacket();
       makeDisplayPackets();
@@ -600,37 +681,16 @@ public class Hologram
     return this;
   }
   
-  public Hologram stop() {
+  public Hologram stop()
+  {
     return remove();
   }
 
-
-
-
-
-
-
-
-
-
-
-
-public java.util.List<Entity> getHoloItems() {
+public List<Entity> getHoloItems() {
 	return holoItems;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-public void setHoloItems(java.util.List<Entity> holoItems) {
+public void setHoloItems(List<Entity> holoItems) {
 	this.holoItems = holoItems;
 }
 }
