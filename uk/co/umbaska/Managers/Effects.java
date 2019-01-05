@@ -14,6 +14,7 @@ import uk.co.umbaska.Attributes.EffAddAttributeModifer;
 import uk.co.umbaska.BossBars.EffAddPlayerToBossBar;
 import uk.co.umbaska.BossBars.EffRemoveAllPlayersFromBar;
 import uk.co.umbaska.BossBars.EffRemovePlayerFromBossBar;
+import uk.co.umbaska.Bungee.EffBungeeBroadcast;
 import uk.co.umbaska.Bungee.EffSendBungeeMsg;
 import uk.co.umbaska.Dynmap.EffSetVisOfPlayer;
 import uk.co.umbaska.Factions.EffClaimLand;
@@ -33,6 +34,8 @@ import uk.co.umbaska.HologramBased.EffCreateFollowGram;
 import uk.co.umbaska.HologramBased.EffDeleteHolo;
 import uk.co.umbaska.HologramBased.EffHoloFollow;
 import uk.co.umbaska.HologramBased.EffHoloStart;
+import uk.co.umbaska.Misc.EffOpenInventory;
+import uk.co.umbaska.Misc.EffOpenInventoryClose;
 import uk.co.umbaska.Misc.EffSetCommandBlockInfo;
 import uk.co.umbaska.Misc.JukeboxAPI.EffPlaySong;
 import uk.co.umbaska.Misc.NotVersionAffected.EffCopyDir;
@@ -44,6 +47,9 @@ import uk.co.umbaska.NametagEdit.EffSetSuffix;
 import uk.co.umbaska.ProtocolLib.EffHideEntity;
 import uk.co.umbaska.ProtocolLib.EffToggleVisibility;
 import uk.co.umbaska.ProtocolLib.EntityHider;
+import uk.co.umbaska.ProtocolLib.Disguises.EffDisguiseAsEntity;
+import uk.co.umbaska.ProtocolLib.Disguises.EffDisguiseAsPlayer;
+import uk.co.umbaska.ProtocolLib.Disguises.EffUndisguise;
 import uk.co.umbaska.ProtocolLib.FakePlayer.EffSetSkin;
 import uk.co.umbaska.Replacers.EffBukkitEffectAll;
 import uk.co.umbaska.Replacers.EffParticleAll;
@@ -69,13 +75,13 @@ public class Effects
   
   private static String version = Register.getVersion();
   
-  @SuppressWarnings("rawtypes")
+  @SuppressWarnings({ "rawtypes", "unused" })
 private static void registerNewEffect(String name, String cls, String syntax, Boolean multiversion) {
     if (Skript.isAcceptRegistrations()) {
       if (multiversion.booleanValue()) {
         Class newCls = Register.getClass(cls);
         if (newCls == null) {
-          Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Effect for " + name + " due to Can't find Class!");
+          Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + name + " due to Can't find Class!");
           return;
         }
         registerNewEffect(name, newCls, syntax);
@@ -84,12 +90,12 @@ private static void registerNewEffect(String name, String cls, String syntax, Bo
         try {
           registerNewEffect(name, Class.forName(cls), syntax);
         } catch (ClassNotFoundException e) {
-          Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Effect for " + name + " due to Wrong Spigot/Bukkit Version!");
+          Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + name + " due to Wrong Spigot/Bukkit Version!");
         }
       }
     }
     else {
-      Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Effect for " + name + " due to Skript Not Accepting Registrations");
+      Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + name + " due to Skript Not Accepting Registrations");
     }
   }
   
@@ -99,11 +105,11 @@ private static void registerNewEffect(String name, Class cls, String[] syntax) {
       Skript.registerEffect(cls, syntax);
       
       if (debugInfo.booleanValue()) {
-        Bukkit.getLogger().info("Umbaska Â»Â»Â» Registered Effect for " + name + " with syntax \n" + syntax);
+        Bukkit.getLogger().info("Umbaska »»» Registered Effect for " + name + " with syntax \n" + syntax);
       }
     }
     else {
-      Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Effect for " + name + " due to Skript Not Accepting Registrations");
+      Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + name + " due to Skript Not Accepting Registrations");
     }
     List<String> expressions = (List)Register.effectList.get(name);
     if (expressions == null) {
@@ -121,11 +127,11 @@ private static void registerNewEffect(String name, Class cls, String syntax) {
       registerNewEffect(cls, syntax);
       
       if (debugInfo.booleanValue()) {
-        Bukkit.getLogger().info("Umbaska Â»Â»Â» Registered Effect for " + name + " with syntax \n" + syntax);
+        Bukkit.getLogger().info("Umbaska »»» Registered Effect for " + name + " with syntax \n" + syntax);
       }
     }
     else {
-      Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Effect for " + name + " due to Skript Not Accepting Registrations");
+      Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + name + " due to Skript Not Accepting Registrations");
     }
     List<String> expressions = Register.effectList.get(name);
     if (expressions == null) {
@@ -141,11 +147,11 @@ private static void registerNewEffect(String name, Class cls, String syntax) {
     if (Skript.isAcceptRegistrations()) {
       Skript.registerEffect(cls, new String[] { syntax });
       if (debugInfo.booleanValue()) {
-        Bukkit.getLogger().info("Umbaska Â»Â»Â» Registered Effect for " + cls.getName() + " with syntax\n " + syntax);
+        Bukkit.getLogger().info("Umbaska »»» Registered Effect for " + cls.getName() + " with syntax\n " + syntax);
       }
     }
     else {
-      Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Effect for " + cls.getName() + " due to Skript Not Accepting Registrations");
+      Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + cls.getName() + " due to Skript Not Accepting Registrations");
     }
   }
   
@@ -248,9 +254,9 @@ private static void registerNewEffect(String name, Class cls, String syntax) {
       Skript.registerExpression(uk.co.umbaska.ProtocolLib.ExprCanSee.class, Boolean.class, ch.njol.skript.lang.ExpressionType.PROPERTY, new String[] { "visibility of %entity% for %player%" });
       
 
-      registerNewEffect("Disguise", "ProtocolLib.Disguises.EffDisguiseAsEntity", "disguise %entity% as %entitydisguise% [with custom name %-string%]", Boolean.valueOf(true));
-      registerNewEffect("Disguise", "ProtocolLib.Disguises.EffDisguiseAsPlayer", "disguise %entity% as player %string%", Boolean.valueOf(true));
-      registerNewEffect("Undisguise", "ProtocolLib.Disguises.EffUndisguise", "undisguise %entity%", Boolean.valueOf(true));
+      registerNewEffect("Disguise", EffDisguiseAsEntity.class, "disguise %entity% as %entitydisguise% [with custom name %-string%]");
+      registerNewEffect("Disguise", EffDisguiseAsPlayer.class, "disguise %entity% as player %string%");
+      registerNewEffect("Undisguise", EffUndisguise.class, "undisguise %entity%");
     }
     
 
@@ -367,8 +373,8 @@ private static void registerNewEffect(String name, Class cls, String syntax) {
     registerNewEffect("Scoreboard - Set Team Prefix", uk.co.umbaska.GattSk.Effects.EffSetTeamPrefix.class, "set (suffix|prefix) for team %string% in [score][board] %string% to %string%");
     registerNewEffect("Scoreboard - Set Friendly Fire", EffSetTeamFF.class, "set friendly fire for team %string% in [score][board] %string% to %boolean%");
     registerNewEffect("Scoreboard - See Friendly Invisibles", uk.co.umbaska.GattSk.Effects.EffSetTeamSeeInvis.class, "set see friendly invisibles for team %string% in [score][board] %string% to %boolean%");
-    registerNewEffect("Open Inventory", "Misc.EffOpenInventory", "open %umbaskainv% [named %-string%] to %player%", Boolean.valueOf(true));
-    registerNewEffect("Open Inventory", "Misc.EffOpenInventoryClose", "open %umbaskainv% [named %-string%] to %player% (that closes|to close)", Boolean.valueOf(true));
+    registerNewEffect("Open Inventory", EffOpenInventory.class, "open %umbaskainv% [named %-string%] to %player%");
+    registerNewEffect("Open Inventory", EffOpenInventoryClose.class, "open %umbaskainv% [named %-string%] to %player% (that closes|to close)");
     registerNewEffect("Open Inventory", uk.co.umbaska.Misc.NotVersionAffected.EffOpenInventoryRows.class, "open %umbaskainv% [named %-string%] with %integer% rows to %player%");
     
 
@@ -410,7 +416,7 @@ private static void registerNewEffect(String name, Class cls, String syntax) {
     
     registerNewEffect("Create Following Hologram", EffCreateFollowGram.class, "create [a ]new following holo[gram] (to|that) follow[s] %entity% with [text] %strings%");
     
-    registerNewEffect("Set Hologram Type", uk.co.umbaska.HologramBased.EffSetHoloType.class, "set holo[gram] type to (0Â¦wither skull[s]|1Â¦armor stand[s])");
+    registerNewEffect("Set Hologram Type", uk.co.umbaska.HologramBased.EffSetHoloType.class, "set holo[gram] type to (0¦wither skull[s]|1¦armor stand[s])");
     
     registerNewEffect("Break Block", uk.co.umbaska.Misc.NotVersionAffected.EffPlayerBreak.class, "make %player% break [block] at %location%");
     registerNewEffect("Break Block w/ Tool", uk.co.umbaska.Misc.NotVersionAffected.EffPlayerBreakTool.class, "make %player% break [block] at %location% using [tool] %itemstack%");
@@ -449,7 +455,7 @@ private static void registerNewEffect(String name, Class cls, String syntax) {
     
     registerNewEffect("Title", uk.co.umbaska.Misc.EffSendTitle.class, "send [a ]title from %string% and %string% to %players% for %number%, %number%, %number%");
     registerNewEffect("Action Bar", uk.co.umbaska.Misc.EffActionBar.class, "send [a ]action bar from %string% to %players%");
-    registerNewEffect("Set Tab Footer and Header", uk.co.umbaska.Misc.EffTabList.class, "(send|set) [advanced ](0Â¦footer|1Â¦header) to %string% (to|for) %players%");
+    registerNewEffect("Set Tab Footer and Header", uk.co.umbaska.Misc.EffTabList.class, "(send|set) [advanced ]header %string% (and|with) footer %string% (to|for) %players%");
     Main.getInstance().getLogger().info("It appears you might be using a 1.8 Build! I'm going to attempt to register some things related to it :)");
     registerNewEffect("Spawn Armor Stand", uk.co.umbaska.ArmourStands.EffSpawnArmorStand.class, "[umbaska] spawn [a][n] (armour|armor) stand at %locations%");
     registerNewEffect("Trail Entity", uk.co.umbaska.Misc.EffTrailEntity.class, "[umbaska] trail %entities% with [%number% of ]%particleenum%[:%number%] [[ with] data %number%] [[(with|and)] secondary data %number%]");
@@ -476,7 +482,7 @@ private static void registerNewEffect(String name, Class cls, String syntax) {
       registerNewEffect("Change Server", uk.co.umbaska.Bungee.EffChangeServer.class, "send %player% to [server] %string%");
       registerNewEffect("Bungee Kick Player", uk.co.umbaska.Bungee.EffKickBungeePlayer.class, "bungee[ ][cord] kick %string% (due to|for) [reason] %string%");
       registerNewEffect("Bungee Message", EffSendBungeeMsg.class, "bungee[ ][cord] (send|tell|message) %string% to %string%");
-      registerNewEffect("Bungee Broadcast / Alert", EffSendBungeeMsg.class, "bungee[ ][cord] (broadcast|[send ]alert)%string%");
+      registerNewEffect("Bungee Broadcast / Alert", EffBungeeBroadcast.class, "bungee[ ][cord] (broadcast|[send ]alert)%string%");
     }
     
 

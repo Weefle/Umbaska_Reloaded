@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 
 import org.bukkit.Bukkit;
 import org.bukkit.EntityEffect;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -15,7 +14,6 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
-import org.bukkit.event.inventory.ClickType;
 import org.bukkit.plugin.PluginBase;
 
 import com.gmail.nossr50.datatypes.party.Party;
@@ -112,9 +110,9 @@ public static void runRegister() {
     registerEnum(EntityDisguise.class, "entitydisguise");
     registerEnum(Operation.class, "nbtoperation");
     registerEnum(ArmourEquipEvent.EquipMethod.class, "equipmethod");
-    registerEnum(ClickType.class, "clicktype");
+   // registerEnum(ClickType.class, "clicktype");
     registerEnum(EntityEffect.class, "entityeffect");
-    EnumClassInfo.create(Material.class, "material").after(new String[] { "block" }).register();
+   // EnumClassInfo.create(Material.class, "material").after(new String[] { "block" }).register();
     
 
     registerEnum(AttributeModifier.class, "attributemodifier");

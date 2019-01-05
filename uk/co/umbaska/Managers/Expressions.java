@@ -56,6 +56,7 @@ import uk.co.umbaska.Misc.UM2_0.ExprBlockSkullOwner;
 import uk.co.umbaska.Misc.UM2_0.ExprClosestEntity;
 import uk.co.umbaska.NametagEdit.ExprGetPrefix;
 import uk.co.umbaska.PlaceHolderAPI.EffParse;
+import uk.co.umbaska.ProtocolLib.FakePlayer.ExprGetPlayer;
 import uk.co.umbaska.System.ExprGetFile;
 import uk.co.umbaska.System.ExprGetLine;
 import uk.co.umbaska.System.ExprPing;
@@ -121,7 +122,7 @@ private static void registerNewSimpleExpression(String name, Class cls, Class re
     Register.simpleexpressionList.put(name, expressions);
   }
   
-  @SuppressWarnings("rawtypes")
+  @SuppressWarnings({ "rawtypes", "unused" })
 private static void registerNewExpression(String name, String cls, Class returnType, ExpressionType expressionType, String syntax, Boolean multiversion) {
     if (Skript.isAcceptRegistrations()) {
       if (multiversion.booleanValue()) {
@@ -560,7 +561,7 @@ private static void registerNewExpression(Class cls, Class returnType, Expressio
     }
     
 
-    registerNewExpression("Get Player from Fake Player", "ProtocolLib.FakePlayer.ExprGetPlayer", Player.class, ExpressionType.SIMPLE, "player from fake player %string%", Boolean.valueOf(true));
+    registerNewExpression("Get Player from Fake Player", ExprGetPlayer.class, Player.class, ExpressionType.SIMPLE, "player from fake player %string%");
     
 
 

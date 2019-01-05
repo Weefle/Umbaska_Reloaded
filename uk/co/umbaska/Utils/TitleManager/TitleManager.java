@@ -10,7 +10,7 @@ import net.minecraft.server.v1_9_R1.PlayerConnection;
 
 public class TitleManager implements org.bukkit.event.Listener
 {
-  public static Class<?> nmsChatSerializer = Reflection.getNMSClass("ChatSerializer");
+ // public static Class<?> nmsChatSerializer = Reflection.getNMSClass("ChatSerializer");
   public static int VERSION = 47;
   public static IChatBaseComponent newfooter;
   public static IChatBaseComponent newheader;

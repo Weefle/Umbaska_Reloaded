@@ -1,14 +1,17 @@
 package uk.co.umbaska.Utils.TitleManager;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class Reflection
 {
   public static String getVersion()
   {
-    String name = org.bukkit.Bukkit.getServer().getClass().getPackage().getName();
-    String version = name.substring(name.lastIndexOf('.') + 1) + ".";
+	  String version = Bukkit.getServer ( ).getClass ( ).getPackage ( ).getName ( ).replace ( ".", "," ).split ( "," )[ 3 ] + ".";
     return version;
   }
   
@@ -63,6 +66,15 @@ public class Reflection
     }
     return null;
   }
+  
+  public static  Object getConnection ( Player player ) throws NoSuchMethodException, SecurityException, NoSuchFieldException, IllegalAccessException, IllegalArgumentException, InvocationTargetException
+	{
+	    Method getHandle = player.getClass ( ).getMethod ( "getHandle" );
+	    Object nmsPlayer = getHandle.invoke ( player );
+	    Field conField = nmsPlayer.getClass ( ).getField ( "playerConnection" );
+	    Object con = conField.get ( nmsPlayer );
+	    return con;
+	}
   
   public static boolean ClassListEqual(Class<?>[] l1, Class<?>[] l2) {
     boolean equal = true;
