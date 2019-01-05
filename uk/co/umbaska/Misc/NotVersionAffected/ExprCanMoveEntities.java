@@ -1,12 +1,11 @@
 package uk.co.umbaska.Misc.NotVersionAffected;
 
-import ch.njol.skript.classes.Changer.ChangeMode;
-import ch.njol.skript.expressions.base.SimplePropertyExpression;
-import ch.njol.skript.lang.Expression;
-import ch.njol.util.coll.CollectionUtils;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.Player.Spigot;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.classes.Changer;
+import ch.njol.skript.expressions.base.SimplePropertyExpression;
+import ch.njol.util.coll.CollectionUtils;
 
 public class ExprCanMoveEntities extends SimplePropertyExpression<Player, Boolean>
 {

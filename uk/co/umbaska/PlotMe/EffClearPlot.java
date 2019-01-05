@@ -1,10 +1,13 @@
 package uk.co.umbaska.PlotMe;
 
-import org.bukkit.Location;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.event.Event;
 
-import com.intellectualcrafters.plot.object.PlotManager;
+import com.worldcretornica.plotme_core.ClearReason;
+import com.worldcretornica.plotme_core.PlotMeCoreManager;
+import com.worldcretornica.plotme_core.api.ICommandSender;
+import com.worldcretornica.plotme_core.api.IWorld;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
@@ -40,10 +43,9 @@ public class EffClearPlot
     if (w == null) {
       return;
     }
-    if (PlotManager.isValidId(pl)) {
-      Location b = PlotManager.getPlotBottomLoc(w, pl);
-      Location t = PlotManager.getPlotTopLoc(w, pl);
-      PlotManager.clear(b, t);
+    if (PlotMeCoreManager.getInstance().isValidId((IWorld) w, pl)) {
+      ICommandSender sender = (ICommandSender) Bukkit.getOnlinePlayers();
+      PlotMeCoreManager.getInstance().clear((IWorld) w, PlotMeCoreManager.getInstance().getPlotById(pl, pl), sender, ClearReason.Clear);
     }
   }
   

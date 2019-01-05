@@ -1,14 +1,17 @@
 package uk.co.umbaska.Misc.NotVersionAffected;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
 import java.util.Scanner;
+
 import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 
 
 
@@ -34,10 +37,11 @@ public class ExprGetJSONString
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.input = args[0];
-    this.string = args[1];
+    this.input = (Expression<String>) args[0];
+    this.string = (Expression<String>) args[1];
     return true;
   }
   

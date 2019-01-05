@@ -6,7 +6,8 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.event.Event;
 
-import com.intellectualcrafters.plot.object.PlotManager;
+import com.worldcretornica.plotme_core.PlotMeCoreManager;
+import com.worldcretornica.plotme_core.api.IWorld;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
@@ -68,10 +69,10 @@ public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.
       return null;
     }
     
-    if (!PlotManager.isValidId(plot)) {
+    if (!PlotMeCoreManager.getInstance().isValidId((IWorld) w, plot)) {
       return new Location[] { null };
     }
-    Location out = PlotManager.getPlotTopLoc(w, plot);
+    Location out = (Location) PlotMeCoreManager.getInstance().getPlotTopLoc((IWorld) w, plot);
     return new Location[] { out };
   }
 }

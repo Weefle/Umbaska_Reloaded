@@ -1,12 +1,14 @@
 package uk.co.umbaska.Misc.NotVersionAffected;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
+
 import org.bukkit.entity.Entity;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 
 
 
@@ -27,9 +29,10 @@ public class ExprFallDistance
   }
   
 
-  public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean kl, SkriptParser.ParseResult pr)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean kl, SkriptParser.ParseResult pr)
   {
-    this.ent = expr[0];
+    this.ent = (Expression<Entity>) expr[0];
     return true;
   }
   

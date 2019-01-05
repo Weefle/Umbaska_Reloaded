@@ -1,13 +1,13 @@
 package uk.co.umbaska.Misc.UM2_0;
 
-import ch.njol.skript.classes.Changer.ChangeMode;
-import ch.njol.skript.expressions.base.SimplePropertyExpression;
-import ch.njol.skript.lang.Expression;
-import ch.njol.util.coll.CollectionUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Zombie;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.classes.Changer;
+import ch.njol.skript.expressions.base.SimplePropertyExpression;
+import ch.njol.util.coll.CollectionUtils;
 
 public class ExprZombieVillager
   extends SimplePropertyExpression<Entity, Boolean>
@@ -19,7 +19,8 @@ public class ExprZombieVillager
     return Boolean.valueOf(((Zombie)ent).isVillager());
   }
   
-  public void change(Event e, Object[] delta, Changer.ChangeMode mode)
+  @SuppressWarnings("deprecation")
+public void change(Event e, Object[] delta, Changer.ChangeMode mode)
   {
     Entity ent = (Entity)getExpr().getSingle(e);
     if (ent == null)

@@ -1,10 +1,12 @@
 package uk.co.umbaska.PlotMe;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
-import com.intellectualcrafters.plot.object.Plot;
-import com.intellectualcrafters.plot.object.PlotManager;
+import com.worldcretornica.plotme_core.Plot;
+import com.worldcretornica.plotme_core.PlotMeCoreManager;
+import com.worldcretornica.plotme_core.api.IWorld;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
@@ -35,16 +37,16 @@ public class EffUnDeny
 
 
     String pl = (String)this.plot.getSingle(event);
-    String p = ((Player)this.player.getSingle(event)).toString();
+    Player p = ((Player)this.player.getSingle(event));
     if (pl == null)
       return;
     if (p == null) {
       return;
     }
-    if (PlotManager.isValidId(pl)) {
-      Plot plot = PlotManager.getPlotById(pl, pl);
-      plot.removeDenied(p);
-      plot.addAllowed(p);
+    if (PlotMeCoreManager.getInstance().isValidId((IWorld) Bukkit.getWorld(PlotMeCoreManager.getInstance().getPlotById(pl, pl).getWorld()), pl)) {
+      Plot plot = PlotMeCoreManager.getInstance().getPlotById(pl, pl);
+      plot.removeDenied(p.getUniqueId());
+      plot.addAllowed(p.getUniqueId());
     }
   }
   

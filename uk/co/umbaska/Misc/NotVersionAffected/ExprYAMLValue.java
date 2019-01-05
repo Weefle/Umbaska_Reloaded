@@ -1,11 +1,16 @@
 package uk.co.umbaska.Misc.NotVersionAffected;
 
+import java.io.BufferedReader;
+import java.io.Reader;
+
+import javax.annotation.Nullable;
+
+import org.bukkit.event.Event;
+
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import javax.annotation.Nullable;
-import org.bukkit.event.Event;
 import uk.co.umbaska.Managers.YAMLManager;
 
 
@@ -30,10 +35,11 @@ public class ExprYAMLValue
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.file = args[0];
-    this.path = args[1];
+    this.file = (Expression<String>) args[0];
+    this.path = (Expression<String>) args[1];
     return true;
   }
   
@@ -49,6 +55,7 @@ public class ExprYAMLValue
     String f = (String)this.file.getSingle(arg0);
     String p = (String)this.path.getSingle(arg0);
     YAMLManager yaml = new YAMLManager();
+    BufferedReader buf = new BufferedReader((Reader) yaml.getSingleYAML(f, p));
     
 
 
@@ -58,6 +65,6 @@ public class ExprYAMLValue
 
 
 
-    return new Object[] { null };
+    return new Object[] { buf.lines() };
   }
 }

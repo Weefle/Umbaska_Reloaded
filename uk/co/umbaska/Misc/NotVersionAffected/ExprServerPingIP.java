@@ -1,14 +1,15 @@
 package uk.co.umbaska.Misc.NotVersionAffected;
 
-import ch.njol.skript.ScriptLoader;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
-import java.net.InetAddress;
 import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 import org.bukkit.event.server.ServerListPingEvent;
+
+import ch.njol.skript.ScriptLoader;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.GattSk.Extras.Collect;
 
 

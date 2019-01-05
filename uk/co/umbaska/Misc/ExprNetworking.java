@@ -1,16 +1,10 @@
 package uk.co.umbaska.Misc;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
-import java.io.PrintStream;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.util.HashMap;
+
 import javax.annotation.Nullable;
+
 import org.bukkit.Bukkit;
-import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -18,6 +12,11 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.util.CachedServerIcon;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.Main;
 
 
@@ -44,11 +43,12 @@ public class ExprNetworking
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
     this.matchType = Integer.valueOf(arg1);
     if ((arg1 > 9) && (arg1 < 16)) {
-      this.player = args[0];
+      this.player = (Expression<Player>) args[0];
     }
     return true;
   }

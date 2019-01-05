@@ -1,11 +1,12 @@
 package uk.co.umbaska.Misc.NotVersionAffected;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.GattSk.Extras.Collect;
 
 
@@ -41,10 +42,11 @@ public class EffCentredTextSize
     return ((String)this.msg.getSingle(event)).toString();
   }
   
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.msg = expressions[0];
-    this.size = expressions[1];
+    this.msg = (Expression<String>) expressions[0];
+    this.size = (Expression<Integer>) expressions[1];
     return true;
   }
 }

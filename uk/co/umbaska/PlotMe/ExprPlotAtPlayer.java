@@ -5,7 +5,8 @@ import javax.annotation.Nullable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
-import com.intellectualcrafters.plot.object.PlotManager;
+import com.worldcretornica.plotme_core.PlotMeCoreManager;
+import com.worldcretornica.plotme_core.api.IPlayer;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
@@ -64,7 +65,7 @@ public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.
       return null;
     }
     
-    String plot = PlotManager.getPlotId(player);
+    String plot = PlotMeCoreManager.getInstance().getPlotId((IPlayer)player);
     
     return new String[] { plot };
   }

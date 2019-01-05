@@ -1,14 +1,15 @@
 package uk.co.umbaska.Misc.NotVersionAffected;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 
@@ -58,12 +59,13 @@ public class EffOpenInventoryRows
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.types = expressions[0];
-    this.name = expressions[1];
-    this.rows = expressions[2];
-    this.player = expressions[3];
+    this.types = (Expression<InventoryType>) expressions[0];
+    this.name = (Expression<String>) expressions[1];
+    this.rows = (Expression<Integer>) expressions[2];
+    this.player = (Expression<Player>) expressions[3];
     return true;
   }
 }

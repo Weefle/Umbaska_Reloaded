@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 
 import javax.annotation.Nullable;
 
-import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -52,7 +51,6 @@ public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParse
     Player[] playerlist = (Player[])this.Players.getAll(event);
     String format = this.format.toString(event, true);
     for (Player p : playerlist) {
-		Bukkit.broadcastMessage("Footer = " + type.toString());
 		if (this.footer == false) {
 			PlayerConnection connection = ((CraftPlayer)p).getHandle().playerConnection;
 			IChatBaseComponent tabTitle = ChatSerializer.a(TitleManager.newheader.toString());
@@ -71,7 +69,6 @@ public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParse
 			{
 				connection.sendPacket(headerPacket);
 			}
-			Bukkit.broadcastMessage("Footer");
 		}
 		if (this.footer == true) {
             TitleManager.newheader = ChatSerializer.a(format);
@@ -96,7 +93,6 @@ public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParse
 			{
 				connection.sendPacket(headerPacket);
 			}
-			Bukkit.broadcastMessage("Header");
 		}
 	}
   }

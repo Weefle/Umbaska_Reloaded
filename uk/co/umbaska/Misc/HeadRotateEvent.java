@@ -1,8 +1,6 @@
 package uk.co.umbaska.Misc;
 
-import org.bukkit.Location;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.plugin.PluginManager;
 
 public class HeadRotateEvent implements org.bukkit.event.Listener
 {

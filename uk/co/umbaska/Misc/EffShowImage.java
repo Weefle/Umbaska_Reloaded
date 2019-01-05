@@ -1,11 +1,12 @@
 package uk.co.umbaska.Misc;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.ImageManager.ImgInChat;
 
 
@@ -46,12 +47,13 @@ public class EffShowImage
   
 
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
     this.matchType = Integer.valueOf(i);
-    this.player = expressions[0];
-    this.file = expressions[1];
-    this.textdata = expressions[2];
+    this.player = (Expression<Player>) expressions[0];
+    this.file = (Expression<String>) expressions[1];
+    this.textdata = (Expression<String>) expressions[2];
     if (expressions[3] == null) {}
     
 

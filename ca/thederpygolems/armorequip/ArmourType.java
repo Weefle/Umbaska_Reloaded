@@ -50,6 +50,8 @@ public enum ArmourType
     case CHAINMAIL_BOOTS: 
     case LEATHER_BOOTS: 
       return BOOTS;
+	default:
+		break;
     }
     return null;
   }

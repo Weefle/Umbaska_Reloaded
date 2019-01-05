@@ -1,10 +1,10 @@
 package uk.co.umbaska.ParticleProjectiles.Expressions;
 
-import ch.njol.skript.classes.Changer.ChangeMode;
+import org.bukkit.event.Event;
+
+import ch.njol.skript.classes.Changer;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.util.coll.CollectionUtils;
-import java.util.HashMap;
-import org.bukkit.event.Event;
 import uk.co.umbaska.ParticleProjectiles.ParticleProjectile;
 import uk.co.umbaska.ParticleProjectiles.ParticleProjectileHandler;
 import uk.co.umbaska.ParticleProjectiles.ProjectileType;

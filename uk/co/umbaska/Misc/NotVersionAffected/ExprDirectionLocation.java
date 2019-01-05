@@ -1,14 +1,16 @@
 package uk.co.umbaska.Misc.NotVersionAffected;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.skript.util.Direction;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
+
 import org.bukkit.Location;
 import org.bukkit.event.Event;
 import org.bukkit.util.Vector;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.skript.util.Direction;
+import ch.njol.util.Kleenean;
 
 
 
@@ -32,19 +34,20 @@ public class ExprDirectionLocation
   }
   
 
-  public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean kl, SkriptParser.ParseResult pr)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expr, int matchedPattern, Kleenean kl, SkriptParser.ParseResult pr)
   {
     if (matchedPattern == 0)
     {
-      this.amount = expr[0];
-      this.dir = expr[1];
-      this.loc = expr[2];
+      this.amount = (Expression<Number>) expr[0];
+      this.dir = (Expression<Direction>) expr[1];
+      this.loc = (Expression<Location>) expr[2];
     }
     else if (matchedPattern == 1)
     {
-      this.dir = expr[0];
-      this.amount = expr[1];
-      this.loc = expr[2];
+      this.dir = (Expression<Direction>) expr[0];
+      this.amount = (Expression<Number>) expr[1];
+      this.loc = (Expression<Location>) expr[2];
     }
     return true;
   }

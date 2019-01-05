@@ -5,7 +5,8 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
-import com.intellectualcrafters.plot.object.PlotManager;
+import com.worldcretornica.plotme_core.PlotMeCoreManager;
+import com.worldcretornica.plotme_core.api.IWorld;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
@@ -44,10 +45,10 @@ public class EffPlotTeleport
     if (w == null) {
       w = p.getWorld();
     }
-    if (PlotManager.isValidId(pl)) {
-      Location bottom = PlotManager.getPlotBottomLoc(w, pl);
-      Location top = PlotManager.getPlotBottomLoc(w, pl);
-      p.teleport(new Location(w, bottom.getX() + (top.getBlockX() - bottom.getBlockX()) / 2, PlotManager.getMap(w).RoadHeight + 2, bottom.getZ() - 2.0D));
+    if (PlotMeCoreManager.getInstance().isValidId((IWorld) w, pl)) {
+      Location bottom = (Location) PlotMeCoreManager.getInstance().getPlotBottomLoc((IWorld) w, pl);
+      Location top = (Location) PlotMeCoreManager.getInstance().getPlotTopLoc((IWorld) w, pl);
+      p.teleport(new Location(w, bottom.getX() + (top.getBlockX() - bottom.getBlockX()) / 2, PlotMeCoreManager.getInstance().getPlotMiddle((IWorld) w, pl).getY() + 2, bottom.getZ() - 2.0D));
     }
   }
   

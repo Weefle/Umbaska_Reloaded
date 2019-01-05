@@ -1,10 +1,12 @@
 package uk.co.umbaska.PlotMe;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
-import com.intellectualcrafters.plot.object.Plot;
-import com.intellectualcrafters.plot.object.PlotManager;
+import com.worldcretornica.plotme_core.Plot;
+import com.worldcretornica.plotme_core.PlotMeCoreManager;
+import com.worldcretornica.plotme_core.api.IWorld;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
@@ -41,10 +43,10 @@ public class EffDenyPlayer
     if (p == null) {
       return;
     }
-    if (PlotManager.isValidId(pl)) {
-      Plot plot = PlotManager.getPlotById(pl, pl);
+    if (PlotMeCoreManager.getInstance().isValidId((IWorld) Bukkit.getWorld(PlotMeCoreManager.getInstance().getPlotById(pl, pl).getWorld()), pl)) {
+      Plot plot = PlotMeCoreManager.getInstance().getPlotById(pl, pl);
       plot.addDenied(p.getUniqueId());
-      plot.removeTrusted(p.getUniqueId());
+      plot.removeDenied(p.getUniqueId());
     }
   }
   

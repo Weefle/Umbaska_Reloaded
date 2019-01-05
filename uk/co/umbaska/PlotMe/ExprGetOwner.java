@@ -2,10 +2,12 @@ package uk.co.umbaska.PlotMe;
 
 import javax.annotation.Nullable;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.Event;
 
-import com.intellectualcrafters.plot.object.Plot;
-import com.intellectualcrafters.plot.object.PlotManager;
+import com.worldcretornica.plotme_core.Plot;
+import com.worldcretornica.plotme_core.PlotMeCoreManager;
+import com.worldcretornica.plotme_core.api.IWorld;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
@@ -63,11 +65,11 @@ public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.
       return null;
     }
     
-    if (!PlotManager.isValidId(plot)) {
+    if (!PlotMeCoreManager.getInstance().isValidId((IWorld) Bukkit.getWorld(PlotMeCoreManager.getInstance().getPlotById(plot, plot).getWorld()), plot)) {
       return new String[] { null };
     }
-    Plot p = PlotManager.getPlotById(plot, plot);
-    String owner = p.owner;
+    Plot p = PlotMeCoreManager.getInstance().getPlotById(plot, plot);
+    String owner = p.getOwner();
     return new String[] { owner };
   }
 }

@@ -1,14 +1,15 @@
 package uk.co.umbaska.Misc.NotVersionAffected;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
+
 import org.apache.commons.io.FileUtils;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 
@@ -46,10 +47,11 @@ public class EffCopyDir
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.file = expressions[0];
-    this.fileee = expressions[1];
+    this.file = (Expression<String>) expressions[0];
+    this.fileee = (Expression<String>) expressions[1];
     return true;
   }
 }

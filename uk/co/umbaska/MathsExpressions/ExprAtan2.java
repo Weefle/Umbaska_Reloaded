@@ -1,11 +1,13 @@
 package uk.co.umbaska.MathsExpressions;
 
+import javax.annotation.Nullable;
+
+import org.bukkit.event.Event;
+
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import javax.annotation.Nullable;
-import org.bukkit.event.Event;
 
 public class ExprAtan2
   extends SimpleExpression<Number>
@@ -24,10 +26,11 @@ public class ExprAtan2
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.input1 = args[0];
-    this.input2 = args[1];
+    this.input1 = (Expression<Number>) args[0];
+    this.input2 = (Expression<Number>) args[1];
     return true;
   }
   

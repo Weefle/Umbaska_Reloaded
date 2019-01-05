@@ -5,7 +5,8 @@ import javax.annotation.Nullable;
 import org.bukkit.Location;
 import org.bukkit.event.Event;
 
-import com.intellectualcrafters.plot.object.PlotManager;
+import com.worldcretornica.plotme_core.PlotMeCoreManager;
+import com.worldcretornica.plotme_core.api.ILocation;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
@@ -63,7 +64,7 @@ public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.
     if (location == null) {
       return null;
     }
-    String plot = PlotManager.getPlotId(location);
+    String plot = PlotMeCoreManager.getInstance().getPlotId((ILocation) location);
     
     if (plot == "") {
       return null;

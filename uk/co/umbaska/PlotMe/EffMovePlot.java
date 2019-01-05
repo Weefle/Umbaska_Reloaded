@@ -3,7 +3,8 @@ package uk.co.umbaska.PlotMe;
 import org.bukkit.World;
 import org.bukkit.event.Event;
 
-import com.intellectualcrafters.plot.object.PlotManager;
+import com.worldcretornica.plotme_core.PlotMeCoreManager;
+import com.worldcretornica.plotme_core.api.IWorld;
 
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Effect;
@@ -43,9 +44,9 @@ public class EffMovePlot
     if (w == null) {
       return;
     }
-    if ((PlotManager.isValidId(pl1)) && 
-      (PlotManager.isValidId(pl2))) {
-      PlotManager.movePlot(w, pl1, pl2);
+    if ((PlotMeCoreManager.getInstance().isValidId((IWorld) w, pl1)) && 
+      (PlotMeCoreManager.getInstance().isValidId((IWorld) w, pl2))) {
+      PlotMeCoreManager.getInstance().movePlot((IWorld) w, pl1, pl2);
     }
   }
   

@@ -1,13 +1,15 @@
 package uk.co.umbaska.Misc;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
+
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 
@@ -18,10 +20,11 @@ public class EffLeashEntityEntity
   private Expression<Entity> entity;
   private Expression<Entity> entity2;
   
-  public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
   {
-    this.entity = exprs[0];
-    this.entity2 = exprs[1];
+    this.entity = (Expression<Entity>) exprs[0];
+    this.entity2 = (Expression<Entity>) exprs[1];
     
     return true;
   }

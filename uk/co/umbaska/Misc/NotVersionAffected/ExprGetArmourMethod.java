@@ -1,13 +1,14 @@
 package uk.co.umbaska.Misc.NotVersionAffected;
 
+import javax.annotation.Nullable;
+
+import org.bukkit.event.Event;
+
 import ca.thederpygolems.armorequip.ArmourEquipEvent;
-import ca.thederpygolems.armorequip.ArmourEquipEvent.EquipMethod;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import javax.annotation.Nullable;
-import org.bukkit.event.Event;
 
 
 

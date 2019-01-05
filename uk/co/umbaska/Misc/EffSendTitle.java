@@ -1,18 +1,18 @@
 package uk.co.umbaska.Misc;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
-import net.minecraft.server.v1_9_R1.EntityPlayer;
-import net.minecraft.server.v1_9_R1.PacketPlayOutTitle;
-import net.minecraft.server.v1_9_R1.PacketPlayOutTitle.EnumTitleAction;
-import net.minecraft.server.v1_9_R1.PlayerConnection;
+
 import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
+import net.minecraft.server.v1_9_R1.PacketPlayOutTitle;
+import net.minecraft.server.v1_9_R1.PlayerConnection;
 import uk.co.umbaska.Utils.TitleManager.TitleManager;
 
 
@@ -27,15 +27,16 @@ public class EffSendTitle
   private Expression<Number> afadeout;
   private Expression<Number> astay;
   
-  public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
   {
-    this.Title = exprs[0];
-    this.Subtitle = exprs[1];
-    this.Players = exprs[2];
+    this.Title = (Expression<String>) exprs[0];
+    this.Subtitle = (Expression<String>) exprs[1];
+    this.Players = (Expression<Player>) exprs[2];
     
-    this.afadein = exprs[3];
-    this.astay = exprs[4];
-    this.afadeout = exprs[5];
+    this.afadein = (Expression<Number>) exprs[3];
+    this.astay = (Expression<Number>) exprs[4];
+    this.afadeout = (Expression<Number>) exprs[5];
     return true;
   }
   

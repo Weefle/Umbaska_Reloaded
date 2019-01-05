@@ -1,9 +1,9 @@
 package uk.co.umbaska.Misc.NotVersionAffected;
 
-import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.ItemMeta.Spigot;
+
+import ch.njol.skript.expressions.base.SimplePropertyExpression;
 
 public class ExprUnbreakable extends SimplePropertyExpression<ItemStack, ItemStack>
 {

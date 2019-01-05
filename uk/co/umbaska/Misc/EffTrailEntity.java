@@ -1,10 +1,7 @@
 package uk.co.umbaska.Misc;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Arrow;
@@ -12,11 +9,15 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
+import uk.co.umbaska.Main;
 import uk.co.umbaska.Enums.ParticleEnum;
 import uk.co.umbaska.GattSk.Extras.Collect;
-import uk.co.umbaska.Main;
 import uk.co.umbaska.Replacers.ParticleFunction;
 
 
@@ -31,14 +32,15 @@ public class EffTrailEntity
   private Expression<Number> secd;
   private Expression<Number> count;
   
-  public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParser.ParseResult parse)
   {
-    this.count = exprs[1];
-    this.entity = exprs[0];
-    this.particle = exprs[2];
-    this.d = exprs[3];
-    this.d1 = exprs[4];
-    this.secd = exprs[5];
+    this.count = (Expression<Number>) exprs[1];
+    this.entity = (Expression<Entity>) exprs[0];
+    this.particle = (Expression<ParticleEnum>) exprs[2];
+    this.d = (Expression<Number>) exprs[3];
+    this.d1 = (Expression<Number>) exprs[4];
+    this.secd = (Expression<Number>) exprs[5];
     
     return true;
   }
@@ -54,7 +56,7 @@ public class EffTrailEntity
     ParticleEnum part = (ParticleEnum)this.particle.getSingle(event);
     for (Entity e : entities)
     {
-      new TrailEntity((Number)this.count.getSingle(event), e, part, (Number)this.d.getSingle(event), Integer.valueOf(((Number)this.d1.getSingle(event)).intValue()), Integer.valueOf(((Number)this.secd.getSingle(event)).intValue()), null);
+      new TrailEntity((Number)this.count.getSingle(event), e, part, (Number)this.d.getSingle(event), Integer.valueOf(((Number)this.d1.getSingle(event)).intValue()), Integer.valueOf(((Number)this.secd.getSingle(event)).intValue()));
     }
   }
   
@@ -62,15 +64,11 @@ public class EffTrailEntity
   private class TrailEntity
   {
     BukkitTask runnable;
-    Entity ent;
-    ParticleEnum part;
     Number dRun = Integer.valueOf(0);
     Integer dataRun = Integer.valueOf(0);
     Integer sdataRun = Integer.valueOf(0);
     
-    private TrailEntity(final Number count, final Entity ent, final ParticleEnum part, Number speed, Integer data, Integer secData) { this.ent = ent;
-      this.part = part;
-      this.dRun = speed;
+    private TrailEntity(final Number count, final Entity ent, final ParticleEnum part, Number speed, Integer data, Integer secData) { this.dRun = speed;
       this.dataRun = data;
       this.sdataRun = secData;
       

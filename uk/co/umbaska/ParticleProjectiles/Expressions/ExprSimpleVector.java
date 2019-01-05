@@ -1,12 +1,14 @@
 package uk.co.umbaska.ParticleProjectiles.Expressions;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 import org.bukkit.util.Vector;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 
 
 
@@ -29,11 +31,12 @@ public class ExprSimpleVector
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.x = args[0];
-    this.y = args[1];
-    this.z = args[2];
+    this.x = (Expression<Number>) args[0];
+    this.y = (Expression<Number>) args[1];
+    this.z = (Expression<Number>) args[2];
     return true;
   }
   

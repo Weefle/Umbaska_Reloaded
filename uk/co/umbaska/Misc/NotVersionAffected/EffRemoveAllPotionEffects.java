@@ -1,13 +1,14 @@
 package uk.co.umbaska.Misc.NotVersionAffected;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.potion.PotionEffect;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 
 
 
@@ -19,7 +20,7 @@ public class EffRemoveAllPotionEffects
   public void execute(Event event)
   {
     LivingEntity[] entities = (LivingEntity[])this.ent.getAll(event);
-    LivingEntity e; for (e : entities) {
+    for (LivingEntity e : entities) {
       for (PotionEffect p : e.getActivePotionEffects()) {
         e.removePotionEffect(p.getType());
       }
@@ -30,9 +31,10 @@ public class EffRemoveAllPotionEffects
     return "Remove All Potion Effects";
   }
   
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.ent = expressions[0];
+    this.ent = (Expression<Entity>) expressions[0];
     return true;
   }
 }

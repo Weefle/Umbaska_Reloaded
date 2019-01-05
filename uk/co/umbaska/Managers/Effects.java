@@ -69,7 +69,8 @@ public class Effects
   
   private static String version = Register.getVersion();
   
-  private static void registerNewEffect(String name, String cls, String syntax, Boolean multiversion) {
+  @SuppressWarnings("rawtypes")
+private static void registerNewEffect(String name, String cls, String syntax, Boolean multiversion) {
     if (Skript.isAcceptRegistrations()) {
       if (multiversion.booleanValue()) {
         Class newCls = Register.getClass(cls);
@@ -92,7 +93,8 @@ public class Effects
     }
   }
   
-  private static void registerNewEffect(String name, Class cls, String[] syntax) {
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+private static void registerNewEffect(String name, Class cls, String[] syntax) {
     if (Skript.isAcceptRegistrations()) {
       Skript.registerEffect(cls, syntax);
       
@@ -113,7 +115,8 @@ public class Effects
     Register.effectList.put(name, expressions);
   }
   
-  private static void registerNewEffect(String name, Class cls, String syntax) {
+  @SuppressWarnings("rawtypes")
+private static void registerNewEffect(String name, Class cls, String syntax) {
     if (Skript.isAcceptRegistrations()) {
       registerNewEffect(cls, syntax);
       
@@ -124,15 +127,16 @@ public class Effects
     else {
       Bukkit.getLogger().info("Umbaska »»» Can't Register Effect for " + name + " due to Skript Not Accepting Registrations");
     }
-    List<String> expressions = (List)Register.effectList.get(name);
+    List<String> expressions = Register.effectList.get(name);
     if (expressions == null) {
-      expressions = new ArrayList();
+      expressions = new ArrayList<>();
     }
     expressions.add(syntax);
     Register.effectList.put(name, expressions);
   }
   
-  @Deprecated
+  @SuppressWarnings({ "rawtypes", "unchecked" })
+@Deprecated
   private static void registerNewEffect(Class cls, String syntax) {
     if (Skript.isAcceptRegistrations()) {
       Skript.registerEffect(cls, new String[] { syntax });
@@ -149,20 +153,22 @@ public class Effects
 
   public static void runRegister()
   {
-    Plugin pl = Bukkit.getServer().getPluginManager().getPlugin("PlotSquared");
-    Boolean registeredPlotSquared = Boolean.valueOf(false);
-    if (pl != null) {
-      registeredPlotSquared = Boolean.valueOf(true);
-      registerNewEffect("PlotSquared - Teleport to Plot", uk.co.umbaska.PlotSquared.EffPlotTeleport.class, "teleport %player% to %string%[ in %world%]");
-      registerNewEffect("PlotSquared - Clear Plot", uk.co.umbaska.PlotSquared.EffClearPlot.class, "clear plot %string% in %world%");
-      registerNewEffect("PlotSquared - Move Plot", uk.co.umbaska.PlotSquared.EffMovePlot.class, "move %string% to %string% in %world%");
-      registerNewEffect("PlotSquared - Deny Player", uk.co.umbaska.PlotSquared.EffDenyPlayer.class, "deny %player% from %string%");
-      registerNewEffect("PlotSquared - Allow Player", uk.co.umbaska.PlotSquared.EffUnDeny.class, "allow %player% to %string%");
-      registerNewEffect("PlotSquared - WorldEdit", uk.co.umbaska.PlotSquared.EffToggleWorldEdit.class, new String[] { "set worldedit of %player% to %boolean%", "toggle worldedit of %player%", "enable worldedit of %player%", "disable worldedit of %player%" });
-    }
-    pl = Bukkit.getServer().getPluginManager().getPlugin("PlotMe");
-    if ((!registeredPlotSquared.booleanValue()) && 
-      (pl != null)) {
+	  Plugin /*pl = Bukkit.getServer().getPluginManager().getPlugin("PlotSquared");
+	    Boolean registeredPlotSquared = Boolean.valueOf(false);
+	    if (pl != null)
+	    {
+	      registeredPlotSquared = Boolean.valueOf(true);
+	      registerNewEffect("PlotSquared - Teleport to Plot", uk.co.umbaska.PlotSquared.EffPlotTeleport.class, "teleport %player% to %string%[ in %world%]");
+	      registerNewEffect("PlotSquared - Clear Plot", uk.co.umbaska.PlotSquared.EffClearPlot.class, "clear plot %string% in %world%");
+	      registerNewEffect("PlotSquared - Move Plot", uk.co.umbaska.PlotSquared.EffMovePlot.class, "move %string% to %string% in %world%");
+	      registerNewEffect("PlotSquared - Deny Player", uk.co.umbaska.PlotSquared.EffDenyPlayer.class, "deny %player% from %string%");
+	      registerNewEffect("PlotSquared - Allow Player", uk.co.umbaska.PlotSquared.EffUnDeny.class, "allow %player% to %string%");
+	      registerNewEffect("PlotSquared - WorldEdit", EffToggleWorldEdit.class, new String[] { "set worldedit of %player% to %boolean%", "toggle worldedit of %player%", "enable worldedit of %player%", "disable worldedit of %player%" });
+	    }*/
+	    pl = Bukkit.getServer().getPluginManager().getPlugin("PlotMe");
+	    if (/*(!registeredPlotSquared.booleanValue()) && */
+	      (pl != null))
+	    {
       registerNewEffect("PlotMe - Plot Teleport", uk.co.umbaska.PlotMe.EffPlotTeleport.class, "teleport %player% to %string%[ in %world%]");
       registerNewEffect("PlotMe - Clear Plot", uk.co.umbaska.PlotMe.EffClearPlot.class, "clear plot %string% in %world%");
       registerNewEffect("PlotMe - Move Plot", uk.co.umbaska.PlotMe.EffMovePlot.class, "move %string% to %string% in %world%");
@@ -495,4 +501,12 @@ public class Effects
     registerNewEffect("Boss Bar - Hide Bar", uk.co.umbaska.BossBars.EffHideBossBar.class, "hide [boss][ ][bar] %bossbar%");
     registerNewEffect("Boss Bar - Add Flag", uk.co.umbaska.BossBars.EffAddFlagToBar.class, "add %barflag% to [boss][ ][bar] %bossbar%");
   }
+
+public static String getVersion() {
+	return version;
+}
+
+public static void setVersion(String version) {
+	Effects.version = version;
+}
 }

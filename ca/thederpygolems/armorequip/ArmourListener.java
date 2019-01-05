@@ -1,14 +1,11 @@
 package ca.thederpygolems.armorequip;
 
 import java.util.HashMap;
-import java.util.UUID;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Server;
-import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
@@ -18,8 +15,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.plugin.PluginManager;
 
 public class ArmourListener implements org.bukkit.event.Listener
 {
@@ -28,7 +23,7 @@ public class ArmourListener implements org.bukkit.event.Listener
   
   public ArmourListener(java.util.List<String> blockedMaterials)
   {
-    this.lastEquip = new HashMap();
+    this.lastEquip = new HashMap<>();
     this.blockedMaterials = blockedMaterials;
   }
   
@@ -172,8 +167,8 @@ public class ArmourListener implements org.bukkit.event.Listener
   {
     if (type == null) return true;
     if ((this.lastEquip.containsKey(id)) && 
-      (((HashMap)this.lastEquip.get(id)).containsKey(type)) && 
-      (System.currentTimeMillis() - ((Long)((HashMap)this.lastEquip.get(id)).get(type)).longValue() < 500L)) { return false;
+      ((this.lastEquip.get(id)).containsKey(type)) && 
+      (System.currentTimeMillis() - ((Long)(this.lastEquip.get(id)).get(type)).longValue() < 500L)) { return false;
     }
     
     return true;
@@ -182,9 +177,9 @@ public class ArmourListener implements org.bukkit.event.Listener
   public void setLastEquip(String id, ArmourType armorType) {
     if (armorType != null) {
       if (!this.lastEquip.containsKey(id)) {
-        this.lastEquip.put(id, new HashMap());
+        this.lastEquip.put(id, new HashMap<>());
       }
-      HashMap<ArmourType, Long> data = (HashMap)this.lastEquip.get(id);
+      HashMap<ArmourType, Long> data = this.lastEquip.get(id);
       data.put(armorType, Long.valueOf(System.currentTimeMillis()));
       this.lastEquip.put(id, data);
     }

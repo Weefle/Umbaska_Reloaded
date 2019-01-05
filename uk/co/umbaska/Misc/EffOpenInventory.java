@@ -1,18 +1,16 @@
 package uk.co.umbaska.Misc;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.Enums.AnvilGUI;
-import uk.co.umbaska.Enums.AnvilGUI.AnvilClickEvent;
-import uk.co.umbaska.Enums.AnvilGUI.AnvilClickEventHandler;
-import uk.co.umbaska.Enums.AnvilGUI.AnvilSlot;
 import uk.co.umbaska.Enums.InventoryTypes;
 
 public class EffOpenInventory extends Effect
@@ -61,11 +59,12 @@ public class EffOpenInventory extends Effect
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.types = expressions[0];
-    this.name = expressions[1];
-    this.player = expressions[2];
+    this.types = (Expression<InventoryTypes>) expressions[0];
+    this.name = (Expression<String>) expressions[1];
+    this.player = (Expression<Player>) expressions[2];
     return true;
   }
 }

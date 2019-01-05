@@ -1,20 +1,23 @@
 package uk.co.umbaska.Misc.UM2_0;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.lang.util.SimpleExpression;
-import ch.njol.util.Kleenean;
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
-import com.mojang.authlib.properties.PropertyMap;
 import java.lang.reflect.Field;
 import java.util.UUID;
+
 import javax.annotation.Nullable;
+
 import org.apache.commons.codec.binary.Base64;
 import org.bukkit.Material;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+
+import com.mojang.authlib.GameProfile;
+import com.mojang.authlib.properties.Property;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 
 public class ExprSkullOwnerURL
   extends SimpleExpression<ItemStack>
@@ -28,10 +31,11 @@ public class ExprSkullOwnerURL
   }
   
 
-  public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] args, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.url = args[1];
-    this.item = args[0];
+    this.url = (Expression<String>) args[1];
+    this.item = (Expression<ItemStack>) args[0];
     return true;
   }
   

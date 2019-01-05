@@ -9,23 +9,10 @@ import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.bukkit.event.inventory.BrewEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
 import com.massivecraft.factions.entity.Faction;
-import com.plotsquared.bukkit.events.PlayerClaimPlotEvent;
-import com.plotsquared.bukkit.events.PlayerEnterPlotEvent;
-import com.plotsquared.bukkit.events.PlayerLeavePlotEvent;
-import com.plotsquared.bukkit.events.PlayerPlotDeniedEvent;
-import com.plotsquared.bukkit.events.PlayerPlotHelperEvent;
-import com.plotsquared.bukkit.events.PlayerPlotTrustedEvent;
-import com.plotsquared.bukkit.events.PlayerTeleportToPlotEvent;
-import com.plotsquared.bukkit.events.PlotClearEvent;
-import com.plotsquared.bukkit.events.PlotDeleteEvent;
-import com.plotsquared.bukkit.events.PlotFlagAddEvent;
-import com.plotsquared.bukkit.events.PlotFlagRemoveEvent;
-import com.plotsquared.bukkit.events.PlotMergeEvent;
-import com.plotsquared.bukkit.events.PlotRateEvent;
-import com.plotsquared.bukkit.events.PlotUnlinkEvent;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 
 import ch.njol.skript.Skript;
@@ -125,7 +112,7 @@ public static Class getClass(String classname)
 
 
 
-    org.bukkit.plugin.Plugin pl = org.bukkit.Bukkit.getServer().getPluginManager().getPlugin("PlotSquared");
+    /*org.bukkit.plugin.Plugin pl = org.bukkit.Bukkit.getServer().getPluginManager().getPlugin("PlotSquared");
     if (pl != null) {
       Skript.registerEvent("PlotSquared Enter", SimpleEvent.class, PlayerEnterPlotEvent.class, new String[] { "plot enter" });
       EventValues.registerEventValue(PlayerEnterPlotEvent.class, String.class, new Getter<String, PlayerEnterPlotEvent>()
@@ -224,7 +211,7 @@ public static Class getClass(String classname)
         public String get(PlayerClaimPlotEvent event) { return event.getPlot().getId().toString(); } }, 0);
     }
     
-
+*/
 
     EventValues.registerEventValue(BrewEvent.class, org.bukkit.block.Block.class, new Getter<Block, BrewEvent>()
     {
@@ -352,7 +339,7 @@ public static Class getClass(String classname)
 
     if (!Main.disableSkRambled.booleanValue())
     {
-      pl = org.bukkit.Bukkit.getServer().getPluginManager().getPlugin("Factions");
+     Plugin pl = org.bukkit.Bukkit.getServer().getPluginManager().getPlugin("Factions");
       if (pl != null) {
         Main.plugin.getServer().getPluginManager().registerEvents(new uk.co.umbaska.Factions.FactionDescriptionChangeEvent(), Main.plugin);
         

@@ -1,15 +1,16 @@
 package uk.co.umbaska.Misc.UM2_0;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.skript.util.Timespan;
-import ch.njol.util.Kleenean;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.Event;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.util.Timespan;
+import ch.njol.util.Kleenean;
 
 
 
@@ -21,7 +22,8 @@ public class EffPotionEffectNoParticles
   private Expression<Timespan> time;
   private Expression<Entity> target;
   
-  protected void execute(Event event)
+  @SuppressWarnings("deprecation")
+protected void execute(Event event)
   {
     Number tier = Integer.valueOf(((Number)this.tier.getSingle(event)).intValue());
     if (tier == null) {
@@ -39,12 +41,13 @@ public class EffPotionEffectNoParticles
     return "Potion Effect No Particles";
   }
   
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.type = expressions[0];
-    this.tier = expressions[1];
-    this.target = expressions[2];
-    this.time = expressions[3];
+    this.type = (Expression<PotionEffectType>) expressions[0];
+    this.tier = (Expression<Number>) expressions[1];
+    this.target = (Expression<Entity>) expressions[2];
+    this.time = (Expression<Timespan>) expressions[3];
     return true;
   }
 }

@@ -1,12 +1,12 @@
 package uk.co.umbaska.Misc.NotVersionAffected;
 
-import ch.njol.skript.expressions.base.SimplePropertyExpression;
-import java.util.List;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
+
+import ch.njol.skript.expressions.base.SimplePropertyExpression;
 
 
 

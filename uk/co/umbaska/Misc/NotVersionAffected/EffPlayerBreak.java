@@ -1,17 +1,16 @@
 package uk.co.umbaska.Misc.NotVersionAffected;
 
-import ch.njol.skript.lang.Effect;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.plugin.PluginManager;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.Enums.BukkitEffectEnum;
 import uk.co.umbaska.Replacers.ParticleFunction;
 
@@ -27,7 +26,8 @@ public class EffPlayerBreak
   private Expression<Location> location;
   private Expression<Player> player;
   
-  protected void execute(Event event)
+  @SuppressWarnings("deprecation")
+protected void execute(Event event)
   {
     Location l = (Location)this.location.getSingle(event);
     Player p = (Player)this.player.getSingle(event);
@@ -48,10 +48,11 @@ public class EffPlayerBreak
   }
   
 
-  public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.player = expressions[0];
-    this.location = expressions[1];
+    this.player = (Expression<Player>) expressions[0];
+    this.location = (Expression<Location>) expressions[1];
     return true;
   }
 }

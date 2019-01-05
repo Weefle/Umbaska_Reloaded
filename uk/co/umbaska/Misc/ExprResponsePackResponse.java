@@ -1,16 +1,17 @@
 package uk.co.umbaska.Misc;
 
+import javax.annotation.Nullable;
+
+import org.bukkit.event.Event;
+import org.bukkit.event.player.PlayerResourcePackStatusEvent;
+
 import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.skript.log.ErrorQuality;
 import ch.njol.util.Kleenean;
-import javax.annotation.Nullable;
-import org.bukkit.event.Event;
-import org.bukkit.event.player.PlayerResourcePackStatusEvent;
-import org.bukkit.event.player.PlayerResourcePackStatusEvent.Status;
 
 public class ExprResponsePackResponse
   extends SimpleExpression<PlayerResourcePackStatusEvent.Status>

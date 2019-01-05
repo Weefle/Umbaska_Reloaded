@@ -185,31 +185,34 @@ private static void registerNewExpression(Class cls, Class returnType, Expressio
   }
   
   public static void runRegister() {
-    Boolean registeredPlotSquared = Boolean.valueOf(false);
-    Plugin pl = Bukkit.getServer().getPluginManager().getPlugin("PlotSquared");
-    registeredPlotSystem = "No plot system hooked";
-    if (pl != null) {
-      registeredPlotSquared = Boolean.valueOf(true);
-      registerNewExpression("PlotSquared - Plot at Player", uk.co.umbaska.PlotSquared.ExprPlotAtPlayer.class, String.class, ExpressionType.PROPERTY, new String[] { "plot at %player%" });
-      registerNewExpression("PlotSquared - Plot at Location", uk.co.umbaska.PlotSquared.ExprPlotAtLoc.class, String.class, ExpressionType.PROPERTY, new String[] { "plot at location %location%" });
-      registerNewExpression("PlotSquared - Owner of Plot", uk.co.umbaska.PlotSquared.ExprGetOwner.class, String.class, ExpressionType.PROPERTY, new String[] { "[get ]owner of %string%" });
-      registerNewExpression("PlotSquared - Plots of Player", uk.co.umbaska.PlotSquared.ExprGetPlayerPlots.class, String.class, ExpressionType.PROPERTY, new String[] { "plots of %player%" });
-      registerNewExpression("PlotSquared - Top Corner of Plot", uk.co.umbaska.PlotSquared.ExprTopCorner.class, Location.class, ExpressionType.PROPERTY, new String[] { "(top|upper) corner of %string% in %world%" });
-      registerNewExpression("PlotSquared - Bottom Corner of Plot", uk.co.umbaska.PlotSquared.ExprBottomCorner.class, Location.class, ExpressionType.PROPERTY, new String[] { "(bottom|lower) corner of %string% in %world%" });
-      registeredPlotSystem = "PlotSquared";
-    }
-    if (!registeredPlotSquared.booleanValue()) {
-      pl = Bukkit.getServer().getPluginManager().getPlugin("PlotMe");
-      if (pl != null) {
+	 // Boolean registeredPlotSquared = Boolean.valueOf(false);
+	    Plugin /*pl = Bukkit.getServer().getPluginManager().getPlugin("PlotSquared");
+	    registeredPlotSystem = "No plot system hooked";
+	    if (pl != null)
+	    {
+	      registeredPlotSquared = Boolean.valueOf(true);
+	      registerNewExpression("PlotSquared - Plot at Player", uk.co.umbaska.PlotSquared.ExprPlotAtPlayer.class, String.class, ExpressionType.PROPERTY, new String[] { "plot at %player%" });
+	      registerNewExpression("PlotSquared - Plot at Location", uk.co.umbaska.PlotSquared.ExprPlotAtLoc.class, String.class, ExpressionType.PROPERTY, new String[] { "plot at location %location%" });
+	      registerNewExpression("PlotSquared - Owner of Plot", uk.co.umbaska.PlotSquared.ExprGetOwner.class, String.class, ExpressionType.PROPERTY, new String[] { "[get ]owner of %string%" });
+	      registerNewExpression("PlotSquared - Plots of Player", uk.co.umbaska.PlotSquared.ExprGetPlayerPlots.class, String.class, ExpressionType.PROPERTY, new String[] { "plots of %player%" });
+	      registerNewExpression("PlotSquared - Top Corner of Plot", uk.co.umbaska.PlotSquared.ExprTopCorner.class, Location.class, ExpressionType.PROPERTY, new String[] { "(top|upper) corner of %string% in %world%" });
+	      registerNewExpression("PlotSquared - Bottom Corner of Plot", uk.co.umbaska.PlotSquared.ExprBottomCorner.class, Location.class, ExpressionType.PROPERTY, new String[] { "(bottom|lower) corner of %string% in %world%" });
+	      registeredPlotSystem = "PlotSquared";
+	    }
+	    if (!registeredPlotSquared.booleanValue())
+	    {*/
+	      pl = Bukkit.getServer().getPluginManager().getPlugin("PlotMe");
+	      if (pl != null)
+	      {
         registerNewExpression("PlotMe - Plot at Player", uk.co.umbaska.PlotMe.ExprPlotAtPlayer.class, String.class, ExpressionType.PROPERTY, new String[] { "plot at %player%" });
         registerNewExpression("PlotMe - Plot at Location", uk.co.umbaska.PlotMe.ExprPlotAtLoc.class, String.class, ExpressionType.PROPERTY, new String[] { "plot at location %location%" });
         registerNewExpression("PlotMe - Owner of Plot", uk.co.umbaska.PlotMe.ExprGetOwner.class, String.class, ExpressionType.PROPERTY, new String[] { "[get ]owner of %string%" });
-        registerNewExpression("PlotMe - Plots of Player", uk.co.umbaska.PlotMe.ExprGetPlayerPlots.class, String.class, ExpressionType.PROPERTY, new String[] { "plots of %player%" });
+        registerNewExpression("PlotMe - Plots of Player", uk.co.umbaska.PlotMe.ExprGetPlayerPlots.class, String.class, ExpressionType.PROPERTY, new String[] { "plots list" });
         registerNewExpression("PlotMe - Top Corner of Plot", uk.co.umbaska.PlotMe.ExprTopCorner.class, Location.class, ExpressionType.PROPERTY, new String[] { "(top|upper) corner of %string% in %world%" });
         registerNewExpression("PlotMe - Bottom Corner of Plot", uk.co.umbaska.PlotMe.ExprBottomCorner.class, Location.class, ExpressionType.PROPERTY, new String[] { "(bottom|lower) corner of %string% in %world%" });
         registeredPlotSystem = "PlotMe";
       }
-    }
+    
     
     if (pl != null) {
       registeredPlotSystem = pl.getName() + " - " + pl.getDescription().getVersion();
