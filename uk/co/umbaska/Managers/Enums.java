@@ -5,6 +5,7 @@ import java.util.Locale;
 import javax.annotation.Nullable;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.EntityEffect;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
@@ -15,6 +16,7 @@ import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.plugin.PluginBase;
+import org.bukkit.potion.PotionEffect;
 
 import com.gmail.nossr50.datatypes.party.Party;
 import com.gmail.nossr50.datatypes.skills.SkillType;
@@ -52,7 +54,7 @@ public class Enums
   public static Boolean debugInfo = Boolean.valueOf(Main.getInstance().getConfig().getBoolean("debug_info"));
   private static String version = Register.getVersion();
   
-  @SuppressWarnings("unused")
+@SuppressWarnings("unused")
 private static void registerEnum(String cls, String name, Boolean multiversion) {
     if (Skript.isAcceptRegistrations()) {
       if (multiversion.booleanValue())
@@ -60,21 +62,21 @@ private static void registerEnum(String cls, String name, Boolean multiversion) 
         @SuppressWarnings("rawtypes")
 		Class newCls = Register.getClass(cls);
         if (newCls == null) {
-          Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Enum for " + name + " due to \nWrong Spigot/Bukkit Version!");
+          Bukkit.getLogger().info("Umbaska »»» Can't Register Enum for " + name + " due to \nWrong Spigot/Bukkit Version!");
         }
         if (debugInfo.booleanValue()) {
-          Bukkit.getLogger().info("Umbaska Â»Â»Â» Registered Enum for " + name + " for Version " + version);
+          Bukkit.getLogger().info("Umbaska »»» Registered Enum for " + name + " for Version " + version);
         }
         registerEnum(newCls, name);
       } else {
         try {
           registerEnum(Class.forName(cls), name);
         } catch (ClassNotFoundException e) {
-          Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Enum for " + name + " due to \nWrong Spigot/Bukkit Version!");
+          Bukkit.getLogger().info("Umbaska »»» Can't Register Enum for " + name + " due to \nWrong Spigot/Bukkit Version!");
         }
       }
     } else {
-      Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Enum for " + name + " due to \nSkript Not Accepting Registrations");
+      Bukkit.getLogger().info("Umbaska »»» Can't Register Enum for " + name + " due to \nSkript Not Accepting Registrations");
     }
   }
   
@@ -84,7 +86,7 @@ private static void registerEnum(@SuppressWarnings("rawtypes") Class cls, String
       EnumClassInfo.create(cls, name).register();
     }
     else {
-      Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Enum for " + name + " due to \nSkript Not Accepting Registrations");
+      Bukkit.getLogger().info("Umbaska »»» Can't Register Enum for " + name + " due to \nSkript Not Accepting Registrations");
     }
   }
   
@@ -94,7 +96,7 @@ private static void registerEnum(@SuppressWarnings("rawtypes") Class cls, String
       EnumClassInfo.create(cls, name, defaultExpression).register();
     }
     else {
-      Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Enum for " + name + " due to \nSkript Not Accepting Registrations");
+      Bukkit.getLogger().info("Umbaska »»» Can't Register Enum for " + name + " due to \nSkript Not Accepting Registrations");
     }
   }
   
@@ -113,6 +115,65 @@ public static void runRegister() {
    // registerEnum(ClickType.class, "clicktype");
     registerEnum(EntityEffect.class, "entityeffect");
    // EnumClassInfo.create(Material.class, "material").after(new String[] { "block" }).register();
+    
+    if ((Bukkit.getPluginManager().getPlugin("SkQuery") != null) && 
+    	      (Bukkit.getPluginManager().getPlugin("SkQuery").getDescription().getAuthors().contains("Gatt"))) {
+    	      Classes.registerClass(new ClassInfo(Color.class, "rgbcolor").parser(new Parser()
+    	      {
+    	        public String toString(Object o, int i)
+    	        {
+    	          return ((Color)o).toString();
+    	        }
+    	        
+    	        public String toVariableNameString(Object o)
+    	        {
+    	          return "BukkitColor:" + o.toString();
+    	        }
+    	        
+    	        public Object parse(String s, ParseContext parseContext)
+    	        {
+    	          return null;
+    	        }
+    	        
+    	        public boolean canParse(ParseContext context)
+    	        {
+    	          return false;
+    	        }
+    	        
+    	        public String getVariableNamePattern()
+    	        {
+    	          return ".+";
+    	        }
+    	      }));
+    }
+    
+    Classes.registerClass(new ClassInfo(PotionEffect.class, "umbpotioneffect").parser(new Parser()
+    {
+      public String toString(Object o, int i)
+      {
+        return ((PotionEffect)o).toString();
+      }
+      
+      public String toVariableNameString(Object o)
+      {
+        return "PotionEffect:" + o.toString();
+      }
+      
+      public PotionEffect parse(String s, ParseContext parseContext)
+      {
+        return null;
+      }
+      
+      public boolean canParse(ParseContext context)
+      {
+        return false;
+      }
+      
+      public String getVariableNamePattern()
+      {
+        return ".+";
+      }
+    }));
     
 
     registerEnum(AttributeModifier.class, "attributemodifier");
@@ -143,19 +204,7 @@ public static void runRegister() {
         return false;
       }
       
-      @SuppressWarnings("unused")
-	public String toString(BossBar bar, int i)
-      {
-        return bar.toString();
-      }
-      
-      @SuppressWarnings("unused")
-	public String toVariableNameString(BossBar bar)
-      {
-        return "BossBar: " + bar.toString();
-      }
-      
-      public String getVariableNamePattern()
+	public String getVariableNamePattern()
       {
         return ".+";
       }
@@ -183,19 +232,7 @@ public static void runRegister() {
         return false;
       }
       
-      @SuppressWarnings("unused")
-	public String toString(JSONMessage jsonMessage, int i)
-      {
-        return jsonMessage.toOldMessageFormat();
-      }
-      
-      @SuppressWarnings("unused")
-	public String toVariableNameString(JSONMessage jsonMessage)
-      {
-        return jsonMessage.toString();
-      }
-      
-      public String getVariableNamePattern()
+	public String getVariableNamePattern()
       {
         return ".+";
       }
@@ -414,5 +451,37 @@ public static void runRegister() {
 
 
     Main.getInstance().getLogger().info("[Umbaska > SkQuery] Registered Custom Particle Enum. Have some BACON!!!!");
+  }
+  public static Rel parseRel(String str)
+  {
+    if ((str == null) || (str.length() < 1)) {
+      return null;
+    }
+    str = str.toLowerCase();
+    if (str.equals("leader")) {
+      return Rel.LEADER;
+    }
+    if (str.equals("officer")) {
+      return Rel.OFFICER;
+    }
+    if (str.equals("member")) {
+      return Rel.MEMBER;
+    }
+    if (str.equals("recruit")) {
+      return Rel.RECRUIT;
+    }
+    if (str.equals("ally")) {
+      return Rel.ALLY;
+    }
+    if (str.equals("truce")) {
+      return Rel.TRUCE;
+    }
+    if (str.equals("enemy")) {
+      return Rel.ENEMY;
+    }
+    if (str.equals("neutral")) {
+      return Rel.NEUTRAL;
+    }
+    return null;
   }
 }

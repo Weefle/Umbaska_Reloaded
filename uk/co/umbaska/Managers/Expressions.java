@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -13,6 +14,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.scoreboard.Objective;
 
 import com.massivecraft.factions.Rel;
@@ -23,6 +25,17 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.skript.lang.ExpressionType;
 import uk.co.umbaska.Main;
+import uk.co.umbaska.AreaEffectCloud.ExprEffectCloudColor;
+import uk.co.umbaska.AreaEffectCloud.ExprEffectCloudDuration;
+import uk.co.umbaska.AreaEffectCloud.ExprEffectCloudDurationOnUse;
+import uk.co.umbaska.AreaEffectCloud.ExprEffectCloudParticle;
+import uk.co.umbaska.AreaEffectCloud.ExprEffectCloudRadius;
+import uk.co.umbaska.AreaEffectCloud.ExprEffectCloudRadiusOnUse;
+import uk.co.umbaska.AreaEffectCloud.ExprEffectCloudRadiusPerTick;
+import uk.co.umbaska.AreaEffectCloud.ExprEffectCloudReapplicationDelay;
+import uk.co.umbaska.AreaEffectCloud.ExprEffectCloudWaitTime;
+import uk.co.umbaska.AreaEffectCloud.ExprNewBukkitColor;
+import uk.co.umbaska.AreaEffectCloud.ExprNewPotionEffect;
 import uk.co.umbaska.ArmourStands.ExprNoAI;
 import uk.co.umbaska.ArmourStands.ExprsHeadDirectionX;
 import uk.co.umbaska.ArmourStands.ExprsHeadDirectionY;
@@ -32,10 +45,13 @@ import uk.co.umbaska.ArmourStands.Legs.ExprsRightLegDirectionX;
 import uk.co.umbaska.ArmourStands.Legs.ExprsRightLegDirectionY;
 import uk.co.umbaska.ArmourStands.Legs.ExprsRightLegDirectionZ;
 import uk.co.umbaska.BossBars.ExprBossBarColor;
+import uk.co.umbaska.BossBars.ExprGetBarFromSerialised;
 import uk.co.umbaska.BossBars.ExprNewBossBar;
+import uk.co.umbaska.BossBars.ExprSerialisedBossBar;
 import uk.co.umbaska.Bungee.ExprAllServers;
 import uk.co.umbaska.Bungee.ExprBungeeServerCount;
 import uk.co.umbaska.Bungee.ExprBungeeUUID;
+import uk.co.umbaska.Enums.ParticleEnum;
 import uk.co.umbaska.Factions.ExprAlliesOfFaction;
 import uk.co.umbaska.Factions.ExprFactionOfPlayer;
 import uk.co.umbaska.Factions.ExprFactions;
@@ -51,7 +67,12 @@ import uk.co.umbaska.MathsExpressions.ExprSignum;
 import uk.co.umbaska.Misc.Banners.ExprNewBannerFrom;
 import uk.co.umbaska.Misc.Banners.ExprNewLayer;
 import uk.co.umbaska.Misc.Looping.ExprLoopSpecificBlocksCyl;
+import uk.co.umbaska.Misc.NotVersionAffected.ExprBlitzkrieg;
 import uk.co.umbaska.Misc.NotVersionAffected.ExprDirectionLocation;
+import uk.co.umbaska.Misc.NotVersionAffected.ExprMainhandItem;
+import uk.co.umbaska.Misc.NotVersionAffected.ExprMainhandItemPlayer;
+import uk.co.umbaska.Misc.NotVersionAffected.ExprOffhandItem;
+import uk.co.umbaska.Misc.NotVersionAffected.ExprOffhandItemPlayer;
 import uk.co.umbaska.Misc.UM2_0.ExprBlockSkullOwner;
 import uk.co.umbaska.Misc.UM2_0.ExprClosestEntity;
 import uk.co.umbaska.NametagEdit.ExprGetPrefix;
@@ -78,20 +99,20 @@ private static void registerNewSimpleExpression(String name, String cls, Class r
       if (multiversion.booleanValue())
       {
         if (newCls == null) {
-          Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Expression for " + name + " due to Can't find Class!");
+          Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Can't find Class!");
           return;
         }
         if (debugInfo.booleanValue()) {
-          Bukkit.getLogger().info("Umbaska Â»Â»Â» Registered Expression for " + name + " with syntax\n set " + syntax1 + " of " + syntax2 + " for Version " + Register.getVersion());
+          Bukkit.getLogger().info("Umbaska »»» Registered Expression for " + name + " with syntax\n set " + syntax1 + " of " + syntax2 + " for Version " + Register.getVersion());
         }
         SimplePropertyExpression.register(newCls, returnType, syntax1, syntax2);
       }
       else {
-        Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Expression for " + name + " due to Wrong Spigot/Bukkit Version!");
+        Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Wrong Spigot/Bukkit Version!");
       }
     }
     else {
-      Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Expression for " + name + " due to Skript Not Accepting Registrations");
+      Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Skript Not Accepting Registrations");
     }
     List<String> expressions = Register.simpleexpressionList.get(name);
     if (expressions == null) {
@@ -106,12 +127,12 @@ private static void registerNewSimpleExpression(String name, String cls, Class r
 private static void registerNewSimpleExpression(String name, Class cls, Class returnType, String syntax1, String syntax2, Boolean multiversion) {
     if (Skript.isAcceptRegistrations()) {
       if (debugInfo.booleanValue()) {
-        Bukkit.getLogger().info("Umbaska Â»Â»Â» Registered Expression for " + name + " with syntax\n set " + syntax1 + " of " + syntax2 + " for Version " + Register.getVersion());
+        Bukkit.getLogger().info("Umbaska »»» Registered Expression for " + name + " with syntax\n set " + syntax1 + " of " + syntax2 + " for Version " + Register.getVersion());
       }
       SimplePropertyExpression.register(cls, returnType, syntax1, syntax2);
     }
     else {
-      Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Expression for " + name + " due to Skript Not Accepting Registrations");
+      Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Skript Not Accepting Registrations");
     }
     List<String> expressions = Register.simpleexpressionList.get(name);
     if (expressions == null) {
@@ -128,11 +149,11 @@ private static void registerNewExpression(String name, String cls, Class returnT
       if (multiversion.booleanValue()) {
         Class newCls = Register.getClass(cls);
         if (newCls == null) {
-          Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Expression for " + name + " due to Can't find Class!");
+          Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Can't find Class!");
           return;
         }
         if (debugInfo.booleanValue()) {
-          Bukkit.getLogger().info("Umbaska Â»Â»Â» Registered Expression for " + name + " with syntax\n " + syntax + " for Version " + Register.getVersion());
+          Bukkit.getLogger().info("Umbaska »»» Registered Expression for " + name + " with syntax\n " + syntax + " for Version " + Register.getVersion());
         }
         registerNewExpression(name, newCls, returnType, expressionType, new String[] { syntax });
       }
@@ -140,12 +161,12 @@ private static void registerNewExpression(String name, String cls, Class returnT
         try {
           registerNewExpression(name, Class.forName(cls), returnType, expressionType, new String[] { syntax });
         } catch (ClassNotFoundException e) {
-          Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Expression for " + name + " due to Wrong Spigot/Bukkit Version!");
+          Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Wrong Spigot/Bukkit Version!");
         }
       }
     }
     else
-      Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Expression for " + name + " due to Skript Not Accepting Registrations");
+      Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Skript Not Accepting Registrations");
   }
   
   @SuppressWarnings("rawtypes")
@@ -154,12 +175,12 @@ private static void registerNewExpression(String name, Class cls, Class returnTy
       registerNewExpression(cls, returnType, expressionType, syntaxes);
       if (debugInfo.booleanValue()) {
         for (String syntax : syntaxes) {
-          Bukkit.getLogger().info("Umbaska Â»Â»Â» Registered Expression for " + name + " with syntax \n" + syntax);
+          Bukkit.getLogger().info("Umbaska »»» Registered Expression for " + name + " with syntax \n" + syntax);
         }
       }
     }
     else {
-      Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Expression for " + name + " due to Skript Not Accepting Registrations");
+      Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + name + " due to Skript Not Accepting Registrations");
     }
     List<String> expressions = Register.expressionList.get(name);
     if (expressions == null) {
@@ -176,12 +197,12 @@ private static void registerNewExpression(Class cls, Class returnType, Expressio
       Skript.registerExpression(cls, returnType, expressionType, syntaxes);
       if (debugInfo.booleanValue()) {
         for (String syntax : syntaxes) {
-          Bukkit.getLogger().info("Umbaska Â»Â»Â» Registered Expression for " + cls.getName() + " with syntax\n " + syntax);
+          Bukkit.getLogger().info("Umbaska »»» Registered Expression for " + cls.getName() + " with syntax\n " + syntax);
         }
       }
     }
     else {
-      Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Register Expression for " + cls.getName() + " due to Skript Not Accepting Registrations");
+      Bukkit.getLogger().info("Umbaska »»» Can't Register Expression for " + cls.getName() + " due to Skript Not Accepting Registrations");
     }
   }
   
@@ -575,10 +596,32 @@ private static void registerNewExpression(Class cls, Class returnType, Expressio
     registerNewExpression("Server Ping IP", uk.co.umbaska.Misc.NotVersionAffected.ExprServerPingIP.class, String.class, ExpressionType.SIMPLE, new String[] { "server ping ip" });
     
 
+    registerNewExpression(ExprBlitzkrieg.class, String.class, ExpressionType.SIMPLE, new String[] { "blitzkrieg" });
 
-    registerNewSimpleExpression("1.9 - Glowing", uk.co.umbaska.ArmourStands.ExprGlowingEntity.class, Boolean.class, "glowing", "entity", Boolean.valueOf(false));
+    registerNewSimpleExpression("1.9 - Glowing", uk.co.umbaska.ArmourStands.ExprGlowingEntity.class, Boolean.class, "glowing state", "entity", Boolean.valueOf(false));
+    registerNewExpression("New Potion Effect", ExprNewPotionEffect.class, PotionEffect.class, ExpressionType.COMBINED, new String[] { "new potion effect [of][ ][type] %potioneffecttype% [of][ ][tier][ ]%number% (to last|with durability|time) %number%" });
+    registerNewExpression("New Bukkit Color", ExprNewBukkitColor.class, Color.class, ExpressionType.COMBINED, new String[] { "new color from [rgb] %number%, %number%(,| and) %number%" });
+    
+    registerNewSimpleExpression("1.9 - Offhand Item Player", ExprOffhandItemPlayer.class, ItemStack.class, "[player] (off[ ]hand|secondary) item", "player", Boolean.valueOf(false));
+    registerNewSimpleExpression("1.9 - Offhand Item Entity", ExprOffhandItem.class, ItemStack.class, "[entity] (off[ ]hand|secondary) item", "entity", Boolean.valueOf(false));
+    registerNewSimpleExpression("1.9 - Mainhand Item Player", ExprMainhandItemPlayer.class, ItemStack.class, "[player] (main[ ]hand|primary) item", "player", Boolean.valueOf(false));
+    registerNewSimpleExpression("1.9 - Mainhand Item Entity", ExprMainhandItem.class, ItemStack.class, "[entity] (main[ ]hand|primary) item", "entity", Boolean.valueOf(false));
+    
+    registerNewSimpleExpression("Area Effect Cloud - Cloud Color", ExprEffectCloudColor.class, Color.class, "[area][ ][effect][ ][cloud] colo[u]r", "entity", Boolean.valueOf(false));
+    registerNewSimpleExpression("Area Effect Cloud - Cloud Duration", ExprEffectCloudDuration.class, Number.class, "[area][ ][effect][ ][cloud] duration", "entity", Boolean.valueOf(false));
+    registerNewSimpleExpression("Area Effect Cloud - Cloud Duration on Use", ExprEffectCloudDurationOnUse.class, Number.class, "[area][ ][effect][ ][cloud] duration on use", "entity", Boolean.valueOf(false));
+    registerNewSimpleExpression("Area Effect Cloud - Cloud Particle", ExprEffectCloudParticle.class, ParticleEnum.class, "[area][ ][effect][ ][cloud] particle", "entity", Boolean.valueOf(false));
+    registerNewSimpleExpression("Area Effect Cloud - Cloud Radius", ExprEffectCloudRadius.class, Number.class, "[area][ ][effect][ ][cloud] radius", "entity", Boolean.valueOf(false));
+    registerNewSimpleExpression("Area Effect Cloud - Cloud Radius on Use", ExprEffectCloudRadiusOnUse.class, Number.class, "[area][ ][effect][ ][cloud] radius on use", "entity", Boolean.valueOf(false));
+    registerNewSimpleExpression("Area Effect Cloud - Cloud Radius per Tick", ExprEffectCloudRadiusPerTick.class, Number.class, "[area][ ][effect][ ][cloud] radius per tick", "entity", Boolean.valueOf(false));
+    registerNewSimpleExpression("Area Effect Cloud - Cloud Duration", ExprEffectCloudDuration.class, Number.class, "[area][ ][effect][ ][cloud] duration", "entity", Boolean.valueOf(false));
+    registerNewSimpleExpression("Area Effect Cloud - Cloud Reapplication Delay", ExprEffectCloudReapplicationDelay.class, Number.class, "[area][ ][effect][ ][cloud] reapplication delay", "entity", Boolean.valueOf(false));
+    registerNewSimpleExpression("Area Effect Cloud - Cloud Wait Time", ExprEffectCloudWaitTime.class, Number.class, "[area][ ][effect][ ][cloud] wait time", "entity", Boolean.valueOf(false));
+    registerNewExpression("Area Effect Cloud - Cloud Potion Effects", ExprEffectCloudDuration.class, PotionEffect.class, ExpressionType.SIMPLE, new String[] { "potion effects of [area][ ][effect][ ][cloud] %entity%" });
     
 
+    registerNewExpression("Boss Bar - Serialise Boss Bar", ExprSerialisedBossBar.class, String.class, ExpressionType.SIMPLE, new String[] { "seriali(z|s)ed [(contents|data)] [of] [boss][ ][bar] %bossbar%" });
+    registerNewExpression("Boss Bar - Get Boss Bar from Data", ExprGetBarFromSerialised.class, BossBar.class, ExpressionType.SIMPLE, new String[] { "boss[ ]bar from data %string%" });
 
     registerNewExpression("Boss Bar - New Boss Bar", ExprNewBossBar.class, BossBar.class, ExpressionType.COMBINED, new String[] { "new boss[ ]bar" });
     

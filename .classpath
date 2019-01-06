@@ -24,5 +24,6 @@
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/mcMMO.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/NoteBlockAPI-1.2.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/MCJukebox.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/lombok.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

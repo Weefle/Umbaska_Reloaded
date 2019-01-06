@@ -12,3 +12,5 @@
 /ExprFlagsOfBar.class
 /ExprNewBossBar.class
 /ExprPlayersOfBar.class
+/ExprGetBarFromSerialised.class
+/ExprSerialisedBossBar.class

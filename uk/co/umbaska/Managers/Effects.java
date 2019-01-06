@@ -10,6 +10,9 @@ import org.dynmap.DynmapAPI;
 
 import ch.njol.skript.Skript;
 import uk.co.umbaska.Main;
+import uk.co.umbaska.AreaEffectCloud.EffAddPotionToCloud;
+import uk.co.umbaska.AreaEffectCloud.EffRemovePotionFromCloud;
+import uk.co.umbaska.AreaEffectCloud.EffSpawnAreaEffectCloud;
 import uk.co.umbaska.Attributes.EffAddAttributeModifer;
 import uk.co.umbaska.BossBars.EffAddPlayerToBossBar;
 import uk.co.umbaska.BossBars.EffRemoveAllPlayersFromBar;
@@ -41,6 +44,7 @@ import uk.co.umbaska.Misc.JukeboxAPI.EffPlaySong;
 import uk.co.umbaska.Misc.NotVersionAffected.EffCopyDir;
 import uk.co.umbaska.Misc.NotVersionAffected.EffNothing_MFG;
 import uk.co.umbaska.Misc.NotVersionAffected.EffPlaceDroppedItem;
+import uk.co.umbaska.Misc.NotVersionAffected.EffShootShulkerBullet;
 import uk.co.umbaska.Misc.UM2_0.EffLoadPlugin;
 import uk.co.umbaska.Misc.UM2_0.EffPotionEffectNoParticles;
 import uk.co.umbaska.NametagEdit.EffSetSuffix;
@@ -497,6 +501,14 @@ private static void registerNewEffect(String name, Class cls, String syntax) {
     registerNewEffect("Umbaska JSON", uk.co.umbaska.JSON.EffSendJson.class, "[jsonmessage] (send|message) [umbaska] %umbjsonmessage% to %players%");
     
     registerNewEffect("Set Result Slot", EffSetResultSlot.class, "set result slot of %player% to %itemstack%");
+    
+    
+    
+    registerNewEffect("1.9 - Shoot Shulker Bullet", EffShootShulkerBullet.class, "make %entity% (shoot|launch) shulker bullet at %entity%");
+    
+    registerNewEffect("Area Effect Cloud - Spawn Area Effect Cloud", EffSpawnAreaEffectCloud.class, "spawn [a[n]] area effect cloud at %location%");
+    registerNewEffect("Area Effect Cloud - Add Potion", EffAddPotionToCloud.class, "add %umbpotioneffect% to [area][ ][effect][ ][cloud] %entity%");
+    registerNewEffect("Area Effect Cloud - Remove Potion", EffRemovePotionFromCloud.class, "remove %umbpotioneffect% from [area][ ][effect][ ][cloud] %entity%");
     
 
 

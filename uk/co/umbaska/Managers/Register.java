@@ -3,9 +3,11 @@ package uk.co.umbaska.Managers;
 import java.util.HashMap;
 
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
+import org.bukkit.event.entity.FireworkExplodeEvent;
 import org.bukkit.event.inventory.BrewEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.ItemStack;
@@ -60,7 +62,7 @@ public static Class getClass(String classname)
       cls = Class.forName("uk.co.umbaska." + classname + "_" + version);
     } catch (ClassNotFoundException e) {
       if (debugInfo.booleanValue()) {
-        org.bukkit.Bukkit.getLogger().info("Umbaska Â»Â»Â» Can't Find Class for " + classname + " for version " + version);
+        org.bukkit.Bukkit.getLogger().info("Umbaska »»» Can't Find Class for " + classname + " for version " + version);
       }
     }
     return cls;
@@ -71,6 +73,7 @@ public static Class getClass(String classname)
     Effects.runRegister();
     Expressions.runRegister();
     Enums.runRegister();
+    //new LargeSkRegister().registerAll();
     
     Skript.registerEvent("Portal Spawn", SimpleEvent.class, org.bukkit.event.entity.EntityCreatePortalEvent.class, new String[] { "on portal spawn" });
     
@@ -90,6 +93,15 @@ public static Class getClass(String classname)
     Skript.registerEvent("Leash Entity", SimpleEvent.class, org.bukkit.event.entity.PlayerLeashEntityEvent.class, new String[] { "[player ]leash" });
     Skript.registerEvent("Unleash Entity", SimpleEvent.class, org.bukkit.event.entity.EntityUnleashEvent.class, new String[] { "unleash" });
     Skript.registerEvent("Brew", SimpleEvent.class, BrewEvent.class, new String[] { "brew" });
+    
+    Skript.registerEvent("Firework Explode", SimpleEvent.class, FireworkExplodeEvent.class, new String[] { "firework explode" });
+    EventValues.registerEventValue(FireworkExplodeEvent.class, Entity.class, new Getter<Entity, FireworkExplodeEvent>()
+    {
+      public Entity get(FireworkExplodeEvent event)
+      {
+        return event.getEntity();
+      }
+    }, 0);
     
 
 

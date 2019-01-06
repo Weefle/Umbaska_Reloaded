@@ -2,11 +2,10 @@ package uk.co.umbaska.HologramBased;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
-import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.bukkit.Bukkit;
@@ -22,675 +21,566 @@ import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
 import com.comphenix.protocol.wrappers.WrappedWatchableObject;
 
-public class Hologram
-{
-  private PacketContainer destroyPacket1_7;
-  private PacketContainer destroyPacket1_8;
-  private PacketContainer[] displayPackets1_7;
-  private PacketContainer[] displayPackets1_8;
-  
-  public static enum HologramTarget
-  {
-    BLACKLIST,  WHITELIST;
-    
-    private HologramTarget() {}
-  }
-  
-  private static int getId()
-  {
-    try
-    {
-      Field field = Class.forName("net.minecraft.server." + Bukkit.getServer().getClass().getName().split("\\.")[3] + ".Entity").getDeclaredField("entityCount");
-      
-      field.setAccessible(true);
-      int id = field.getInt(null);
-      field.set(null, Integer.valueOf(id + 1));
-      return id;
+public class Hologram {
+    public enum HologramTarget {
+        BLACKLIST, WHITELIST;
     }
-    catch (Exception ex)
-    {
-      ex.printStackTrace();
-    }
-    return -1;
-  }
-  
-  private ArrayList<Map.Entry<Integer, Integer>> entityIds = new ArrayList<>();
-  protected Location entityLastLocation;
-  private ArrayList<String> hologramPlayers = new ArrayList<>();
-  private HologramTarget hologramTarget = HologramTarget.BLACKLIST;
-  private boolean isUsingWitherSkull = HologramCentral.isUsingWitherSkulls();
-  private boolean keepAliveAfterEntityDies;
-  private Location lastMovement = new Location(null, 0.0D, 0.0D, 0.0D);
-  private String[] lines;
-  private double lineSpacing = 1.0D;
-  private Location location;
-  private Vector moveVector;
-  private boolean pitchControlsMoreThanY;
-  private Entity relativeEntity;
-  private Location relativeToEntity;
-  private boolean setRelativePitch;
-  private boolean setRelativeYaw;
-  private int viewDistance = 100;
-  private List<Entity> holoItems = new ArrayList<>();
-  
-  public Hologram(Location location, String... lines)
-  {
-    assert (lines.length != 0) : "You need more lines than nothing!";
-    assert (location.getWorld() != null) : "You can't have a null world in the location!";
-    this.lines = lines;
-    this.location = location.clone().add(0.0D, 54.6D, 0.0D);
-  }
-  
-  public Hologram addPlayer(Player... players)
-  {
-    for (Player player : players) {
-      if (!this.hologramPlayers.contains(player.getName()))
-      {
-        this.hologramPlayers.add(player.getName());
-        if (isInUse()) {
-          HologramCentral.addHologram(player, this);
+
+    private static int getId() {
+        try {
+            Field field = Class.forName(
+                    "net.minecraft.server." + Bukkit.getServer().getClass().getName().split("\\.")[3] + ".Entity")
+                    .getDeclaredField("entityCount");
+            field.setAccessible(true);
+            int id = field.getInt(null);
+            field.set(null, id + 1);
+            return id;
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-      }
+        return -1;
     }
-    return this;
-  }
-  
-  protected PacketContainer getDestroyPacket(Player player)
-  {
-    if (HologramCentral.is1_8(player)) {
-      return this.destroyPacket1_8;
+
+    private PacketContainer destroyPacket1_7;
+    private PacketContainer destroyPacket1_8;
+    private PacketContainer[] displayPackets1_7;
+    private PacketContainer[] displayPackets1_8;
+    private ArrayList<Entry<Integer, Integer>> entityIds = new ArrayList<Entry<Integer, Integer>>();
+    protected Location entityLastLocation;
+    private ArrayList<String> hologramPlayers = new ArrayList<String>();
+    private HologramTarget hologramTarget = HologramTarget.BLACKLIST;
+    private boolean isUsingWitherSkull = HologramCentral.isUsingWitherSkulls();
+    private boolean keepAliveAfterEntityDies;
+    private Location lastMovement = new Location(null, 0, 0, 0);
+    private String[] lines;
+    private double lineSpacing = 1;
+    private Location location;
+    private Vector moveVector;
+    private boolean pitchControlsMoreThanY;
+    private Entity relativeEntity;
+    private Location relativeToEntity;
+    private boolean setRelativePitch;
+    private boolean setRelativeYaw;
+    private int viewDistance = 70;
+
+    public Hologram(Location location, String... lines) {
+        assert lines.length != 0 : "You need more lines than nothing!";
+        assert location.getWorld() != null : "You can't have a null world in the location!";
+        this.lines = lines;
+        this.location = location.clone().add(0, 54.6, 0);
     }
-    return this.destroyPacket1_7;
-  }
-  
-  public Entity getEntityFollowed()
-  {
-    return this.relativeEntity;
-  }
-  
-  protected ArrayList<Map.Entry<Integer, Integer>> getEntityIds()
-  {
-    return this.entityIds;
-  }
-  
-  public String[] getLines()
-  {
-    return this.lines;
-  }
-  
-  public double getLineSpacing()
-  {
-    return this.lineSpacing;
-  }
-  
-  public Location getLocation()
-  {
-    return this.location.clone().subtract(0.0D, 54.6D, 0.0D);
-  }
-  
-  public Vector getMovement()
-  {
-    return this.moveVector;
-  }
-  
-  private ArrayList<Player> getPlayers()
-  {
-    ArrayList<Player> players = new ArrayList<>();
-    for (Player player : Bukkit.getServer().getOnlinePlayers()) {
-      if (isVisible(player, player.getLocation())) {
-        players.add(player);
-      }
-    }
-    return players;
-  }
-  
-  public Location getRelativeToEntity()
-  {
-    return this.relativeToEntity;
-  }
-  
-  protected PacketContainer[] getSpawnPackets(Player player)
-  {
-    if (HologramCentral.is1_8(player)) {
-      return this.displayPackets1_8;
-    }
-    return this.displayPackets1_7;
-  }
-  
-  public HologramTarget getTarget()
-  {
-    return this.hologramTarget;
-  }
-  
-  public boolean hasPlayer(Player player)
-  {
-    return this.hologramPlayers.contains(player.getName());
-  }
-  
-  public boolean isInUse()
-  {
-    return HologramCentral.isInUse(this);
-  }
-  
-  public boolean isRelativePitch()
-  {
-    return this.setRelativePitch;
-  }
-  
-  public boolean isRelativePitchControlMoreThanHeight()
-  {
-    return this.pitchControlsMoreThanY;
-  }
-  
-  public boolean isRelativeYaw()
-  {
-    return this.setRelativeYaw;
-  }
-  
-  public boolean isRemovedOnEntityDeath()
-  {
-    return this.keepAliveAfterEntityDies;
-  }
-  
-  public boolean isUsingArmorStand()
-  {
-    return !this.isUsingWitherSkull;
-  }
-  
-  public boolean isUsingWitherSkull()
-  {
-    return this.isUsingWitherSkull;
-  }
-  
-  boolean isVisible(Player player, Location loc)
-  {
-    return ((getTarget() == HologramTarget.BLACKLIST) != hasPlayer(player)) && (loc.getWorld() == getLocation().getWorld()) && (loc.distance(getLocation()) <= this.viewDistance);
-  }
-  
-  private void makeDestroyPacket()
-  {
-    int[] ids = new int[this.entityIds.size() * 2];
-    int[] ids2 = new int[ids.length / 2];
-    int i = 0;
-    for (Map.Entry<Integer, Integer> entry : this.entityIds)
-    {
-      ids2[(i / 2)] = ((Integer)entry.getKey()).intValue();
-      ids[(i++)] = ((Integer)entry.getKey()).intValue();
-      ids[(i++)] = ((Integer)entry.getValue()).intValue();
-    }
-    this.destroyPacket1_7 = new PacketContainer(PacketType.Play.Server.ENTITY_DESTROY);
-    this.destroyPacket1_7.getIntegerArrays().write(0, ids);
-    this.destroyPacket1_8 = new PacketContainer(PacketType.Play.Server.ENTITY_DESTROY);
-    this.destroyPacket1_8.getIntegerArrays().write(0, ids2);
-  }
-  
-  private void makeDisplayPackets()
-  {
-    Iterator<Map.Entry<Integer, Integer>> itel = this.entityIds.iterator();
-    this.displayPackets1_7 = new PacketContainer[this.lines.length * 3];
-    this.displayPackets1_8 = new PacketContainer[this.lines.length * (isUsingWitherSkull() ? 2 : 1)];
-    int b = 0;
-    while (itel.hasNext())
-    {
-      Map.Entry<Integer, Integer> entry = itel.next();
-      PacketContainer[] packets = makeSpawnPacket1_8(b, ((Integer)entry.getKey()).intValue(), this.lines[(this.lines.length - 1 - b)]);
-      for (int a = 0; a < (isUsingWitherSkull() ? 2 : 1); a++) {
-        this.displayPackets1_8[(b + a)] = packets[a];
-      }
-      packets = makeSpawnPackets1_7(b, ((Integer)entry.getKey()).intValue(), ((Integer)entry.getValue()).intValue(), this.lines[(this.lines.length - 1 - b)]);
-      for (int a = 0; a < 3; a++) {
-        this.displayPackets1_7[(b * 3 + a)] = packets[a];
-      }
-      b++;
-    }
-  }
-  
-  private PacketContainer[] makeSpawnPacket1_8(int height, int witherId, String horseName)
-  {
-    if (isUsingWitherSkull())
-    {
-      PacketContainer[] packets = new PacketContainer[2];
-      packets[0] = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY);
-      StructureModifier<Integer> ints = packets[0].getIntegers();
-      ints.write(0, Integer.valueOf(witherId));
-      ints.write(1, Integer.valueOf((int)(getLocation().getX() * 32.0D)));
-      ints.write(2, Integer.valueOf((int)((this.location.getY() + -55.15D + height * (getLineSpacing() * 0.285D)) * 32.0D)));
-      ints.write(3, Integer.valueOf((int)(getLocation().getZ() * 32.0D)));
-      ints.write(9, Integer.valueOf(66));
-      
-      packets[1] = new PacketContainer(PacketType.Play.Server.ENTITY_METADATA);
-      packets[1].getIntegers().write(0, Integer.valueOf(witherId));
-      ArrayList<WrappedWatchableObject> list = new ArrayList<>();
-      list.add(new WrappedWatchableObject(0, Byte.valueOf((byte)0)));
-      list.add(new WrappedWatchableObject(2, horseName));
-      list.add(new WrappedWatchableObject(3, Byte.valueOf((byte)1)));
-      packets[1].getWatchableCollectionModifier().write(0, list);
-      return packets;
-    }
-    PacketContainer displayPacket = null;
-    displayPacket = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY_LIVING);
-    StructureModifier<Integer> ints = displayPacket.getIntegers();
-    ints.write(0, Integer.valueOf(witherId));
-    ints.write(1, Integer.valueOf(30));
-    ints.write(2, Integer.valueOf((int)(getLocation().getX() * 32.0D)));
-    ints.write(3, Integer.valueOf((int)((this.location.getY() + -56.7D + height * (getLineSpacing() * 0.285D)) * 32.0D)));
-    ints.write(4, Integer.valueOf((int)(getLocation().getZ() * 32.0D)));
-    
-    WrappedDataWatcher watcher = new WrappedDataWatcher();
-    watcher.setObject(0, Byte.valueOf((byte)32));
-    watcher.setObject(2, horseName);
-    watcher.setObject(3, Byte.valueOf((byte)1));
-    displayPacket.getDataWatcherModifier().write(0, watcher);
-    return new PacketContainer[] { displayPacket };
-  }
-  
-  private PacketContainer[] makeSpawnPackets1_7(int height, int witherId, int horseId, String horseName)
-  {
-    PacketContainer[] displayPackets = new PacketContainer[3];
-    
-    displayPackets[0] = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY);
-    StructureModifier<Integer> ints = displayPackets[0].getIntegers();
-    ints.write(0, Integer.valueOf(witherId));
-    ints.write(1, Integer.valueOf((int)(getLocation().getX() * 32.0D)));
-    ints.write(2, Integer.valueOf((int)((this.location.getY() + height * (getLineSpacing() * 0.285D)) * 32.0D)));
-    ints.write(3, Integer.valueOf((int)(getLocation().getZ() * 32.0D)));
-    ints.write(9, Integer.valueOf(66));
-    
-    displayPackets[1] = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY_LIVING);
-    ints = displayPackets[1].getIntegers();
-    ints.write(0, Integer.valueOf(horseId));
-    ints.write(1, Integer.valueOf(100));
-    ints.write(2, Integer.valueOf((int)(getLocation().getX() * 32.0D)));
-    ints.write(3, Integer.valueOf((int)((this.location.getY() + height * (getLineSpacing() * 0.285D) + 0.23D) * 32.0D)));
-    ints.write(4, Integer.valueOf((int)(getLocation().getZ() * 32.0D)));
-    
-    WrappedDataWatcher watcher = new WrappedDataWatcher();
-    watcher.setObject(0, Byte.valueOf((byte)0));
-    watcher.setObject(1, Short.valueOf((short)300));
-    watcher.setObject(10, horseName);
-    watcher.setObject(11, Byte.valueOf((byte)1));
-    watcher.setObject(12, Integer.valueOf(-1700000));
-    displayPackets[1].getDataWatcherModifier().write(0, watcher);
-    
-    displayPackets[2] = new PacketContainer(PacketType.Play.Server.ATTACH_ENTITY);
-    ints = displayPackets[2].getIntegers();
-    ints.write(1, Integer.valueOf(horseId));
-    ints.write(2, Integer.valueOf(witherId));
-    return displayPackets;
-  }
-  
-  public Hologram moveHologram(Location location)
-  {
-    moveHologram(location, true);
-    return this;
-  }
-  
-  public Hologram moveHologram(Location newLocation, boolean setNewRelativeLocation)
-  {
-    ArrayList<Player> oldPlayers = getPlayers();
-    Location loc = getLocation();
-    this.location = newLocation.clone().add(0.0D, 54.6D, 0.0D);
-    if ((setNewRelativeLocation) && (getEntityFollowed() != null)) {
-      this.relativeToEntity = getLocation().subtract(getEntityFollowed().getLocation());
-    }
-    PacketContainer[] packets1_7;
-    PacketContainer[] packets1_8;
-    if (isInUse())
-    {
-      makeDisplayPackets();
-      ArrayList<Player> newPlayers = getPlayers();
-      Iterator<Player> itel = oldPlayers.iterator();
-      while (itel.hasNext())
-      {
-        Player p = (Player)itel.next();
-        if (!newPlayers.contains(p))
-        {
-          itel.remove();
-          try
-          {
-            ProtocolLibrary.getProtocolManager().sendServerPacket(p, getDestroyPacket(p), false);
-          }
-          catch (InvocationTargetException e)
-          {
-            e.printStackTrace();
-          }
+
+    public Hologram addPlayer(Player... players) {
+        for (Player player : players) {
+            if (!hologramPlayers.contains(player.getName())) {
+                hologramPlayers.add(player.getName());
+                if (isInUse()) {
+                    HologramCentral.addHologram(player, this);
+                }
+            }
         }
-      }
-      packets1_7 = null;
-      packets1_8 = null;
-      int x;
-      int z;
-      int i;
-      if (!oldPlayers.isEmpty())
-      {
-        this.lastMovement.add(this.location.getX() - loc.getX(), this.location.getY() - loc.getY(), this.location.getZ() - loc.getZ());
-        x = (int)Math.floor(32.0D * this.lastMovement.getX());
-        int y = (int)Math.floor(32.0D * this.lastMovement.getY());
-        z = (int)Math.floor(32.0D * this.lastMovement.getZ());
-        packets1_7 = new PacketContainer[this.lines.length];
-        packets1_8 = new PacketContainer[this.lines.length];
-        i = 0;
-        if ((x >= -128) && (x < 128) && (y >= -128) && (y < 128) && (z >= -128) && (z < 128))
-        {
-          this.lastMovement.subtract(x / 32.0D, y / 32.0D, z / 32.0D);
-          for (Map.Entry<Integer, Integer> entityId : this.entityIds)
-          {
-            packets1_7[i] = new PacketContainer(PacketType.Play.Server.REL_ENTITY_MOVE);
-            packets1_7[i].getIntegers().write(0, entityId.getKey());
-            StructureModifier<Byte> bytes = packets1_7[i].getBytes();
-            bytes.write(0, Byte.valueOf((byte)x));
-            bytes.write(1, Byte.valueOf((byte)y));
-            bytes.write(2, Byte.valueOf((byte)z));
-            packets1_8[i] = packets1_7[i];
-            i++;
-          }
-        }
-        else
-        {
-          x = (int)Math.floor(32.0D * this.location.getX());
-          z = (int)Math.floor(32.0D * this.location.getZ());
-          this.lastMovement = new Location(null, this.location.getX() - x / 32.0D, 0.0D, this.location.getZ() - z / 32.0D);
-          for (Map.Entry<Integer, Integer> entityId : this.entityIds)
-          {
-            packets1_7[i] = new PacketContainer(PacketType.Play.Server.ENTITY_TELEPORT);
-            StructureModifier<Integer> ints = packets1_7[i].getIntegers();
-            ints.write(0, entityId.getKey());
-            ints.write(1, Integer.valueOf(x));
-            ints.write(2, Integer.valueOf((int)Math.floor((this.location.getY() + i * (getLineSpacing() * 0.285D)) * 32.0D)));
-            ints.write(3, Integer.valueOf(z));
-            packets1_8[i] = packets1_7[i].shallowClone();
-            packets1_8[i].getIntegers().write(2, Integer.valueOf((int)Math.floor((this.location.getY() + -55.15D + i * (getLineSpacing() * 0.285D)) * 32.0D)));
-            
-            i++;
-          }
-        }
-      }
-      for (Player p : newPlayers) {
-        try
-        {
-          for (PacketContainer packet : oldPlayers.contains(p) ? packets1_7 : HologramCentral.is1_8(p) ? packets1_8 : getSpawnPackets(p)) {
-            ProtocolLibrary.getProtocolManager().sendServerPacket(p, packet, false);
-          }
-        }
-        catch (InvocationTargetException e)
-        {
-          e.printStackTrace();
-        }
-      }
+        return this;
     }
-    return this;
-  }
-  
-  public Hologram remove()
-  {
-    HologramCentral.removeHologram(this);
-    return this;
-  }
-  
-  public Hologram removePlayer(Player... players)
-  {
-    for (Player player : players) {
-      if (this.hologramPlayers.contains(player.getName()))
-      {
-        this.hologramPlayers.remove(player.getName());
-        if (isInUse()) {
-          HologramCentral.removeHologram(player, this);
+
+    protected PacketContainer getDestroyPacket(Player player) {
+        if (HologramCentral.is1_8(player)) {
+            return destroyPacket1_8;
         }
-      }
+        return destroyPacket1_7;
     }
-    return this;
-  }
-  
-  public Hologram setFollowEntity(Entity entity)
-  {
-    setFollowEntity(entity, true);
-    return this;
-  }
-  
-  public Hologram setFollowEntity(Entity entity, boolean isRemoveOnEntityDeath)
-  {
-    setFollowEntity(entity, isRemoveOnEntityDeath, false, false, false);
-    return this;
-  }
-  
-  public Hologram setFollowEntity(Entity entity, boolean isRemoveOnEntityDeath, boolean setRelativeYaw, boolean setRelativePitch, boolean pitchControlsMoreThanY)
-  {
-    this.relativeEntity = entity;
-    if (entity != null)
-    {
-      this.keepAliveAfterEntityDies = isRemoveOnEntityDeath;
-      this.relativeToEntity = getLocation().subtract(entity.getLocation());
-      this.entityLastLocation = entity.getLocation();
-      Location l = entity.getLocation();
-      if ((setRelativeYaw) || (setRelativePitch))
-      {
-        this.relativeToEntity.setPitch(l.getPitch());
-        this.relativeToEntity.setYaw(l.getYaw());
-        this.setRelativePitch = setRelativePitch;
-        this.setRelativeYaw = setRelativeYaw;
-        this.pitchControlsMoreThanY = pitchControlsMoreThanY;
-      }
+
+    public Entity getEntityFollowed() {
+        return relativeEntity;
     }
-    return this;
-  }
-  
-  public Hologram setLines(String... lines)
-  {
-    if (!this.lines.equals(lines))
-    {
-      String[] oldLines = (String[])this.lines.clone();
-      this.lines = lines;
-      lines = (String[])lines.clone();
-      ArrayUtils.reverse(lines);
-      ArrayUtils.reverse(oldLines);
-      if (isInUse())
-      {
+
+    protected ArrayList<Entry<Integer, Integer>> getEntityIds() {
+        return entityIds;
+    }
+
+    public String[] getLines() {
+        return lines;
+    }
+
+    public double getLineSpacing() {
+        return lineSpacing;
+    }
+
+    public Location getLocation() {
+        return location.clone().subtract(0, 54.6, 0);
+    }
+
+    public Vector getMovement() {
+        return moveVector;
+    }
+
+    private ArrayList<Player> getPlayers() {
+        ArrayList<Player> players = new ArrayList<Player>();
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            if (isVisible(player, player.getLocation())) {
+                players.add(player);
+            }
+        }
+        return players;
+    }
+
+    public Location getRelativeToEntity() {
+        return relativeToEntity;
+    }
+
+    protected PacketContainer[] getSpawnPackets(Player player) {
+        if (HologramCentral.is1_8(player)) {
+            return displayPackets1_8;
+        }
+        return displayPackets1_7;
+    }
+
+    public HologramTarget getTarget() {
+        return hologramTarget;
+    }
+
+    public boolean hasPlayer(Player player) {
+        return hologramPlayers.contains(player.getName());
+    }
+
+    public boolean isInUse() {
+        return HologramCentral.isInUse(this);
+    }
+
+    public boolean isRelativePitch() {
+        return setRelativePitch;
+    }
+
+    public boolean isRelativePitchControlMoreThanHeight() {
+        return pitchControlsMoreThanY;
+    }
+
+    public boolean isRelativeYaw() {
+        return setRelativeYaw;
+    }
+
+    public boolean isRemovedOnEntityDeath() {
+        return this.keepAliveAfterEntityDies;
+    }
+
+    public boolean isUsingArmorStand() {
+        return !this.isUsingWitherSkull;
+    }
+
+    public boolean isUsingWitherSkull() {
+        return this.isUsingWitherSkull;
+    }
+
+    boolean isVisible(Player player, Location loc) {
+        return (getTarget() == HologramTarget.BLACKLIST != hasPlayer(player)) && loc.getWorld() == getLocation().getWorld()
+                && (loc.distance(getLocation()) <= viewDistance);
+    }
+
+    private void makeDestroyPacket() {
+        int[] ids = new int[entityIds.size() * 2];
+        int[] ids2 = new int[ids.length / 2];
         int i = 0;
-        ArrayList<Player> players = getPlayers();
-        PacketContainer packet1_7;
-        PacketContainer packet1_8;
-        for (; i < Math.min(this.entityIds.size(), lines.length); i++) {
-          if ((oldLines.length <= i) || (!oldLines[i].equals(lines[i])))
-          {
-            Map.Entry<Integer, Integer> entry = this.entityIds.get(i);
-            packet1_7 = new PacketContainer(PacketType.Play.Server.ENTITY_METADATA);
-            packet1_7.getIntegers().write(0, entry.getValue());
-            ArrayList<WrappedWatchableObject> list = new ArrayList<>();
-            list.add(new WrappedWatchableObject(0, Byte.valueOf((byte)0)));
-            list.add(new WrappedWatchableObject(1, Short.valueOf((short)300)));
-            list.add(new WrappedWatchableObject(10, lines[i]));
-            list.add(new WrappedWatchableObject(11, Byte.valueOf((byte)1)));
-            list.add(new WrappedWatchableObject(12, Integer.valueOf(-1700000)));
-            packet1_7.getWatchableCollectionModifier().write(0, list);
-            packet1_8 = new PacketContainer(PacketType.Play.Server.ENTITY_METADATA);
-            packet1_8.getIntegers().write(0, entry.getKey());
-            list = new ArrayList<>();
-            list.add(new WrappedWatchableObject(0, Byte.valueOf((byte)32)));
-            list.add(new WrappedWatchableObject(2, lines[i]));
-            list.add(new WrappedWatchableObject(3, Byte.valueOf((byte)1)));
-            packet1_8.getWatchableCollectionModifier().write(0, list);
-            for (Player p : players) {
-              try
-              {
-                ProtocolLibrary.getProtocolManager().sendServerPacket(p, HologramCentral.is1_8(p) ? packet1_8 : packet1_7, false);
-              }
-              catch (InvocationTargetException e)
-              {
-                e.printStackTrace();
-              }
-            }
-          }
+        for (Entry<Integer, Integer> entry : entityIds) {
+            ids2[i / 2] = entry.getKey();
+            ids[i++] = entry.getKey();
+            ids[i++] = entry.getValue();
         }
-        if (lines.length != this.entityIds.size())
-        {
-          PacketContainer destroyPacket;
-          if (lines.length < this.entityIds.size())
-          {
-            int[] destroyIds = new int[(this.entityIds.size() - lines.length) * 2];
-            int e = 0;
-            while (this.entityIds.size() > lines.length)
-            {
-              Map.Entry<Integer, Integer> entry = this.entityIds.remove(this.entityIds.size() - 1);
-              destroyIds[(e++)] = ((Integer)entry.getKey()).intValue();
-              destroyIds[(e++)] = ((Integer)entry.getValue()).intValue();
+        destroyPacket1_7 = new PacketContainer(PacketType.Play.Server.ENTITY_DESTROY);
+        destroyPacket1_7.getIntegerArrays().write(0, ids);
+        destroyPacket1_8 = new PacketContainer(PacketType.Play.Server.ENTITY_DESTROY);
+        destroyPacket1_8.getIntegerArrays().write(0, ids2);
+    }
+
+    private void makeSpawnPackets() {
+        Iterator<Entry<Integer, Integer>> itel = entityIds.iterator();
+        displayPackets1_7 = new PacketContainer[lines.length * 3];
+        displayPackets1_8 = new PacketContainer[lines.length * (this.isUsingWitherSkull() ? 2 : 1)];
+        int b = 0;
+        while (itel.hasNext()) {
+            Entry<Integer, Integer> entry = itel.next();
+            PacketContainer[] packets = makeSpawnPacket1_8(b, entry.getKey(), lines[(lines.length - 1) - b]);
+            for (int a = 0; a < packets.length; a++) {
+                displayPackets1_8[(b * (this.isUsingWitherSkull() ? 2 : 1)) + a] = packets[a];
             }
-            destroyPacket = new PacketContainer(PacketType.Play.Server.ENTITY_DESTROY);
-            destroyPacket.getIntegerArrays().write(0, destroyIds);
-            for (Player p : players) {
-              try
-              {
-                ProtocolLibrary.getProtocolManager().sendServerPacket(p, destroyPacket, false);
-              }
-              catch (InvocationTargetException b)
-              {
-                b.printStackTrace();
-              }
+            packets = makeSpawnPackets1_7(b, entry.getKey(), entry.getValue(), lines[(lines.length - 1) - b]);
+            for (int a = 0; a < packets.length; a++) {
+                displayPackets1_7[(b * 3) + a] = packets[a];
             }
-          }
-          else if (lines.length > this.entityIds.size())
-          {
-            PacketContainer[] packets1_7;
-            PacketContainer[] packets1_8;
-            for (; i < lines.length; i++)
-            {
-			Map.Entry<Integer, Integer> entry = new AbstractMap.SimpleEntry<>(Integer.valueOf(getId()), Integer.valueOf(getId()));
-              this.entityIds.add(entry);
-              
-              packets1_7 = makeSpawnPackets1_7(i, ((Integer)entry.getKey()).intValue(), ((Integer)entry.getValue()).intValue(), lines[i]);
-              packets1_8 = makeSpawnPacket1_8(i, ((Integer)entry.getKey()).intValue(), lines[i]);
-              for (Player p : players) {
-                try
-                {
-                  if (HologramCentral.is1_8(p)) {
-                    for (PacketContainer packet : packets1_8) {
-                      ProtocolLibrary.getProtocolManager().sendServerPacket(p, packet, false);
+            b++;
+        }
+    }
+
+    private PacketContainer[] makeSpawnPacket1_8(int height, int witherId, String horseName) {
+        if (this.isUsingWitherSkull()) {
+            PacketContainer[] packets = new PacketContainer[2];
+            packets[0] = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY);
+            StructureModifier<Integer> ints = packets[0].getIntegers();
+            ints.write(0, witherId);
+            ints.write(1, (int) (getLocation().getX() * 32));
+            ints.write(2, (int) ((location.getY() + -55.15 + ((double) height * (getLineSpacing() * 0.285))) * 32));
+            ints.write(3, (int) (getLocation().getZ() * 32));
+            ints.write(9, 66);
+            // Setup datawatcher for wither skull
+            packets[1] = new PacketContainer(PacketType.Play.Server.ENTITY_METADATA);
+            packets[1].getIntegers().write(0, witherId);
+            ArrayList<WrappedWatchableObject> list = new ArrayList<WrappedWatchableObject>();
+            list.add(new WrappedWatchableObject(0, (byte) 0));
+            list.add(new WrappedWatchableObject(2, horseName));
+            list.add(new WrappedWatchableObject(3, (byte) 1));
+            packets[1].getWatchableCollectionModifier().write(0, list);
+            return packets;
+        } else {
+            PacketContainer displayPacket = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY_LIVING);
+            StructureModifier<Integer> ints = displayPacket.getIntegers();
+            ints.write(0, witherId);
+            ints.write(1, 30);
+            ints.write(2, (int) (getLocation().getX() * 32));
+            ints.write(3, (int) ((location.getY() + -56.7 + ((double) height * (getLineSpacing() * 0.285))) * 32));
+            ints.write(4, (int) (getLocation().getZ() * 32));
+            // Setup datawatcher for armor stand
+            WrappedDataWatcher watcher = new WrappedDataWatcher();
+            watcher.setObject(0, (byte) 32);
+            watcher.setObject(2, horseName);
+            watcher.setObject(3, (byte) 1);
+            displayPacket.getDataWatcherModifier().write(0, watcher);
+            return new PacketContainer[] { displayPacket };
+        }
+    }
+
+    private PacketContainer[] makeSpawnPackets1_7(int height, int witherId, int horseId, String horseName) {
+        PacketContainer[] displayPackets = new PacketContainer[3];
+        // Spawn wither skull
+        displayPackets[0] = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY);
+        StructureModifier<Integer> ints = displayPackets[0].getIntegers();
+        ints.write(0, witherId);
+        ints.write(1, (int) (getLocation().getX() * 32));
+        ints.write(2, (int) ((location.getY() + ((double) height * (getLineSpacing() * 0.285))) * 32));
+        ints.write(3, (int) (getLocation().getZ() * 32));
+        ints.write(9, 66);
+        // Spawn horse
+        displayPackets[1] = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY_LIVING);
+        ints = displayPackets[1].getIntegers();
+        ints.write(0, horseId);
+        ints.write(1, 100);
+        ints.write(2, (int) (getLocation().getX() * 32));
+        ints.write(3, (int) ((location.getY() + ((double) height * (getLineSpacing() * 0.285)) + 0.23D) * 32));
+        ints.write(4, (int) (getLocation().getZ() * 32));
+        // Setup datawatcher
+        WrappedDataWatcher watcher = new WrappedDataWatcher();
+        watcher.setObject(0, (byte) 0);
+        watcher.setObject(1, (short) 300);
+        watcher.setObject(10, horseName);
+        watcher.setObject(11, (byte) 1);
+        watcher.setObject(12, -1700000);
+        displayPackets[1].getDataWatcherModifier().write(0, watcher);
+        // Make horse ride wither
+        displayPackets[2] = new PacketContainer(PacketType.Play.Server.ATTACH_ENTITY);
+        ints = displayPackets[2].getIntegers();
+        ints.write(1, horseId);
+        ints.write(2, witherId);
+        return displayPackets;
+    }
+
+    public Hologram moveHologram(Location location) {
+        moveHologram(location, true);
+        return this;
+    }
+
+    public Hologram moveHologram(Location newLocation, boolean setNewRelativeLocation) {
+        ArrayList<Player> oldPlayers = getPlayers();
+        Location loc = getLocation();
+        this.location = newLocation.clone().add(0, 54.6, 0);
+        if (setNewRelativeLocation && getEntityFollowed() != null) {
+            relativeToEntity = getLocation().subtract(getEntityFollowed().getLocation());
+        }
+        // If packet is in use
+        if (isInUse()) {
+            // Make the new display packets
+            makeSpawnPackets();
+            ArrayList<Player> newPlayers = getPlayers();
+            Iterator<Player> itel = oldPlayers.iterator();
+            // Loop over the old players and send those who can't see the hologram at the new location a destroy packet
+            while (itel.hasNext()) {
+                Player p = itel.next();
+                if (!newPlayers.contains(p)) {
+                    itel.remove();
+                    try {
+                        ProtocolLibrary.getProtocolManager().sendServerPacket(p, getDestroyPacket(p), false);
+                    } catch (InvocationTargetException e) {
+                        e.printStackTrace();
                     }
-                  } else {
-                    for (PacketContainer packet : packets1_7) {
-                      ProtocolLibrary.getProtocolManager().sendServerPacket(p, packet, false);
-                    }
-                  }
                 }
-                catch (InvocationTargetException e)
-                {
-                  e.printStackTrace();
-                }
-              }
             }
-          }
-          makeDestroyPacket();
+            PacketContainer[] packets1_7 = null;
+            PacketContainer[] packets1_8 = null;
+            if (!oldPlayers.isEmpty()) {
+                lastMovement.add(location.getX() - loc.getX(), location.getY() - loc.getY(), location.getZ() - loc.getZ());
+                int x = (int) Math.floor(32 * lastMovement.getX());
+                int y = (int) Math.floor(32 * lastMovement.getY());
+                int z = (int) Math.floor(32 * lastMovement.getZ());
+                packets1_7 = new PacketContainer[lines.length];
+                packets1_8 = new PacketContainer[lines.length];
+                int i = 0;
+                if (x >= -128 && x < 128 && y >= -128 && y < 128 && z >= -128 && z < 128) {
+                    lastMovement.subtract(x / 32D, y / 32D, z / 32D);
+                    for (Entry<Integer, Integer> entityId : this.entityIds) {
+                        packets1_7[i] = new PacketContainer(PacketType.Play.Server.REL_ENTITY_MOVE);
+                        packets1_7[i].getIntegers().write(0, entityId.getKey());
+                        StructureModifier<Byte> bytes = packets1_7[i].getBytes();
+                        bytes.write(0, (byte) x);
+                        bytes.write(1, (byte) y);
+                        bytes.write(2, (byte) z);
+                        packets1_8[i] = packets1_7[i];
+                        i++;
+                    }
+                } else {
+                    x = (int) Math.floor(32 * location.getX());
+                    z = (int) Math.floor(32 * location.getZ());
+                    lastMovement = new Location(null, location.getX() - (x / 32D), 0, location.getZ() - (z / 32D));
+                    for (Entry<Integer, Integer> entityId : this.entityIds) {
+                        packets1_7[i] = new PacketContainer(PacketType.Play.Server.ENTITY_TELEPORT);
+                        StructureModifier<Integer> ints = packets1_7[i].getIntegers();
+                        ints.write(0, entityId.getKey());
+                        ints.write(1, x);
+                        ints.write(2, (int) Math.floor((location.getY() + ((double) i * (getLineSpacing() * 0.285))) * 32));
+                        ints.write(3, z);
+                        packets1_8[i] = packets1_7[i].shallowClone();
+                        packets1_8[i].getIntegers().write(2,
+                                (int) Math.floor((location.getY() + -55.15 + ((double) i * (getLineSpacing() * 0.285))) * 32));
+                        i++;
+                    }
+                }
+            }
+            for (Player p : newPlayers) {
+                try {
+                    for (PacketContainer packet : oldPlayers.contains(p) ? HologramCentral.is1_8(p) ? packets1_8 : packets1_7
+                            : getSpawnPackets(p)) {
+                        ProtocolLibrary.getProtocolManager().sendServerPacket(p, packet, false);
+                    }
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        makeDisplayPackets();
-      }
-      else
-      {
-        if (lines.length < this.entityIds.size()) {
-          while (this.entityIds.size() > lines.length) {
-            this.entityIds.remove(this.entityIds.size() - 1);
-          }
-        }
-        for (int i = this.entityIds.size(); i < lines.length; i++)
-        {
-		Map.Entry<Integer, Integer> entry = new AbstractMap.SimpleEntry<>(Integer.valueOf(getId()), Integer.valueOf(getId()));
-          this.entityIds.add(entry);
-        }
-      }
+        return this;
     }
-    return this;
-  }
-  
-  public Hologram setLineSpacing(double newLineSpacing)
-  {
-    this.lineSpacing = newLineSpacing;
-    if (isInUse())
-    {
-      makeDisplayPackets();
-      HologramCentral.removeHologram(this);
-      HologramCentral.addHologram(this);
-    }
-    return this;
-  }
-  
-  public Hologram setMovement(Vector vector)
-  {
-    this.moveVector = vector;
-    return this;
-  }
-  
-  public Hologram setRadius(int viewDistance)
-  {
-    assert (viewDistance > 0) : ("Why the hell are you setting the view distance to " + viewDistance + "?!?!");
-    this.viewDistance = viewDistance;
-    if (isInUse())
-    {
-      HologramCentral.removeHologram(this);
-      HologramCentral.addHologram(this);
-    }
-    return this;
-  }
-  
-  public Hologram setRelativeToEntity(Location location)
-  {
-    this.relativeToEntity = location;
-    return this;
-  }
-  
-  public Hologram setTarget(HologramTarget target)
-  {
-    if (target != getTarget())
-    {
-      this.hologramTarget = target;
-      if (isInUse())
-      {
+
+    public Hologram remove() {
         HologramCentral.removeHologram(this);
-        HologramCentral.addHologram(this);
-      }
+        return this;
     }
-    return this;
-  }
-  
-  public Hologram setUsingArmorStand()
-  {
-    this.isUsingWitherSkull = true;
-    makeDisplayPackets();
-    
-    return this;
-  }
-  
-  public Hologram setUsingWitherSkull()
-  {
-    this.isUsingWitherSkull = false;
-    makeDisplayPackets();
-    
-    return this;
-  }
-  
-  public Hologram start()
-  {
-    if (!isInUse())
-    {
-      for (int i = this.entityIds.size(); i < this.lines.length; i++)
-      {
-        int entityId = getId();
-        this.entityIds.add(new AbstractMap.SimpleEntry<>(Integer.valueOf(getId()), Integer.valueOf(entityId)));
-      }
-      makeDestroyPacket();
-      makeDisplayPackets();
-      HologramCentral.addHologram(this);
+
+    public Hologram removePlayer(Player... players) {
+        for (Player player : players) {
+            if (hologramPlayers.contains(player.getName())) {
+                hologramPlayers.remove(player.getName());
+                if (isInUse()) {
+                    HologramCentral.removeHologram(player, this);
+                }
+            }
+        }
+        return this;
     }
-    return this;
-  }
-  
-  public Hologram stop()
-  {
-    return remove();
-  }
 
-public List<Entity> getHoloItems() {
-	return holoItems;
-}
+    public Hologram setFollowEntity(Entity entity) {
+        setFollowEntity(entity, true);
+        return this;
+    }
 
-public void setHoloItems(List<Entity> holoItems) {
-	this.holoItems = holoItems;
-}
+    public Hologram setFollowEntity(Entity entity, boolean isRemoveOnEntityDeath) {
+        setFollowEntity(entity, isRemoveOnEntityDeath, false, false, false);
+        return this;
+    }
+
+    public Hologram setFollowEntity(Entity entity, boolean isRemoveOnEntityDeath, boolean setRelativeYaw,
+            boolean setRelativePitch, boolean pitchControlsMoreThanY) {
+        relativeEntity = entity;
+        if (entity != null) {
+            this.keepAliveAfterEntityDies = isRemoveOnEntityDeath;
+            relativeToEntity = getLocation().subtract(entity.getLocation());
+            entityLastLocation = entity.getLocation();
+            Location l = entity.getLocation();
+            if (setRelativeYaw || setRelativePitch) {
+                // double pitch=-Math.atan2(l.getY(),Math.sqrt((Math.pow(l, b)))
+                relativeToEntity.setPitch(l.getPitch());
+                relativeToEntity.setYaw(l.getYaw());
+                this.setRelativePitch = setRelativePitch;
+                this.setRelativeYaw = setRelativeYaw;
+                this.pitchControlsMoreThanY = pitchControlsMoreThanY;
+            }
+        }
+        return this;
+    }
+
+    public Hologram setLines(String... lines) {
+        if (!this.lines.equals(lines)) {
+            String[] oldLines = this.lines.clone();
+            this.lines = lines;
+            lines = lines.clone();
+            ArrayUtils.reverse(lines);
+            ArrayUtils.reverse(oldLines);
+            if (isInUse()) {
+                int i = 0;
+                ArrayList<Player> players = getPlayers();
+
+                for (; i < Math.min(entityIds.size(), lines.length); i++) {
+                    if (oldLines.length <= i || !oldLines[i].equals(lines[i])) {
+                        Entry<Integer, Integer> entry = entityIds.get(i);
+                        PacketContainer packet1_7 = new PacketContainer(PacketType.Play.Server.ENTITY_METADATA);
+                        packet1_7.getIntegers().write(0, entry.getValue());
+                        ArrayList<WrappedWatchableObject> list = new ArrayList<WrappedWatchableObject>();
+                        list.add(new WrappedWatchableObject(0, (byte) 0));
+                        list.add(new WrappedWatchableObject(1, (short) 300));
+                        list.add(new WrappedWatchableObject(10, lines[i]));
+                        list.add(new WrappedWatchableObject(11, (byte) 1));
+                        list.add(new WrappedWatchableObject(12, -1700000));
+                        packet1_7.getWatchableCollectionModifier().write(0, list);
+                        PacketContainer packet1_8 = new PacketContainer(PacketType.Play.Server.ENTITY_METADATA);
+                        packet1_8.getIntegers().write(0, entry.getKey());
+                        list = new ArrayList<WrappedWatchableObject>();
+                        list.add(new WrappedWatchableObject(0, (byte) 32));
+                        list.add(new WrappedWatchableObject(2, lines[i]));
+                        list.add(new WrappedWatchableObject(3, (byte) 1));
+                        packet1_8.getWatchableCollectionModifier().write(0, list);
+                        for (Player p : players) {
+                            try {
+                                ProtocolLibrary.getProtocolManager().sendServerPacket(p,
+                                        HologramCentral.is1_8(p) ? packet1_8 : packet1_7, false);
+                            } catch (InvocationTargetException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }
+                if (lines.length != entityIds.size()) {
+                    if (lines.length < entityIds.size()) {
+                        // Make delete packets
+                        int[] destroyIds = new int[(entityIds.size() - lines.length) * 2];
+                        int e = 0;
+                        while (entityIds.size() > lines.length) {
+                            Entry<Integer, Integer> entry = entityIds.remove(entityIds.size() - 1);
+                            destroyIds[e++] = entry.getKey();
+                            destroyIds[e++] = entry.getValue();
+                        }
+                        PacketContainer destroyPacket = new PacketContainer(PacketType.Play.Server.ENTITY_DESTROY);
+                        destroyPacket.getIntegerArrays().write(0, destroyIds);
+                        for (Player p : players) {
+                            try {
+                                ProtocolLibrary.getProtocolManager().sendServerPacket(p, destroyPacket, false);
+                            } catch (InvocationTargetException b) {
+                                b.printStackTrace();
+                            }
+                        }
+                    } else if (lines.length > entityIds.size()) {
+                        for (; i < lines.length; i++) {
+                            Entry<Integer, Integer> entry = new HashMap.SimpleEntry<>(getId(), getId());
+                            entityIds.add(entry);
+                            // Make create packets
+                            PacketContainer[] packets1_7 = this
+                                    .makeSpawnPackets1_7(i, entry.getKey(), entry.getValue(), lines[i]);
+                            PacketContainer[] packet1_8 = this.makeSpawnPacket1_8(i, entry.getKey(), lines[i]);
+                            for (Player p : players) {
+                                try {
+                                    if (HologramCentral.is1_8(p))
+                                        for (PacketContainer packet : packet1_8) {
+                                            ProtocolLibrary.getProtocolManager().sendServerPacket(p, packet, false);
+                                        }
+                                    else
+                                        for (PacketContainer packet : packets1_7) {
+                                            ProtocolLibrary.getProtocolManager().sendServerPacket(p, packet, false);
+                                        }
+                                } catch (InvocationTargetException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                    makeDestroyPacket();
+                }
+                makeSpawnPackets();
+            } else {
+                if (lines.length < entityIds.size()) {
+                    while (entityIds.size() > lines.length) {
+                        entityIds.remove(entityIds.size() - 1);
+                    }
+                } else {
+                    for (int i = entityIds.size(); i < lines.length; i++) {
+                        Entry<Integer, Integer> entry = new HashMap.SimpleEntry<>(getId(), getId());
+                        entityIds.add(entry);
+                    }
+                }
+            }
+        }
+        return this;
+    }
+
+    public Hologram setLineSpacing(double newLineSpacing) {
+        this.lineSpacing = newLineSpacing;
+        if (isInUse()) {
+            makeSpawnPackets();
+            HologramCentral.removeHologram(this);
+            HologramCentral.addHologram(this);
+        }
+        return this;
+    }
+
+    public Hologram setMovement(Vector vector) {
+        this.moveVector = vector;
+        return this;
+    }
+
+    public Hologram setRadius(int viewDistance) {
+        assert viewDistance > 0 : "Why the hell are you setting the view distance to " + viewDistance + "?!?!";
+        this.viewDistance = viewDistance;
+        if (isInUse()) {
+            HologramCentral.removeHologram(this);
+            HologramCentral.addHologram(this);
+        }
+        return this;
+    }
+
+    public Hologram setRelativeToEntity(Location location) {
+        this.relativeToEntity = location;
+        return this;
+    }
+
+    public Hologram setTarget(HologramTarget target) {
+        if (target != getTarget()) {
+            hologramTarget = target;
+            if (isInUse()) {
+                HologramCentral.removeHologram(this);
+                HologramCentral.addHologram(this);
+            }
+        }
+        return this;
+    }
+
+    public Hologram setUsingArmorStand() {
+        this.isUsingWitherSkull = true;
+        // TODO Remake and resend packets
+        return this;
+    }
+
+    public Hologram setUsingWitherSkull() {
+        this.isUsingWitherSkull = false;
+        // TODO Remake and resend packets
+        return this;
+    }
+
+    public Hologram start() {
+        if (!isInUse()) {
+            for (int i = entityIds.size(); i < lines.length; i++) {
+                int entityId = getId();
+                this.entityIds.add(new HashMap.SimpleEntry<>(getId(), entityId));
+            }
+            makeDestroyPacket();
+            makeSpawnPackets();
+            HologramCentral.addHologram(this);
+        }
+        return this;
+    }
+
+    public Hologram stop() {
+        return remove();
+    }
+
 }
