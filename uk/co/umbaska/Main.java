@@ -98,11 +98,11 @@ public class Main extends JavaPlugin implements Listener
     getServer().getPluginManager().registerEvents(new uk.co.umbaska.Misc.ExprNetworking(), this);
     getServer().getPluginManager().registerEvents(new ca.thederpygolems.armorequip.ArmourListener(getConfig().getStringList("blocked")), this);
     if (((Register.getVersion().contains("1_7")) || (Register.getVersion().contains("1_8"))) && (!getConfig().getBoolean("enable_1.7_override"))) {
-      Bukkit.getLogger().warning("Umbaska 2.0 doesn't work with Minecraft 1.7/1.8! Sorry! If you wish to load Umbaska anyway, set 'enable_1.7_override' to true in the config.");
+      Bukkit.getLogger().warning("Umbaska 4 doesn't work with Minecraft 1.7/1.8! Sorry! If you wish to load Umbaska anyway, set 'enable_1.7_override' to true in the config.");
       Bukkit.getPluginManager().disablePlugin(this);
       return; }
     if (getConfig().getBoolean("enable_1.7_override")) {
-      Bukkit.getLogger().warning("Umbaska 2.0 has been enabled with 1.7/1.8 Override Mode Enabled. We take no responsibility for any damage done. We will ignore any reports regarding servers that enable the 1.7/1.8 override.");
+      Bukkit.getLogger().warning("Umbaska 4.0.0 has been enabled with 1.7/1.8 Override Mode Enabled. We take no responsibility for any damage done. We will ignore any reports regarding servers that enable the 1.7/1.8 override.");
       notEvil.setData("using1_7override", "true");
     }
     
@@ -110,7 +110,7 @@ public class Main extends JavaPlugin implements Listener
       new UpdateChecker(this, Integer.valueOf(10)).start();
     }
     
-    showPatreons();
+    //showPatreons();
     
 
     String[] data = loadConfig();
@@ -202,7 +202,7 @@ public class Main extends JavaPlugin implements Listener
   }
   
 
-  private void showPatreons()
+  /*private void showPatreons()
   {
     getLogger().info("");
     getLogger().info("");
@@ -216,7 +216,7 @@ public class Main extends JavaPlugin implements Listener
     getLogger().info("");
     getLogger().info("");
     getLogger().info("");
-  }
+  }*/
   
   private void doThis()
   {
@@ -322,7 +322,7 @@ public class Main extends JavaPlugin implements Listener
     }
     if (getConfig().getBoolean("Metrics")) {
       new Metrics(this);
-	getLogger().info(ChatColor.GREEN + "[Umbaska] Hooked into metrics! :)");
+	getLogger().info(ChatColor.GREEN + "[Umbaska 4.0.0] Hooked into metrics! :)");
     }
   }
   

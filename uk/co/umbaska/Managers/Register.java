@@ -28,6 +28,7 @@ import uk.co.umbaska.Factions.EvtFactionCreateEvent;
 import uk.co.umbaska.Factions.EvtFactionDescriptionChangeEvent;
 import uk.co.umbaska.Factions.EvtFactionDisbandEvent;
 import uk.co.umbaska.Factions.EvtFactionNameChangeEvent;
+import uk.co.umbaska.LargeSk.register.LargeSkRegister;
 import uk.co.umbaska.Misc.EvtCropGrowEvent;
 import uk.co.umbaska.Misc.EvtHeadRotateEvent;
 import uk.co.umbaska.Misc.EvtRepairEvent;
@@ -73,7 +74,7 @@ public static Class getClass(String classname)
     Effects.runRegister();
     Expressions.runRegister();
     Enums.runRegister();
-    //new LargeSkRegister().registerAll();
+    new LargeSkRegister().registerAll();
     
     Skript.registerEvent("Portal Spawn", SimpleEvent.class, org.bukkit.event.entity.EntityCreatePortalEvent.class, new String[] { "on portal spawn" });
     

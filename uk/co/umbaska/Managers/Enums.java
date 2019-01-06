@@ -104,6 +104,7 @@ private static void registerEnum(@SuppressWarnings("rawtypes") Class cls, String
 public static void runRegister() {
     registerEnum(InventoryTypes.class, "umbaskainv");
     registerEnum(ParticleEnum.class, "particleenum");
+    //registerEnum(ParticleEnumArea.class, "particleenumarea");
     registerEnum(BukkitEffectEnum.class, "bukkiteffect");
     
     registerEnum(Locale.class, "locale");

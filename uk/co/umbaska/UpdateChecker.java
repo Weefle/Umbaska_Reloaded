@@ -40,7 +40,7 @@ public class UpdateChecker
   public synchronized void runNow() {
     String version = this.currentVersion;
     try {
-      String url = "http://umbaska.gatt.space/version.txt";
+      String url = "https://pastebin.com/raw/i20BnAxd";
       InputStream is = new URL(url).openStream();
       BufferedReader rd = new BufferedReader(new java.io.InputStreamReader(is, Charset.defaultCharset()));
       version = readAll(rd);
@@ -50,7 +50,7 @@ public class UpdateChecker
     }
     if (!this.currentVersion.equalsIgnoreCase(version)) {
       for (int time = 0; time < 6; time++) {
-        Bukkit.getLogger().warning(ChatColor.translateAlternateColorCodes('&', "&3&lUmbaska 2.0 is out of date! The newest version is " + version + "! Please download the new version from http://umbaska.gatt.space !"));
+        Bukkit.getLogger().warning(ChatColor.translateAlternateColorCodes('&', "&3&lUmbaska 4.0.0 is out of date! The newest version is " + version + "! Please download the new version from https://github.com/Weefle/Umbaska_Reloaded/releases !"));
       }
     }
   }

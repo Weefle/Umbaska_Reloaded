@@ -1,6 +1,6 @@
-Metrics: true # Please keep this enabled <3
+Metrics: true # Please keep this enabled <3.
 
-entity_uuid_fix: true # Changes the Syntax of the "UUID of Entity" expression to "entity uuid of %entity%" if set to true
+entity_uuid_fix: true # Changes the Syntax of the "UUID of Entity" expression to "entity uuid of %entity%" if set to true.
 
 skript_variables_location: plugins/Skript/variables.csv # Change this to the appropriate value. Used for Variable Caching, Global Variables etc.
 
@@ -17,17 +17,17 @@ schematic_location: PLUGINFOLDER/schematics/ #Use PLUGINFOLDER to get Umbaska's 
 
 disable_SkRambled_stuff: false # Set to true if you have SkRambled installed. <3
 
-plotme_warnings_enabled: true # Set to false if you don't want to be warned about PlotMe
+plotme_warnings_enabled: true # Set to false if you don't want to be warned about PlotMe.
 
 enable_vault_hook: true
 
 # This will make Umbaska an economy manager, with the ability to easily handle balances of players using vault.
-# There is a seperate config for this which will be created once this is enabled. It *should* be located in /Umbaska/Econ/config.yml
+# There is a seperate config for this which will be created once this is enabled. It *should* be located in /Umbaska/Econ/config.yml.
 
 enable_1.7_override: false
 
-# If set to true, will allow Umbaska to run on 1.7 servers; It will still try to register everything, and it's unknown how it will run.
-# By enabling this option; you accept that the Umbaska Project takes no responsibility for any damages of any sort
+# If set to true, will allow Umbaska to run on 1.7 servers. It will still try to register everything, and it's unknown how it will run.
+# By enabling this option, you accept that the Umbaska Project takes no responsibility for any damages of any sort.
 # Enabling this is done at your own risk!
 
 blocked:
@@ -76,5 +76,5 @@ blocked:
     - WALL_SIGN
     - SIGN
 
-umbaska_version: 2.0 Beta 5.2 # Do not change this. It will cause your config to reset!
-admin_url: null
+umbaska_version: 4.0.0 # Do not change this. It will cause your config to reset!
+admin_url: https://github.com/Weefle

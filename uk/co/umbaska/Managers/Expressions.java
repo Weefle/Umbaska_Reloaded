@@ -610,7 +610,7 @@ private static void registerNewExpression(Class cls, Class returnType, Expressio
     registerNewSimpleExpression("Area Effect Cloud - Cloud Color", ExprEffectCloudColor.class, Color.class, "[area][ ][effect][ ][cloud] colo[u]r", "entity", Boolean.valueOf(false));
     registerNewSimpleExpression("Area Effect Cloud - Cloud Duration", ExprEffectCloudDuration.class, Number.class, "[area][ ][effect][ ][cloud] duration", "entity", Boolean.valueOf(false));
     registerNewSimpleExpression("Area Effect Cloud - Cloud Duration on Use", ExprEffectCloudDurationOnUse.class, Number.class, "[area][ ][effect][ ][cloud] duration on use", "entity", Boolean.valueOf(false));
-    registerNewSimpleExpression("Area Effect Cloud - Cloud Particle", ExprEffectCloudParticle.class, ParticleEnum.class, "[area][ ][effect][ ][cloud] particle", "entity", Boolean.valueOf(false));
+    registerNewSimpleExpression("Area Effect Cloud - Cloud Particle", ExprEffectCloudParticle.class, ParticleEnum/*Area*/.class, "[area][ ][effect][ ][cloud] particle", "entity", Boolean.valueOf(false));
     registerNewSimpleExpression("Area Effect Cloud - Cloud Radius", ExprEffectCloudRadius.class, Number.class, "[area][ ][effect][ ][cloud] radius", "entity", Boolean.valueOf(false));
     registerNewSimpleExpression("Area Effect Cloud - Cloud Radius on Use", ExprEffectCloudRadiusOnUse.class, Number.class, "[area][ ][effect][ ][cloud] radius on use", "entity", Boolean.valueOf(false));
     registerNewSimpleExpression("Area Effect Cloud - Cloud Radius per Tick", ExprEffectCloudRadiusPerTick.class, Number.class, "[area][ ][effect][ ][cloud] radius per tick", "entity", Boolean.valueOf(false));

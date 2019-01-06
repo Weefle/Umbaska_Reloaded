@@ -1,0 +1,4 @@
+/BadResponseException.class
+/NotSupportedForBotsException.class
+/PermissionsException.class
+/RateLimitedException.class
