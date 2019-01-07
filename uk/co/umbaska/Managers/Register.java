@@ -76,6 +76,7 @@ public static Class getClass(String classname)
     Enums.runRegister();
     new LargeSkRegister().registerAll();
     
+    
     Skript.registerEvent("Portal Spawn", SimpleEvent.class, org.bukkit.event.entity.EntityCreatePortalEvent.class, new String[] { "on portal spawn" });
     
     Skript.registerEvent("Armour Equip", SimpleEvent.class, ca.thederpygolems.armorequip.ArmourEquipEvent.class, new String[] { "armo[u]r equip" });

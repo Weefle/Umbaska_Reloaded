@@ -25,5 +25,8 @@
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/NoteBlockAPI-1.2.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/MCJukebox.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/lombok.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/PlotSquared (2).jar"/>
+	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/AAC_Package_Dec_2018/AAC-3.6.4-b1-Cracked.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/ViaVersion-1.6.0.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

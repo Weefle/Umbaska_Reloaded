@@ -3,5 +3,5 @@ main: uk.co.umbaska.Main
 authors: [nfell2009, Gatt, Weefle]
 version: 4.0.0
 depend: [Skript]
-softdepend: [PlotMe, Vault, Towny, NametagEdit, Dynmap, ProtocolLib, WorldEdit, mcMMO, WorldGuard, Factions, PlaceholderAPI, MCJukebox]
+softdepend: [PlotSquared, PlotMe, Vault, Towny, NametagEdit, Dynmap, ProtocolLib, WorldEdit, mcMMO, WorldGuard, Factions, PlaceholderAPI, MCJukebox, AAC]
 loadbefore: [SkQuery]

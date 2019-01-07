@@ -1,0 +1,10 @@
+/AccessConnection.class
+/AccessConnectionType.class
+/DatabaseConnection.class
+/EmptyAccessConnection.class
+/HikariConnection.class
+/MySQLConnection$ReadyStatus.class
+/MySQLConnection.class
+/NormalAuthConnection.class
+/PreparedStatement.class
+/SQLConnection.class

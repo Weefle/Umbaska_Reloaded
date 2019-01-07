@@ -37,6 +37,7 @@ import uk.co.umbaska.Bungee.Messenger;
 import uk.co.umbaska.Managers.Register;
 import uk.co.umbaska.ProtocolLib.EntityHider;
 import uk.co.umbaska.System.WildSkriptTimer;
+import uk.co.umbaska.UmbAccess.ConnectionManager;
 import uk.co.umbaska.Utils.FreezeListener;
 import uk.co.umbaska.Utils.ItemManager;
 import uk.co.umbaska.Utils.Disguise.DisguiseAPI;
@@ -77,6 +78,8 @@ public class Main extends JavaPlugin implements Listener
   private Boolean generateDocumentation = Boolean.valueOf(false);
   
   public VariableCache variableCache;
+  
+  private ConnectionManager connectionManager = new ConnectionManager();
   
   public void onEnable()
   {
@@ -491,4 +494,12 @@ private void loadData()
       ch.njol.skript.Skript.error((String)syntaxWarnings.get(className));
     }
   }
+
+public ConnectionManager getConnectionManager() {
+	return connectionManager;
+}
+
+public void setConnectionManager(ConnectionManager connectionManager) {
+	this.connectionManager = connectionManager;
+}
 }
