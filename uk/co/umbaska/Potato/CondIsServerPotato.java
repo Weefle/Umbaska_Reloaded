@@ -1,20 +1,18 @@
 package uk.co.umbaska.Potato;
 
+import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 
+import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import uk.co.umbaska.Registration.DocsIgnore;
-import uk.co.umbaska.Registration.Name;
 import uk.co.umbaska.Registration.Syntaxes;
-import uk.co.umbaska.Registration.UmbaskaCondition;
 
-@Name("If server is a Potato")
 @Syntaxes({"[(this|the)] server is [(a|an|the)] [instance of] [[the] only (true|real)] potato"})
-@DocsIgnore
 public class CondIsServerPotato
-  extends UmbaskaCondition
+  extends Condition
 {
   public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
@@ -25,4 +23,10 @@ public class CondIsServerPotato
   {
     return PotatoUtil.getPotatoState();
   }
+
+@Override
+public String toString(@Nullable Event arg0, boolean arg1) {
+	// TODO Auto-generated method stub
+	return "If server is a Potato";
+}
 }

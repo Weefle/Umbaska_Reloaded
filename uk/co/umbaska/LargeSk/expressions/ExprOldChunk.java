@@ -1,22 +1,23 @@
 package uk.co.umbaska.LargeSk.expressions;
 
-import ch.njol.skript.ScriptLoader;
-import ch.njol.skript.Skript;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
+
 import org.bukkit.Chunk;
 import org.bukkit.event.Event;
-import uk.co.umbaska.LargeSk.events.EvtPlayerChunkChange;
-import uk.co.umbaska.Registration.Name;
-import uk.co.umbaska.Registration.SimpleUmbaskaExpression;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Name("On Chunk Change - Old Chunk")
+import ch.njol.skript.ScriptLoader;
+import ch.njol.skript.Skript;
+import ch.njol.skript.doc.Name;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
+import uk.co.umbaska.Registration.Syntaxes;
+import uk.co.umbaska.LargeSk.events.EvtPlayerChunkChange;
+
 @Syntaxes({"old chunk"})
 public class ExprOldChunk
-  extends SimpleUmbaskaExpression<Chunk>
+  extends SimpleExpression<Chunk>
 {
   public Class<? extends Chunk> getReturnType()
   {
@@ -39,4 +40,16 @@ public class ExprOldChunk
     EvtPlayerChunkChange event = (EvtPlayerChunkChange)e;
     return new Chunk[] { event.getFrom() };
   }
+
+@Override
+public boolean isSingle() {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+@Override
+public String toString(@Nullable Event arg0, boolean arg1) {
+	// TODO Auto-generated method stub
+	return "On Chunk Change - Old Chunk";
+}
 }

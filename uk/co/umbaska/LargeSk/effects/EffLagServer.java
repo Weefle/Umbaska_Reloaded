@@ -1,25 +1,27 @@
 package uk.co.umbaska.LargeSk.effects;
 
+import javax.annotation.Nullable;
+
+import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.util.Timespan;
 import ch.njol.util.Kleenean;
-import org.bukkit.event.Event;
-import uk.co.umbaska.Registration.Name;
+import uk.co.umbaska.Main;
 import uk.co.umbaska.Registration.Syntaxes;
-import uk.co.umbaska.Registration.UmbaskaEffect;
-import uk.co.umbaska.Umbaska;
 
-@Name("Lag the server")
 @Syntaxes({"lag [the] server for %timespan%", "(make|create) a %timespan% lag[[ ]spike]"})
 public class EffLagServer
-  extends UmbaskaEffect
+  extends Effect
 {
   private Expression<Timespan> time;
   
-  public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.time = expr[0];
+    this.time = (Expression<Timespan>) expr[0];
     return true;
   }
   
@@ -32,7 +34,13 @@ public class EffLagServer
     }
     catch (InterruptedException ex)
     {
-      Umbaska.logWarning(new Object[] { "The Lag Server Effect was interrupted: " + ex.getMessage() });
+      Main.getInstance().getLogger().warning("The Lag Server Effect was interrupted: " + ex.getMessage());
     }
   }
+
+@Override
+public String toString(@Nullable Event arg0, boolean arg1) {
+	// TODO Auto-generated method stub
+	return "Lag the server";
+}
 }

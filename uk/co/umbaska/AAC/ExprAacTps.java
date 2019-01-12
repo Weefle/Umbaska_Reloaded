@@ -1,22 +1,19 @@
 package uk.co.umbaska.AAC;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import javax.annotation.Nullable;
-import me.konsolas.aac.api.AACAPI;
-import me.konsolas.aac.api.AACAPIProvider;
+
 import org.bukkit.event.Event;
-import uk.co.umbaska.Registration.Dependency;
-import uk.co.umbaska.Registration.Name;
-import uk.co.umbaska.Registration.SimpleUmbaskaExpression;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
+import me.konsolas.aac.api.AACAPIProvider;
 import uk.co.umbaska.Registration.Syntaxes;
 
-@Name("TPS of Server by AAC")
 @Syntaxes({"[AAC] tps", "tps (of|by) AAC"})
-@Dependency("AAC")
 public class ExprAacTps
-  extends SimpleUmbaskaExpression<Double>
+  extends SimpleExpression<Double>
 {
   public Class<? extends Double> getReturnType()
   {
@@ -36,4 +33,16 @@ public class ExprAacTps
     }
     return null;
   }
+
+@Override
+public boolean isSingle() {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+@Override
+public String toString(@Nullable Event arg0, boolean arg1) {
+	// TODO Auto-generated method stub
+	return "TPS of Server by AAC";
+}
 }

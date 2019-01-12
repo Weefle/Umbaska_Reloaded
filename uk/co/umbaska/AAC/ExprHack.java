@@ -1,24 +1,22 @@
 package uk.co.umbaska.AAC;
 
+import javax.annotation.Nullable;
+
+import org.bukkit.event.Event;
+
 import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import javax.annotation.Nullable;
 import me.konsolas.aac.api.HackType;
-import org.bukkit.event.Event;
-import uk.co.umbaska.LargeSk.events.EvtPlayerViolation;
-import uk.co.umbaska.Registration.Dependency;
-import uk.co.umbaska.Registration.Name;
-import uk.co.umbaska.Registration.SimpleUmbaskaExpression;
 import uk.co.umbaska.Registration.Syntaxes;
+import uk.co.umbaska.LargeSk.events.EvtPlayerViolation;
 
-@Name("Hack inside Violation Event")
 @Syntaxes({"hack", "cheat", "violation"})
-@Dependency("AAC")
 public class ExprHack
-  extends SimpleUmbaskaExpression<HackType>
+  extends SimpleExpression<HackType>
 {
   HackType hack;
   
@@ -50,4 +48,10 @@ public class ExprHack
     this.hack = event.getHack();
     return new HackType[] { this.hack };
   }
+
+@Override
+public String toString(@Nullable Event arg0, boolean arg1) {
+	// TODO Auto-generated method stub
+	return "Hack inside Violation Event";
+}
 }

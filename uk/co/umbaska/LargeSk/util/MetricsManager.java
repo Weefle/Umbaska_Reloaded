@@ -1,15 +1,16 @@
 package uk.co.umbaska.LargeSk.util;
 
 import java.io.IOException;
+
 import org.bukkit.Bukkit;
-import org.bukkit.scheduler.BukkitScheduler;
-import uk.co.umbaska.Umbaska;
+
+import uk.co.umbaska.Main;
 
 public class MetricsManager
 {
   public static void scheduleEnableMetrics()
   {
-    Bukkit.getScheduler().runTaskLaterAsynchronously(Umbaska.get(), new Runnable()
+    Bukkit.getScheduler().runTaskLaterAsynchronously(Main.getInstance(), new Runnable()
     {
       public void run() {}
     }, 100L);
@@ -19,12 +20,12 @@ public class MetricsManager
   {
     try
     {
-      Metrics metrics = new Metrics(Umbaska.get());
+      Metrics metrics = new Metrics(Main.getInstance());
       metrics.start();
     }
     catch (IOException e)
     {
-      Umbaska.logWarning(new Object[] { "Enabling Metrics failed ¯\\_(ツ)_/¯" });
+      Main.getInstance().getLogger().warning("Enabling Metrics failed ¯\\\\_(ツ)_/¯");
       e.printStackTrace();
     }
   }
@@ -33,12 +34,12 @@ public class MetricsManager
   {
     try
     {
-      Metrics metrics = new Metrics(Umbaska.get());
+      Metrics metrics = new Metrics(Main.getInstance());
       metrics.disable();
     }
     catch (IOException e)
     {
-      Umbaska.logWarning(new Object[] { "Disabling Metrics failed ¯\\_(ツ)_/¯" });
+    	Main.getInstance().getLogger().warning("Disabling Metrics failed ¯\\\\_(ツ)_/¯");
       e.printStackTrace();
     }
   }

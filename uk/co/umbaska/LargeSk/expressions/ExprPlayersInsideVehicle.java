@@ -1,15 +1,18 @@
 package uk.co.umbaska.LargeSk.expressions;
 
+import java.util.ArrayList;
+
+import javax.annotation.Nullable;
+
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+
 import ch.njol.skript.Skript;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import java.util.ArrayList;
-import javax.annotation.Nullable;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 
 public class ExprPlayersInsideVehicle
   extends SimpleExpression<Player>
@@ -26,9 +29,10 @@ public class ExprPlayersInsideVehicle
     return false;
   }
   
-  public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.players = expr[0];
+    this.players = (Expression<Player>) expr[0];
     return true;
   }
   
@@ -40,7 +44,7 @@ public class ExprPlayersInsideVehicle
   @Nullable
   protected Player[] get(Event e)
   {
-    ArrayList<Player> r = new ArrayList();
+    ArrayList<Player> r = new ArrayList<>();
     for (Player l : (Player[])this.players.getArray(e)) {
       if (l.isInsideVehicle()) {
         r.add(l);

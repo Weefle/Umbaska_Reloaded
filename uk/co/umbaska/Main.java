@@ -37,7 +37,6 @@ import uk.co.umbaska.Bungee.Messenger;
 import uk.co.umbaska.Managers.Register;
 import uk.co.umbaska.ProtocolLib.EntityHider;
 import uk.co.umbaska.System.WildSkriptTimer;
-import uk.co.umbaska.UmbAccess.ConnectionManager;
 import uk.co.umbaska.Utils.FreezeListener;
 import uk.co.umbaska.Utils.ItemManager;
 import uk.co.umbaska.Utils.Disguise.DisguiseAPI;
@@ -64,6 +63,7 @@ public class Main extends JavaPlugin implements Listener
   public static HashMap<String, String> globalKeyCache = new HashMap<>();
   public static String bungeeServerName;
   public static Boolean usingUmbaskaCord = Boolean.valueOf(true);
+  public static Boolean use_bungee = Boolean.valueOf(false);
   public static com.google.common.io.ByteArrayDataInput bytein;
   public static Messenger messenger;
   public static Boolean disableSkRambled;
@@ -78,8 +78,6 @@ public class Main extends JavaPlugin implements Listener
   private Boolean generateDocumentation = Boolean.valueOf(false);
   
   public VariableCache variableCache;
-  
-  private ConnectionManager connectionManager = new ConnectionManager();
   
   public void onEnable()
   {
@@ -251,7 +249,7 @@ public class Main extends JavaPlugin implements Listener
 
     registerPlotMeWarning();
     
-    Boolean use_bungee = Boolean.valueOf(getConfig().getBoolean("use_bungee"));
+    use_bungee = Boolean.valueOf(getConfig().getBoolean("use_bungee"));
     Boolean bungee_autocache = Boolean.valueOf(getConfig().getBoolean("enable_bungee_autocache"));
     Integer autocache_heartbeat = Integer.valueOf(getConfig().getInt("bungee_autocache_heartbeat"));
     if (autocache_heartbeat.intValue() <= 0) {
@@ -495,11 +493,4 @@ private void loadData()
     }
   }
 
-public ConnectionManager getConnectionManager() {
-	return connectionManager;
-}
-
-public void setConnectionManager(ConnectionManager connectionManager) {
-	this.connectionManager = connectionManager;
-}
 }

@@ -1,20 +1,21 @@
 package uk.co.umbaska.LargeSk.expressions;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+
 import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
-import uk.co.umbaska.Registration.Name;
-import uk.co.umbaska.Registration.SimpleUmbaskaExpression;
+
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
 import uk.co.umbaska.Registration.Syntaxes;
 
-@Name("Url Encoded Text")
 @Syntaxes({"url encoded %string%"})
 public class ExprUrlEncodedText
-  extends SimpleUmbaskaExpression<String>
+  extends SimpleExpression<String>
 {
   private Expression<String> string;
   
@@ -23,9 +24,10 @@ public class ExprUrlEncodedText
     return String.class;
   }
   
-  public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.string = expr[0];
+    this.string = (Expression<String>) expr[0];
     return true;
   }
   
@@ -42,4 +44,16 @@ public class ExprUrlEncodedText
     }
     return null;
   }
+
+@Override
+public boolean isSingle() {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+@Override
+public String toString(@Nullable Event arg0, boolean arg1) {
+	// TODO Auto-generated method stub
+	return "Url Encoded Text";
+}
 }

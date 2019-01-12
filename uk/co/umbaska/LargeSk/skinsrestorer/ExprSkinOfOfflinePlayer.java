@@ -1,20 +1,22 @@
 package uk.co.umbaska.LargeSk.skinsrestorer;
 
-import ch.njol.skript.classes.Changer.ChangeMode;
-import ch.njol.skript.lang.Expression;
-import ch.njol.util.coll.CollectionUtils;
 import javax.annotation.Nullable;
+
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
+
+import ch.njol.skript.classes.Changer;
+import ch.njol.skript.expressions.base.PropertyExpression;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.util.Kleenean;
+import ch.njol.util.coll.CollectionUtils;
 import skinsrestorer.shared.api.SkinsRestorerAPI;
-import uk.co.umbaska.Registration.Name;
-import uk.co.umbaska.Registration.SimpleUmbaskaPropertyExpression;
 import uk.co.umbaska.Registration.Syntaxes;
 
-@Name("Custom Skin of OfflinePlayer")
 @Syntaxes({"skin of %offlineplayer%", "%offlineplayer%'s skin"})
 public class ExprSkinOfOfflinePlayer
-  extends SimpleUmbaskaPropertyExpression<OfflinePlayer, String>
+  extends PropertyExpression<OfflinePlayer, String>
 {
   public Class<? extends String> getReturnType()
   {
@@ -45,4 +47,22 @@ public class ExprSkinOfOfflinePlayer
     }
     return null;
   }
+
+@Override
+public boolean init(Expression<?>[] arg0, int arg1, Kleenean arg2, ParseResult arg3) {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+@Override
+public String toString(@Nullable Event arg0, boolean arg1) {
+	// TODO Auto-generated method stub
+	return "Custom Skin of OfflinePlayer";
+}
+
+@Override
+protected String[] get(Event arg0, OfflinePlayer[] arg1) {
+	// TODO Auto-generated method stub
+	return null;
+}
 }

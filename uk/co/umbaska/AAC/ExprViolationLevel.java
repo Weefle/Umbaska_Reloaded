@@ -1,19 +1,20 @@
 package uk.co.umbaska.AAC;
 
+import javax.annotation.Nullable;
+
+import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
+
 import ch.njol.skript.Skript;
-import ch.njol.skript.classes.Changer.ChangeMode;
+import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.ExpressionType;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import javax.annotation.Nullable;
-import me.konsolas.aac.api.AACAPI;
 import me.konsolas.aac.api.AACAPIProvider;
 import me.konsolas.aac.api.HackType;
-import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 
 public class ExprViolationLevel
   extends SimpleExpression<Integer>
@@ -31,10 +32,11 @@ public class ExprViolationLevel
     return true;
   }
   
-  public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.player = expr[0];
-    this.hack = expr[1];
+    this.player = (Expression<Player>) expr[0];
+    this.hack = (Expression<HackType>) expr[1];
     return true;
   }
   

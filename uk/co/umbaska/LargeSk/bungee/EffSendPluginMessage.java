@@ -1,34 +1,36 @@
 package uk.co.umbaska.LargeSk.bungee;
 
-import ch.njol.skript.Skript;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
-import com.google.common.collect.Iterables;
-import com.google.common.io.ByteArrayDataOutput;
-import com.google.common.io.ByteStreams;
+import javax.annotation.Nullable;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import uk.co.umbaska.LargeSk.LargeSk;
-import uk.co.umbaska.Registration.BungeeCord;
-import uk.co.umbaska.Registration.Name;
-import uk.co.umbaska.Registration.Syntaxes;
-import uk.co.umbaska.Registration.UmbaskaEffect;
 
-@Name("Send Proxy Plugin Message")
+import com.google.common.collect.Iterables;
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
+
+import ch.njol.skript.Skript;
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
+import uk.co.umbaska.Registration.BungeeCord;
+import uk.co.umbaska.Registration.Syntaxes;
+import uk.co.umbaska.LargeSk.LargeSk;
+
 @Syntaxes({"proxy send %string% [to %-string%]"})
-@BungeeCord
 public class EffSendPluginMessage
-  extends UmbaskaEffect
+  extends Effect
 {
   private Expression<String> msg;
   private Expression<String> srv;
   
-  public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.msg = expr[0];
-    this.srv = expr[1];
+    this.msg = (Expression<String>) expr[0];
+    this.srv = (Expression<String>) expr[1];
     return true;
   }
   
@@ -53,4 +55,10 @@ public class EffSendPluginMessage
     }
     pl.sendPluginMessage(LargeSk.getPluginInstance(), "BungeeCord", out.toByteArray());
   }
+
+@Override
+public String toString(@Nullable Event arg0, boolean arg1) {
+	// TODO Auto-generated method stub
+	return "Send Proxy Plugin Message";
+}
 }

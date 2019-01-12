@@ -5,7 +5,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import ch.njol.skript.Skript;
-import uk.co.umbaska.UmbaskaCommand;
 import uk.co.umbaska.LargeSk.register.LargeSkRegister;
 import uk.co.umbaska.LargeSk.util.LargeConfig;
 import uk.co.umbaska.LargeSk.util.MetricsManager;
@@ -35,8 +34,6 @@ public class LargeSk
     Skript.registerAddon(this);
     
     register.registerAll();
-    
-    getCommand("umbaska").setExecutor(new UmbaskaCommand());
     
     Bukkit.getScheduler().runTaskLaterAsynchronously(this, new Runnable()
     {

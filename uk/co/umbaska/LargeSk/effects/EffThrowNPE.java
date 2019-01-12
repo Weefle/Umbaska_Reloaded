@@ -1,17 +1,18 @@
 package uk.co.umbaska.LargeSk.effects;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
-import org.bukkit.event.Event;
-import uk.co.umbaska.Registration.Name;
-import uk.co.umbaska.Registration.Syntaxes;
-import uk.co.umbaska.Registration.UmbaskaEffect;
+import javax.annotation.Nullable;
 
-@Name("Throw a NullPointerException")
+import org.bukkit.event.Event;
+
+import ch.njol.skript.lang.Effect;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
+import uk.co.umbaska.Registration.Syntaxes;
+
 @Syntaxes({"throw [a] (npe|null[ ]pointer[ ]exception)"})
 public class EffThrowNPE
-  extends UmbaskaEffect
+  extends Effect
 {
   public boolean init(Expression<?>[] arg0, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
@@ -22,4 +23,10 @@ public class EffThrowNPE
   {
     throw new NullPointerException("Here you are");
   }
+
+@Override
+public String toString(@Nullable Event arg0, boolean arg1) {
+	// TODO Auto-generated method stub
+	return "Throw a NullPointerException";
+}
 }

@@ -1,21 +1,21 @@
 package uk.co.umbaska.LargeSk.expressions;
 
-import ch.njol.skript.classes.Changer.ChangeMode;
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
-import ch.njol.util.coll.CollectionUtils;
 import javax.annotation.Nullable;
+
 import org.bukkit.World;
 import org.bukkit.event.Event;
-import uk.co.umbaska.Registration.Name;
-import uk.co.umbaska.Registration.SimpleUmbaskaExpression;
+
+import ch.njol.skript.classes.Changer;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
+import ch.njol.util.coll.CollectionUtils;
 import uk.co.umbaska.Registration.Syntaxes;
 
-@Name("Full Time")
 @Syntaxes({"(full|total)[ ]time of %world%", "%world%'s (full|total)[ ]time"})
 public class ExprFullTime
-  extends SimpleUmbaskaExpression<Long>
+  extends SimpleExpression<Long>
 {
   private Expression<World> world;
   
@@ -24,9 +24,10 @@ public class ExprFullTime
     return Long.class;
   }
   
-  public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.world = expr[0];
+    this.world = (Expression<World>) expr[0];
     return true;
   }
   
@@ -60,4 +61,16 @@ public class ExprFullTime
     }
     return null;
   }
+
+@Override
+public boolean isSingle() {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+@Override
+public String toString(@Nullable Event arg0, boolean arg1) {
+	// TODO Auto-generated method stub
+	return "Full Time";
+}
 }

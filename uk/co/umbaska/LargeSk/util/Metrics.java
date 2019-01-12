@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.Proxy;
@@ -21,26 +20,20 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.GZIPOutputStream;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.configuration.file.YamlConfigurationOptions;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 
 public class Metrics
 {
-  private static final int REVISION = 7;
-  private static final String BASE_URL = "http://report.mcstats.org";
-  private static final String REPORT_URL = "/plugin/%s";
-  private static final int PING_INTERVAL = 30;
   private final Plugin plugin;
-  private final Set<Graph> graphs = Collections.synchronizedSet(new HashSet());
+  private final Set<Graph> graphs = Collections.synchronizedSet(new HashSet<>());
   private final YamlConfiguration configuration;
   private final File configurationFile;
   private final String guid;
@@ -76,7 +69,7 @@ public class Metrics
     if (name == null) {
       throw new IllegalArgumentException("Graph name cannot be null");
     }
-    Graph graph = new Graph(name, null);
+    Graph graph = new Graph(name);
     
     this.graphs.add(graph);
     
@@ -183,7 +176,8 @@ public class Metrics
     return new File(new File(pluginsFolder, "PluginMetrics"), "config.yml");
   }
   
-  private int getOnlinePlayers()
+  @SuppressWarnings("rawtypes")
+private int getOnlinePlayers()
   {
     try
     {
@@ -276,7 +270,6 @@ public class Metrics
     
     URL url = new URL("http://report.mcstats.org" + String.format("/plugin/%s", new Object[] { urlEncode(pluginName) }));
     URLConnection connection;
-    URLConnection connection;
     if (isMineshafterPresent()) {
       connection = url.openConnection(Proxy.NO_PROXY);
     } else {
@@ -332,7 +325,7 @@ public class Metrics
   
   public static byte[] gzip(String input)
   {
-    baos = new ByteArrayOutputStream();
+    ByteArrayOutputStream baos = new ByteArrayOutputStream();
     GZIPOutputStream gzos = null;
     try
     {
@@ -355,6 +348,7 @@ public class Metrics
         catch (IOException ignore) {}
       }
     }
+	return null;
   }
   
   private boolean isMineshafterPresent()
@@ -450,7 +444,7 @@ public class Metrics
   public static class Graph
   {
     private final String name;
-    private final Set<Metrics.Plotter> plotters = new LinkedHashSet();
+    private final Set<Metrics.Plotter> plotters = new LinkedHashSet<>();
     
     private Graph(String name)
     {

@@ -1,28 +1,27 @@
 package uk.co.umbaska.AAC;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
-import me.konsolas.aac.api.AACAPI;
-import me.konsolas.aac.api.AACAPIProvider;
+import javax.annotation.Nullable;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
-import uk.co.umbaska.Registration.Dependency;
-import uk.co.umbaska.Registration.Name;
-import uk.co.umbaska.Registration.Syntaxes;
-import uk.co.umbaska.Registration.UmbaskaCondition;
 
-@Name("Player is Bypassed")
+import ch.njol.skript.lang.Condition;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
+import me.konsolas.aac.api.AACAPIProvider;
+import uk.co.umbaska.Registration.Syntaxes;
+
 @Syntaxes({"[AAC] %player%('s| is) bypass(ed by|ing) AAC"})
-@Dependency("AAC")
 public class CondIsBypassed
-  extends UmbaskaCondition
+  extends Condition
 {
   private Expression<Player> p;
   
-  public boolean init(Expression<?>[] e, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] e, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.p = e[0];
+    this.p = (Expression<Player>) e[0];
     return true;
   }
   
@@ -30,4 +29,10 @@ public class CondIsBypassed
   {
     return (AACAPIProvider.isAPILoaded()) && (AACAPIProvider.getAPI().isBypassed((Player)this.p.getSingle(e)));
   }
+
+@Override
+public String toString(@Nullable Event arg0, boolean arg1) {
+	// TODO Auto-generated method stub
+	return "Player is Bypassed";
+}
 }

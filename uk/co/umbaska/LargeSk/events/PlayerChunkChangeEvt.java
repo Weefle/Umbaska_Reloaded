@@ -1,15 +1,13 @@
 package uk.co.umbaska.LargeSk.events;
 
-import com.google.common.base.Objects;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
-import org.bukkit.Location;
-import org.bukkit.Server;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.plugin.PluginManager;
+
+import com.google.common.base.Objects;
 
 public class PlayerChunkChangeEvt
   implements Listener

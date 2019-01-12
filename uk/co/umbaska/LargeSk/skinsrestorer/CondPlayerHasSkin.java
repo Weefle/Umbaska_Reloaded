@@ -1,27 +1,30 @@
 package uk.co.umbaska.LargeSk.skinsrestorer;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
+import javax.annotation.Nullable;
+
 import org.bukkit.OfflinePlayer;
 import org.bukkit.event.Event;
-import skinsrestorer.shared.api.SkinsRestorerAPI;
-import uk.co.umbaska.Registration.Dependency;
-import uk.co.umbaska.Registration.Name;
-import uk.co.umbaska.Registration.Syntaxes;
-import uk.co.umbaska.Registration.UmbaskaCondition;
 
-@Name("If Player has a Custom Skin")
+import com.w00tmast3r.skquery.api.Dependency;
+
+import ch.njol.skript.lang.Condition;
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.util.Kleenean;
+import skinsrestorer.shared.api.SkinsRestorerAPI;
+import uk.co.umbaska.Registration.Syntaxes;
+
 @Syntaxes({"%offlineplayer% (has|have) [a] skin"})
 @Dependency("SkinsRestorer")
 public class CondPlayerHasSkin
-  extends UmbaskaCondition
+  extends Condition
 {
   private Expression<OfflinePlayer> p;
   
-  public boolean init(Expression<?>[] e, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] e, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.p = e[0];
+    this.p = (Expression<OfflinePlayer>) e[0];
     return true;
   }
   
@@ -29,4 +32,10 @@ public class CondPlayerHasSkin
   {
     return SkinsRestorerAPI.hasSkin(((OfflinePlayer)this.p.getSingle(e)).getName()) == true;
   }
+
+@Override
+public String toString(@Nullable Event arg0, boolean arg1) {
+	// TODO Auto-generated method stub
+	return null;
+}
 }

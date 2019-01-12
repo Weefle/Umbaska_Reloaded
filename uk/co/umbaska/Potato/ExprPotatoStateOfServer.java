@@ -8,19 +8,15 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.skript.log.ErrorQuality;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import uk.co.umbaska.Registration.DocsIgnore;
-import uk.co.umbaska.Registration.Name;
-import uk.co.umbaska.Registration.SimpleUmbaskaExpression;
 import uk.co.umbaska.Registration.Syntaxes;
 
-@Name("Potato State of Server")
 @Syntaxes({"potato state of [(this|the)] server"})
-@DocsIgnore
 public class ExprPotatoStateOfServer
-  extends SimpleUmbaskaExpression<Boolean>
+  extends SimpleExpression<Boolean>
 {
   
   public Class<? extends Boolean> getReturnType()
@@ -57,4 +53,16 @@ public class ExprPotatoStateOfServer
   {
     return (Class[])CollectionUtils.array(new Class[] { Boolean.class });
   }
+
+@Override
+public boolean isSingle() {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+@Override
+public String toString(@Nullable Event arg0, boolean arg1) {
+	// TODO Auto-generated method stub
+	return "Potato State of Server";
+}
 }

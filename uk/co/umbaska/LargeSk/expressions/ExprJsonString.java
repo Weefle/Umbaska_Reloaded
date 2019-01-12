@@ -1,23 +1,22 @@
 package uk.co.umbaska.LargeSk.expressions;
 
-import ch.njol.skript.lang.Expression;
-import ch.njol.skript.lang.SkriptParser.ParseResult;
-import ch.njol.util.Kleenean;
+import javax.annotation.Nullable;
+
 import org.bukkit.event.Event;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import uk.co.umbaska.LargeSk.util.Xlog;
-import uk.co.umbaska.Registration.DontRegister;
-import uk.co.umbaska.Registration.Name;
-import uk.co.umbaska.Registration.SimpleUmbaskaExpression;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Name("Json String")
+import ch.njol.skript.lang.Expression;
+import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.lang.util.SimpleExpression;
+import ch.njol.util.Kleenean;
+import uk.co.umbaska.Registration.Syntaxes;
+import uk.co.umbaska.LargeSk.util.Xlog;
+
 @Syntaxes({"[large[sk]] json (string|text) %string% from [json] %string%"})
-@DontRegister
 public class ExprJsonString
-  extends SimpleUmbaskaExpression<String>
+  extends SimpleExpression<String>
 {
   private Expression<String> json;
   private Expression<String> string;
@@ -27,10 +26,11 @@ public class ExprJsonString
     return String.class;
   }
   
-  public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
+  @SuppressWarnings("unchecked")
+public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.ParseResult arg3)
   {
-    this.string = expr[0];
-    this.json = expr[1];
+    this.string = (Expression<String>) expr[0];
+    this.json = (Expression<String>) expr[1];
     return true;
   }
   
@@ -62,4 +62,16 @@ public class ExprJsonString
     }
     return new String[] { o == null ? null : o.getString(s) };
   }
+
+@Override
+public boolean isSingle() {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+@Override
+public String toString(@Nullable Event arg0, boolean arg1) {
+	// TODO Auto-generated method stub
+	return "Json String";
+}
 }

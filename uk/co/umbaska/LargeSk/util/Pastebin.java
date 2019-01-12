@@ -6,16 +6,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+
 import javax.annotation.Nullable;
+
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
 
 public class Pastebin
 {
-  private static final String USER_AGENT = "Mozilla/5.0";
-  
   public static String sendPost(String textToPaste, @Nullable String nameOfPaste, @Nullable String expireDate, @Nullable String pasteFormat)
     throws Exception
   {

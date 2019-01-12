@@ -1,20 +1,20 @@
 package uk.co.umbaska.LargeSk.bungee;
 
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteStreams;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.messaging.Messenger;
 import org.bukkit.plugin.messaging.PluginMessageListener;
-import uk.co.umbaska.Umbaska;
+
+import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteStreams;
+
+import uk.co.umbaska.Main;
 
 public class LargeMessenger
   implements PluginMessageListener
 {
-  Plugin umb = Umbaska.get();
+  Plugin umb = Main.getInstance();
   Server srv = Bukkit.getServer();
   
   public LargeMessenger getMessenger()
