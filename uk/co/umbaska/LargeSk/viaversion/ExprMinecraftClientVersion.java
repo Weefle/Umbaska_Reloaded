@@ -13,12 +13,10 @@ import ch.njol.skript.expressions.base.PropertyExpression;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import uk.co.umbaska.Registration.Syntaxes;
 import us.myles.ViaVersion.api.ViaVersion;
 import us.myles.ViaVersion.api.ViaVersionAPI;
 
 @SuppressWarnings("deprecation")
-@Syntaxes({"(protocol|(mc|minecraft)) ver[sion] of %player%", "%player%'s (protocol|(mc|minecraft)) ver[sion]"})
 public class ExprMinecraftClientVersion
   extends PropertyExpression<Player, Integer>
 {

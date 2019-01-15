@@ -6,25 +6,25 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 import com.mojang.authlib.GameProfile;
 
-import net.minecraft.server.v1_9_R1.EntityPlayer;
-import net.minecraft.server.v1_9_R1.PacketPlayOutAnimation;
-import net.minecraft.server.v1_9_R1.PacketPlayOutEntity;
-import net.minecraft.server.v1_9_R1.PacketPlayOutEntityDestroy;
-import net.minecraft.server.v1_9_R1.PacketPlayOutEntityHeadRotation;
-import net.minecraft.server.v1_9_R1.PacketPlayOutEntityMetadata;
-import net.minecraft.server.v1_9_R1.PacketPlayOutHeldItemSlot;
-import net.minecraft.server.v1_9_R1.PacketPlayOutNamedEntitySpawn;
-import net.minecraft.server.v1_9_R1.PacketPlayOutPlayerInfo;
-import net.minecraft.server.v1_9_R1.PlayerConnection;
-import net.minecraft.server.v1_9_R1.PlayerInteractManager;
-import net.minecraft.server.v1_9_R1.WorldServer;
+import net.minecraft.server.v1_9_R2.EntityPlayer;
+import net.minecraft.server.v1_9_R2.PacketPlayOutAnimation;
+import net.minecraft.server.v1_9_R2.PacketPlayOutEntity;
+import net.minecraft.server.v1_9_R2.PacketPlayOutEntityDestroy;
+import net.minecraft.server.v1_9_R2.PacketPlayOutEntityHeadRotation;
+import net.minecraft.server.v1_9_R2.PacketPlayOutEntityMetadata;
+import net.minecraft.server.v1_9_R2.PacketPlayOutHeldItemSlot;
+import net.minecraft.server.v1_9_R2.PacketPlayOutNamedEntitySpawn;
+import net.minecraft.server.v1_9_R2.PacketPlayOutPlayerInfo;
+import net.minecraft.server.v1_9_R2.PlayerConnection;
+import net.minecraft.server.v1_9_R2.PlayerInteractManager;
+import net.minecraft.server.v1_9_R2.WorldServer;
 
 public class PlayerDisguise
   extends Disguise

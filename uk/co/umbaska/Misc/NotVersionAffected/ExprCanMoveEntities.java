@@ -9,14 +9,16 @@ import ch.njol.util.coll.CollectionUtils;
 
 public class ExprCanMoveEntities extends SimplePropertyExpression<Player, Boolean>
 {
-  public Boolean convert(Player ent)
+  @SuppressWarnings("deprecation")
+public Boolean convert(Player ent)
   {
     if (ent == null)
       return null;
     return Boolean.valueOf(ent.spigot().getCollidesWithEntities());
   }
   
-  public void change(Event e, Object[] delta, Changer.ChangeMode mode)
+  @SuppressWarnings("deprecation")
+public void change(Event e, Object[] delta, Changer.ChangeMode mode)
   {
     Player ent = (Player)getExpr().getSingle(e);
     if (ent == null)

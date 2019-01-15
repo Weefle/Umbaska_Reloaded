@@ -60,6 +60,7 @@ import uk.co.umbaska.GattSk.Expressions.ExprClickType;
 import uk.co.umbaska.GattSk.Expressions.ExprClickedItem;
 import uk.co.umbaska.JSON.ExprJsonMessageStyle;
 import uk.co.umbaska.JSON.JSONMessage;
+import uk.co.umbaska.LargeSk.viaversion.ExprMinecraftClientVersion;
 import uk.co.umbaska.MathsExpressions.ExprAtan;
 import uk.co.umbaska.MathsExpressions.ExprFactorial;
 import uk.co.umbaska.MathsExpressions.ExprHyperbolicCos;
@@ -246,6 +247,13 @@ private static void registerNewExpression(Class cls, Class returnType, Expressio
     if (pl != null) {
       registerNewExpression(uk.co.umbaska.Vault.ExprGroupOfPlayer.class, String.class, ExpressionType.PROPERTY, new String[] { "primary group of %player%" });
     }
+    
+    
+    pl = Bukkit.getServer().getPluginManager().getPlugin("ViaVersion");
+    if (pl != null) {
+      registerNewExpression(ExprMinecraftClientVersion.class, Integer.class, ExpressionType.PROPERTY, new String[] { "(protocol|(mc|minecraft)) ver[sion] of %player%\", \"%player%'s (protocol|(mc|minecraft)) ver[sion]" });
+    }
+    
     
 
     registerNewExpression("World Border Expressions", uk.co.umbaska.WorldBorder.ExprWorldBorder.class, Object.class, ExpressionType.PROPERTY, new String[] { "worldborder size of %world%", "worldborder [damage] amount of %world%", "worldborder [damage] buffer of %world%", "worldborder [warning] distance of %world%", "worldborder [warning] time of %world%" });

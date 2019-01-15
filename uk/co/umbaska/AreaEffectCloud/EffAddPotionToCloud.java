@@ -25,7 +25,7 @@ public class EffAddPotionToCloud
     if (cloud.getType() != EntityType.AREA_EFFECT_CLOUD) {
       return;
     }
-    ((AreaEffectCloud)cloud).addEffect((PotionEffect)this.potion.getSingle(event));
+    ((AreaEffectCloud)cloud).addCustomEffect((PotionEffect)this.potion.getSingle(event), true);
   }
   
   public String toString(Event event, boolean b)

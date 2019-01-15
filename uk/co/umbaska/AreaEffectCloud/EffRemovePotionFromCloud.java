@@ -6,6 +6,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.Event;
 import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
@@ -25,7 +26,7 @@ public class EffRemovePotionFromCloud
     if (cloud.getType() != EntityType.AREA_EFFECT_CLOUD) {
       return;
     }
-    ((AreaEffectCloud)cloud).removeEffect((PotionEffect)this.potion.getSingle(event));
+    ((AreaEffectCloud)cloud).removeCustomEffect((PotionEffectType)this.potion.getSingle(event).getType());
   }
   
   public String toString(Event event, boolean b)

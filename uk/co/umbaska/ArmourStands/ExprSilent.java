@@ -1,12 +1,12 @@
 package uk.co.umbaska.ArmourStands;
 
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_9_R2.entity.CraftEntity;
 import org.bukkit.event.Event;
 
 import ch.njol.skript.classes.Changer;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.util.coll.CollectionUtils;
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
+import net.minecraft.server.v1_9_R2.NBTTagCompound;
 
 
 
@@ -18,7 +18,7 @@ public class ExprSilent
     if (ent == null) {
       return null;
     }
-    net.minecraft.server.v1_9_R1.Entity nmsarmorstand = ((CraftEntity)ent).getHandle();
+    net.minecraft.server.v1_9_R2.Entity nmsarmorstand = ((CraftEntity)ent).getHandle();
     NBTTagCompound compoundTag = new NBTTagCompound();
     nmsarmorstand.c(compoundTag);
     if (compoundTag.getInt("Silent") == 1) {
@@ -34,7 +34,7 @@ public class ExprSilent
     if (ent == null)
       return;
     Boolean b = (Boolean)delta[0];
-    net.minecraft.server.v1_9_R1.Entity nmsarmorstand = ((CraftEntity)ent).getHandle();
+    net.minecraft.server.v1_9_R2.Entity nmsarmorstand = ((CraftEntity)ent).getHandle();
     NBTTagCompound compoundTag = new NBTTagCompound();
     nmsarmorstand.c(compoundTag);
     int v = 0;

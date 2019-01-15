@@ -1,8 +1,8 @@
 package uk.co.umbaska.Misc;
 
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
-import net.minecraft.server.v1_9_R1.NBTTagCompound;
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftEntity;
+import net.minecraft.server.v1_9_R2.NBTTagCompound;
+import org.bukkit.craftbukkit.v1_9_R2.entity.CraftEntity;
 
 
 public class ExprNoAIEntity
@@ -15,7 +15,7 @@ public class ExprNoAIEntity
   
   public org.bukkit.entity.Entity convert(org.bukkit.entity.Entity ent)
   {
-    net.minecraft.server.v1_9_R1.Entity nmsent = ((CraftEntity)ent).getHandle();
+    net.minecraft.server.v1_9_R2.Entity nmsent = ((CraftEntity)ent).getHandle();
     NBTTagCompound compoundTag = new NBTTagCompound();
     nmsent.c(compoundTag);
     compoundTag.setInt("NoAI", 1);

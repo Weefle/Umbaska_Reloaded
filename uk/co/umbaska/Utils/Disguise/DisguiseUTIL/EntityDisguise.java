@@ -4,54 +4,54 @@ import java.util.Collection;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_9_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.scheduler.BukkitTask;
 
-import net.minecraft.server.v1_9_R1.EntityBat;
-import net.minecraft.server.v1_9_R1.EntityBlaze;
-import net.minecraft.server.v1_9_R1.EntityCaveSpider;
-import net.minecraft.server.v1_9_R1.EntityChicken;
-import net.minecraft.server.v1_9_R1.EntityCow;
-import net.minecraft.server.v1_9_R1.EntityCreeper;
-import net.minecraft.server.v1_9_R1.EntityEnderDragon;
-import net.minecraft.server.v1_9_R1.EntityEnderman;
-import net.minecraft.server.v1_9_R1.EntityEndermite;
-import net.minecraft.server.v1_9_R1.EntityGhast;
-import net.minecraft.server.v1_9_R1.EntityGiantZombie;
-import net.minecraft.server.v1_9_R1.EntityGuardian;
-import net.minecraft.server.v1_9_R1.EntityHorse;
-import net.minecraft.server.v1_9_R1.EntityIronGolem;
-import net.minecraft.server.v1_9_R1.EntityLiving;
-import net.minecraft.server.v1_9_R1.EntityMagmaCube;
-import net.minecraft.server.v1_9_R1.EntityMushroomCow;
-import net.minecraft.server.v1_9_R1.EntityOcelot;
-import net.minecraft.server.v1_9_R1.EntityPig;
-import net.minecraft.server.v1_9_R1.EntityPigZombie;
-import net.minecraft.server.v1_9_R1.EntityPlayer;
-import net.minecraft.server.v1_9_R1.EntityRabbit;
-import net.minecraft.server.v1_9_R1.EntitySheep;
-import net.minecraft.server.v1_9_R1.EntitySilverfish;
-import net.minecraft.server.v1_9_R1.EntitySkeleton;
-import net.minecraft.server.v1_9_R1.EntitySlime;
-import net.minecraft.server.v1_9_R1.EntitySnowman;
-import net.minecraft.server.v1_9_R1.EntitySpider;
-import net.minecraft.server.v1_9_R1.EntitySquid;
-import net.minecraft.server.v1_9_R1.EntityVillager;
-import net.minecraft.server.v1_9_R1.EntityWitch;
-import net.minecraft.server.v1_9_R1.EntityWither;
-import net.minecraft.server.v1_9_R1.EntityWolf;
-import net.minecraft.server.v1_9_R1.EntityZombie;
-import net.minecraft.server.v1_9_R1.PacketPlayOutEntity;
-import net.minecraft.server.v1_9_R1.PacketPlayOutEntityDestroy;
-import net.minecraft.server.v1_9_R1.PacketPlayOutEntityHeadRotation;
-import net.minecraft.server.v1_9_R1.PacketPlayOutPlayerInfo;
-import net.minecraft.server.v1_9_R1.PacketPlayOutSpawnEntityLiving;
-import net.minecraft.server.v1_9_R1.PlayerConnection;
-import net.minecraft.server.v1_9_R1.World;
+import net.minecraft.server.v1_9_R2.EntityBat;
+import net.minecraft.server.v1_9_R2.EntityBlaze;
+import net.minecraft.server.v1_9_R2.EntityCaveSpider;
+import net.minecraft.server.v1_9_R2.EntityChicken;
+import net.minecraft.server.v1_9_R2.EntityCow;
+import net.minecraft.server.v1_9_R2.EntityCreeper;
+import net.minecraft.server.v1_9_R2.EntityEnderDragon;
+import net.minecraft.server.v1_9_R2.EntityEnderman;
+import net.minecraft.server.v1_9_R2.EntityEndermite;
+import net.minecraft.server.v1_9_R2.EntityGhast;
+import net.minecraft.server.v1_9_R2.EntityGiantZombie;
+import net.minecraft.server.v1_9_R2.EntityGuardian;
+import net.minecraft.server.v1_9_R2.EntityHorse;
+import net.minecraft.server.v1_9_R2.EntityIronGolem;
+import net.minecraft.server.v1_9_R2.EntityLiving;
+import net.minecraft.server.v1_9_R2.EntityMagmaCube;
+import net.minecraft.server.v1_9_R2.EntityMushroomCow;
+import net.minecraft.server.v1_9_R2.EntityOcelot;
+import net.minecraft.server.v1_9_R2.EntityPig;
+import net.minecraft.server.v1_9_R2.EntityPigZombie;
+import net.minecraft.server.v1_9_R2.EntityPlayer;
+import net.minecraft.server.v1_9_R2.EntityRabbit;
+import net.minecraft.server.v1_9_R2.EntitySheep;
+import net.minecraft.server.v1_9_R2.EntitySilverfish;
+import net.minecraft.server.v1_9_R2.EntitySkeleton;
+import net.minecraft.server.v1_9_R2.EntitySlime;
+import net.minecraft.server.v1_9_R2.EntitySnowman;
+import net.minecraft.server.v1_9_R2.EntitySpider;
+import net.minecraft.server.v1_9_R2.EntitySquid;
+import net.minecraft.server.v1_9_R2.EntityVillager;
+import net.minecraft.server.v1_9_R2.EntityWitch;
+import net.minecraft.server.v1_9_R2.EntityWither;
+import net.minecraft.server.v1_9_R2.EntityWolf;
+import net.minecraft.server.v1_9_R2.EntityZombie;
+import net.minecraft.server.v1_9_R2.PacketPlayOutEntity;
+import net.minecraft.server.v1_9_R2.PacketPlayOutEntityDestroy;
+import net.minecraft.server.v1_9_R2.PacketPlayOutEntityHeadRotation;
+import net.minecraft.server.v1_9_R2.PacketPlayOutPlayerInfo;
+import net.minecraft.server.v1_9_R2.PacketPlayOutSpawnEntityLiving;
+import net.minecraft.server.v1_9_R2.PlayerConnection;
+import net.minecraft.server.v1_9_R2.World;
 import uk.co.umbaska.Main;
 import uk.co.umbaska.Utils.Disguise.DisguiseAPI;
 
@@ -177,7 +177,7 @@ public String getName()
   
   public void applyDisguise(Collection<Player> players)
   {
-    net.minecraft.server.v1_9_R1.Entity ep = ((CraftEntity)getPlayer()).getHandle();
+    net.minecraft.server.v1_9_R2.Entity ep = ((CraftEntity)getPlayer()).getHandle();
     EntityLiving ent = convert(getType());
     ent.setLocation(ep.locX, ep.locY, ep.locZ, ep.yaw, ep.pitch);
     PacketPlayOutEntityDestroy destroy = new PacketPlayOutEntityDestroy(new int[] { ep.getId() });
@@ -237,7 +237,7 @@ public String getName()
   private EntityLiving convert(EntityType type)
   {
     EntityLiving living = null;
-    net.minecraft.server.v1_9_R1.Entity ep = ((CraftEntity)getPlayer()).getHandle();
+    net.minecraft.server.v1_9_R2.Entity ep = ((CraftEntity)getPlayer()).getHandle();
     World world = ep.getWorld();
     switch (type)
     {

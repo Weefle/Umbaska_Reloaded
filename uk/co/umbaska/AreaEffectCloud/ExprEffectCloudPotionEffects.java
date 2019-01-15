@@ -22,7 +22,7 @@ public class ExprEffectCloudPotionEffects
     if (cloud.getType() != EntityType.AREA_EFFECT_CLOUD) {
       return null;
     }
-    return (PotionEffect[])((AreaEffectCloud)cloud).getEffects().toArray(new PotionEffect[((AreaEffectCloud)cloud).getEffects().size()]);
+    return (PotionEffect[])((AreaEffectCloud)cloud).getCustomEffects().toArray(new PotionEffect[((AreaEffectCloud)cloud).getCustomEffects().size()]);
   }
   
   public boolean isSingle()

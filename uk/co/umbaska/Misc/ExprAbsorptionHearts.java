@@ -2,7 +2,7 @@ package uk.co.umbaska.Misc;
 
 import javax.annotation.Nullable;
 
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 

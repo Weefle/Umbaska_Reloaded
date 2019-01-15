@@ -1,12 +1,12 @@
 package uk.co.umbaska.Utils.TitleManager;
 
 import org.bukkit.ChatColor;
-import org.bukkit.craftbukkit.v1_9_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_9_R2.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-import net.minecraft.server.v1_9_R1.IChatBaseComponent;
-import net.minecraft.server.v1_9_R1.PacketPlayOutTitle;
-import net.minecraft.server.v1_9_R1.PlayerConnection;
+import net.minecraft.server.v1_9_R2.IChatBaseComponent;
+import net.minecraft.server.v1_9_R2.PacketPlayOutTitle;
+import net.minecraft.server.v1_9_R2.PlayerConnection;
 
 public class TitleManager implements org.bukkit.event.Listener
 {
@@ -20,7 +20,7 @@ public class TitleManager implements org.bukkit.event.Listener
       PlayerConnection connection = ((CraftPlayer)p).getHandle().playerConnection;
       title = ChatColor.translateAlternateColorCodes('&', title);
       IChatBaseComponent titleSub = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + title + "\"}");
-      PacketPlayOutTitle packetPlayOutSubTitle = new PacketPlayOutTitle(net.minecraft.server.v1_9_R1.PacketPlayOutTitle.EnumTitleAction.TITLE, titleSub);
+      PacketPlayOutTitle packetPlayOutSubTitle = new PacketPlayOutTitle(net.minecraft.server.v1_9_R2.PacketPlayOutTitle.EnumTitleAction.TITLE, titleSub);
       connection.sendPacket(packetPlayOutSubTitle);
     } catch (Exception e) {
       e.printStackTrace();
@@ -33,7 +33,7 @@ public class TitleManager implements org.bukkit.event.Listener
       action = ChatColor.translateAlternateColorCodes('&', action);
       IChatBaseComponent titleSub = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + action + "\"}");
       Byte slot = Byte.valueOf((byte)2);
-      net.minecraft.server.v1_9_R1.PacketPlayOutChat packetPlayOutSubTitle = new net.minecraft.server.v1_9_R1.PacketPlayOutChat(titleSub, slot.byteValue());
+      net.minecraft.server.v1_9_R2.PacketPlayOutChat packetPlayOutSubTitle = new net.minecraft.server.v1_9_R2.PacketPlayOutChat(titleSub, slot.byteValue());
       connection.sendPacket(packetPlayOutSubTitle);
     } catch (Exception e) {
       e.printStackTrace();
@@ -44,7 +44,7 @@ public class TitleManager implements org.bukkit.event.Listener
     try { PlayerConnection connection = ((CraftPlayer)p).getHandle().playerConnection;
       subtitle = ChatColor.translateAlternateColorCodes('&', subtitle);
       IChatBaseComponent titleSub = IChatBaseComponent.ChatSerializer.a("{\"text\": \"" + subtitle + "\"}");
-      PacketPlayOutTitle packetPlayOutSubTitle = new PacketPlayOutTitle(net.minecraft.server.v1_9_R1.PacketPlayOutTitle.EnumTitleAction.SUBTITLE, titleSub);
+      PacketPlayOutTitle packetPlayOutSubTitle = new PacketPlayOutTitle(net.minecraft.server.v1_9_R2.PacketPlayOutTitle.EnumTitleAction.SUBTITLE, titleSub);
       connection.sendPacket(packetPlayOutSubTitle);
     } catch (Exception e) {
       e.printStackTrace();

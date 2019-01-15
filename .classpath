@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path=""/>
-	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/spigot-1.9-R0.1-SNAPSHOT-latest.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/spigot-1.9.4-R0.1-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/Skript (3).jar"/>
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/PlotMe/PlotMe-Core.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/PlotMe/DynmapPlotMe.jar"/>
@@ -24,7 +24,6 @@
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/mcMMO.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/NoteBlockAPI-1.2.4.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/MCJukebox.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/lombok.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/PlotSquared (2).jar"/>
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/AAC_Package_Dec_2018/AAC-3.6.4-b1-Cracked.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Benoit/Downloads/ViaVersion-1.6.0.jar"/>
