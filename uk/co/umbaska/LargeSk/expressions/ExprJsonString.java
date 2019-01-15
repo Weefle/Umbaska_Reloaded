@@ -11,10 +11,8 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import uk.co.umbaska.Registration.Syntaxes;
 import uk.co.umbaska.LargeSk.util.Xlog;
 
-@Syntaxes({"[large[sk]] json (string|text) %string% from [json] %string%"})
 public class ExprJsonString
   extends SimpleExpression<String>
 {
@@ -48,11 +46,10 @@ public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.
     {
       ex.printStackTrace();
       Xlog.logInfo("error");
-      JSONArray a = null;
       Xlog.logInfo("trying JSONArray");
       try
       {
-        a = new JSONArray(j);
+        new JSONArray(j);
       }
       catch (JSONException ex2)
       {

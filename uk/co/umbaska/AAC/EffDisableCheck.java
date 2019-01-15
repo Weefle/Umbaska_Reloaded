@@ -4,17 +4,13 @@ import javax.annotation.Nullable;
 
 import org.bukkit.event.Event;
 
-import com.w00tmast3r.skquery.api.Dependency;
-
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.konsolas.aac.api.AACAPIProvider;
 import me.konsolas.aac.api.HackType;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"disable ([hack[ ]]check %-hacktype%|%-hacktype% [hack[ ]]check)"})
 public class EffDisableCheck
   extends Effect
 {

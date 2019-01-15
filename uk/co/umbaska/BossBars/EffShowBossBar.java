@@ -20,7 +20,8 @@ public class EffShowBossBar
 {
   private Expression<BossBar> bar;
   
-  protected void execute(Event event)
+  @SuppressWarnings("deprecation")
+protected void execute(Event event)
   {
     ((BossBar)this.bar.getSingle(event)).show();
   }

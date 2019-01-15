@@ -5,16 +5,12 @@ import javax.annotation.Nullable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
-import com.w00tmast3r.skquery.api.Dependency;
-
 import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.konsolas.aac.api.AACAPIProvider;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"[AAC] %player%('s| is) on ground"})
 public class CondOnGround
   extends Condition
 {

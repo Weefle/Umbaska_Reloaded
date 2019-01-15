@@ -12,9 +12,7 @@ import ch.njol.skript.lang.SkriptParser.ParseResult;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
 import skinsrestorer.shared.api.SkinsRestorerAPI;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"skin of %offlineplayer%", "%offlineplayer%'s skin"})
 public class ExprSkinOfOfflinePlayer
   extends PropertyExpression<OfflinePlayer, String>
 {

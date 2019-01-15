@@ -11,9 +11,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"ask link (of|to) [search] %string%"})
 public class ExprLinkAsk
   extends SimpleExpression<String>
 {

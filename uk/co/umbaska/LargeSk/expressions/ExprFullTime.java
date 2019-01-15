@@ -11,9 +11,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"(full|total)[ ]time of %world%", "%world%'s (full|total)[ ]time"})
 public class ExprFullTime
   extends SimpleExpression<Long>
 {

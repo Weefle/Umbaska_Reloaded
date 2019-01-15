@@ -11,9 +11,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"google link (of|to) [search] %string%"})
 public class ExprLinkGoogle
   extends SimpleExpression<String>
 {

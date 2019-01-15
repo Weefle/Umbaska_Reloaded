@@ -9,9 +9,7 @@ import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"[evaluate] cond[ition] %string%"})
 public class CondEvaluateCondition
   extends Condition
 {

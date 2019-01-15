@@ -15,11 +15,8 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import uk.co.umbaska.Registration.BungeeCord;
-import uk.co.umbaska.Registration.Syntaxes;
 import uk.co.umbaska.LargeSk.LargeSk;
 
-@Syntaxes({"proxy send %string% [to %-string%]"})
 public class EffSendPluginMessage
   extends Effect
 {

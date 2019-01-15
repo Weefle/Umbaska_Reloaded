@@ -10,6 +10,10 @@ import org.dynmap.DynmapAPI;
 
 import ch.njol.skript.Skript;
 import uk.co.umbaska.Main;
+import uk.co.umbaska.AAC.EffDisableCheck;
+import uk.co.umbaska.AAC.EffEnableCheck;
+import uk.co.umbaska.AAC.EffReloadAAC;
+import uk.co.umbaska.AAC.EffReloadPermissionCache;
 import uk.co.umbaska.AreaEffectCloud.EffAddPotionToCloud;
 import uk.co.umbaska.AreaEffectCloud.EffRemovePotionFromCloud;
 import uk.co.umbaska.AreaEffectCloud.EffSpawnAreaEffectCloud;
@@ -37,6 +41,10 @@ import uk.co.umbaska.HologramBased.EffCreateFollowGram;
 import uk.co.umbaska.HologramBased.EffDeleteHolo;
 import uk.co.umbaska.HologramBased.EffHoloFollow;
 import uk.co.umbaska.HologramBased.EffHoloStart;
+import uk.co.umbaska.LargeSk.bungee.EffSendPluginMessage;
+import uk.co.umbaska.LargeSk.effects.EffDisableAllPlugins;
+import uk.co.umbaska.LargeSk.effects.EffLagServer;
+import uk.co.umbaska.LargeSk.effects.EffThrowNPE;
 import uk.co.umbaska.Misc.EffOpenInventory;
 import uk.co.umbaska.Misc.EffOpenInventoryClose;
 import uk.co.umbaska.Misc.EffSetCommandBlockInfo;
@@ -502,7 +510,18 @@ private static void registerNewEffect(String name, Class cls, String syntax) {
     
     registerNewEffect("Set Result Slot", EffSetResultSlot.class, "set result slot of %player% to %itemstack%");
     
+    if (Bukkit.getServer().getPluginManager().getPlugin("AAC") != null)
+    {
+    registerNewEffect("Disable Hack Check", EffDisableCheck.class, "disable ([hack[ ]]check %-hacktype%|%-hacktype% [hack[ ]]check)");
+    registerNewEffect("Enable Hack Check", EffEnableCheck.class, "enable [hack[ ]]check %hacktype%");
+    registerNewEffect("Reload AAC", EffReloadAAC.class, "AAC reload [config[s]]");
+    registerNewEffect("Reload Permission Cache", EffReloadPermissionCache.class, "AAC reload permission(s|[s] cache)");
+    }
     
+    registerNewEffect("Send Plugin Message", EffSendPluginMessage.class, "proxy send %string% [to %-string%]");
+    registerNewEffect("Disable all plugins", EffDisableAllPlugins.class, "disable all plugins");
+    registerNewEffect("Lag Server", EffLagServer.class, "lag [the] server for %timespan%");
+    registerNewEffect("Throw NPE", EffThrowNPE.class, "throw [a] (npe|null[ ]pointer[ ]exception)");
     
     registerNewEffect("1.9 - Shoot Shulker Bullet", EffShootShulkerBullet.class, "make %entity% (shoot|launch) shulker bullet at %entity%");
     

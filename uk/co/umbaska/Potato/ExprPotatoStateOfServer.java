@@ -12,9 +12,7 @@ import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.skript.log.ErrorQuality;
 import ch.njol.util.Kleenean;
 import ch.njol.util.coll.CollectionUtils;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"potato state of [(this|the)] server"})
 public class ExprPotatoStateOfServer
   extends SimpleExpression<Boolean>
 {

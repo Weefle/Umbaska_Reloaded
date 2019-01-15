@@ -11,9 +11,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"url encoded %string%"})
 public class ExprUrlEncodedText
   extends SimpleExpression<String>
 {

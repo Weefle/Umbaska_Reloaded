@@ -7,15 +7,12 @@ import org.bukkit.event.Event;
 
 import ch.njol.skript.ScriptLoader;
 import ch.njol.skript.Skript;
-import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import uk.co.umbaska.Registration.Syntaxes;
 import uk.co.umbaska.LargeSk.events.EvtPlayerChunkChange;
 
-@Syntaxes({"new chunk"})
 public class ExprNewChunk
   extends SimpleExpression<Chunk>
 {

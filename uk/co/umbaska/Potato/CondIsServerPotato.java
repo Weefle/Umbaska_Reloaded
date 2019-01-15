@@ -8,9 +8,7 @@ import ch.njol.skript.lang.Condition;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"[(this|the)] server is [(a|an|the)] [instance of] [[the] only (true|real)] potato"})
 public class CondIsServerPotato
   extends Condition
 {

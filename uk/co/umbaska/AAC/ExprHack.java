@@ -11,10 +11,8 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import me.konsolas.aac.api.HackType;
-import uk.co.umbaska.Registration.Syntaxes;
 import uk.co.umbaska.LargeSk.events.EvtPlayerViolation;
 
-@Syntaxes({"hack", "cheat", "violation"})
 public class ExprHack
   extends SimpleExpression<HackType>
 {

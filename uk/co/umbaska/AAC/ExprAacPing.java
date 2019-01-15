@@ -6,9 +6,7 @@ import org.bukkit.entity.Player;
 
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import me.konsolas.aac.api.AACAPIProvider;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"AAC (ping of %player%|%player%'s ping)", "[AAC] (ping of %player%|%player%'s ping) by AAC"})
 public class ExprAacPing
   extends SimplePropertyExpression<Player, Integer>
 {

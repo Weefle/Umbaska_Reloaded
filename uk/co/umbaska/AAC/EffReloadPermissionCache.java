@@ -9,9 +9,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.konsolas.aac.api.AACAPIProvider;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"AAC reload permission(s|[s] cache)", "reload permission(s|[s] cache) of AAC", "reload AAC['s] permission(s|[s] cache)"})
 public class EffReloadPermissionCache
   extends Effect
 {

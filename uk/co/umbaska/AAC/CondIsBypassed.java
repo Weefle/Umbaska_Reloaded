@@ -10,9 +10,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.konsolas.aac.api.AACAPIProvider;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"[AAC] %player%('s| is) bypass(ed by|ing) AAC"})
 public class CondIsBypassed
   extends Condition
 {

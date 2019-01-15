@@ -9,9 +9,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
 import me.konsolas.aac.api.AACAPIProvider;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"[AAC] tps", "tps (of|by) AAC"})
 public class ExprAacTps
   extends SimpleExpression<Double>
 {

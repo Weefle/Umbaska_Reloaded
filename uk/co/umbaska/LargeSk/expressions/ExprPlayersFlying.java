@@ -7,14 +7,11 @@ import javax.annotation.Nullable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
-import ch.njol.skript.doc.Name;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"%players% flying", "flying %players%"})
 public class ExprPlayersFlying
   extends SimpleExpression<Player>
 {
@@ -35,7 +32,7 @@ public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.
   @Nullable
   protected Player[] get(Event e)
   {
-    ArrayList<Player> r = new ArrayList();
+    ArrayList<Player> r = new ArrayList<>();
     for (Player l : (Player[])this.players.getArray(e)) {
       if (l.isFlying()) {
         r.add(l);

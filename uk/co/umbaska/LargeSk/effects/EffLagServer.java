@@ -10,9 +10,7 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.util.Timespan;
 import ch.njol.util.Kleenean;
 import uk.co.umbaska.Main;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"lag [the] server for %timespan%", "(make|create) a %timespan% lag[[ ]spike]"})
 public class EffLagServer
   extends Effect
 {
@@ -27,7 +25,6 @@ public boolean init(Expression<?>[] expr, int arg1, Kleenean arg2, SkriptParser.
   
   protected void execute(Event e)
   {
-    int something = 2;
     try
     {
       Thread.sleep(((Timespan)this.time.getSingle(e)).getMilliSeconds());

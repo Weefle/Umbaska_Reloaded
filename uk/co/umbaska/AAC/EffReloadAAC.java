@@ -9,9 +9,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.konsolas.aac.api.AACAPIProvider;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"AAC reload [config[s]]", "reload AAC [config[s]]", "reload [the] config[s] of AAC"})
 public class EffReloadAAC
   extends Effect
 {

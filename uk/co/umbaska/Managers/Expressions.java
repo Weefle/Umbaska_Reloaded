@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Chunk;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -24,7 +25,11 @@ import com.palmergames.bukkit.towny.object.Town;
 import ch.njol.skript.Skript;
 import ch.njol.skript.expressions.base.SimplePropertyExpression;
 import ch.njol.skript.lang.ExpressionType;
+import me.konsolas.aac.api.HackType;
 import uk.co.umbaska.Main;
+import uk.co.umbaska.AAC.ExprAacPing;
+import uk.co.umbaska.AAC.ExprAacTps;
+import uk.co.umbaska.AAC.ExprHack;
 import uk.co.umbaska.AreaEffectCloud.ExprEffectCloudColor;
 import uk.co.umbaska.AreaEffectCloud.ExprEffectCloudDuration;
 import uk.co.umbaska.AreaEffectCloud.ExprEffectCloudDurationOnUse;
@@ -60,6 +65,21 @@ import uk.co.umbaska.GattSk.Expressions.ExprClickType;
 import uk.co.umbaska.GattSk.Expressions.ExprClickedItem;
 import uk.co.umbaska.JSON.ExprJsonMessageStyle;
 import uk.co.umbaska.JSON.JSONMessage;
+import uk.co.umbaska.LargeSk.expressions.ExprFullTime;
+import uk.co.umbaska.LargeSk.expressions.ExprJsonString;
+import uk.co.umbaska.LargeSk.expressions.ExprLinkAsk;
+import uk.co.umbaska.LargeSk.expressions.ExprLinkBing;
+import uk.co.umbaska.LargeSk.expressions.ExprLinkDuckDuckGo;
+import uk.co.umbaska.LargeSk.expressions.ExprLinkGoogle;
+import uk.co.umbaska.LargeSk.expressions.ExprNewChunk;
+import uk.co.umbaska.LargeSk.expressions.ExprOldChunk;
+import uk.co.umbaska.LargeSk.expressions.ExprPastebin;
+import uk.co.umbaska.LargeSk.expressions.ExprPlayersFlying;
+import uk.co.umbaska.LargeSk.expressions.ExprPlayersSneaking;
+import uk.co.umbaska.LargeSk.expressions.ExprPlayersWithPermission;
+import uk.co.umbaska.LargeSk.expressions.ExprUrlDecodedText;
+import uk.co.umbaska.LargeSk.expressions.ExprUrlEncodedText;
+import uk.co.umbaska.LargeSk.skinsrestorer.ExprSkinOfOfflinePlayer;
 import uk.co.umbaska.LargeSk.viaversion.ExprMinecraftClientVersion;
 import uk.co.umbaska.MathsExpressions.ExprAtan;
 import uk.co.umbaska.MathsExpressions.ExprFactorial;
@@ -78,6 +98,7 @@ import uk.co.umbaska.Misc.UM2_0.ExprBlockSkullOwner;
 import uk.co.umbaska.Misc.UM2_0.ExprClosestEntity;
 import uk.co.umbaska.NametagEdit.ExprGetPrefix;
 import uk.co.umbaska.PlaceHolderAPI.EffParse;
+import uk.co.umbaska.Potato.ExprPotatoStateOfServer;
 import uk.co.umbaska.ProtocolLib.FakePlayer.ExprGetPlayer;
 import uk.co.umbaska.System.ExprGetFile;
 import uk.co.umbaska.System.ExprGetLine;
@@ -241,7 +262,17 @@ private static void registerNewExpression(Class cls, Class returnType, Expressio
       registeredPlotSystem = pl.getName() + " - " + pl.getDescription().getVersion();
     }
     
-
+    pl = Bukkit.getServer().getPluginManager().getPlugin("SkinsRestorer");
+    if (pl != null) {
+      registerNewExpression(ExprSkinOfOfflinePlayer.class, String.class, ExpressionType.PROPERTY, new String[] { "skin of %offlineplayer%" });
+    }
+    
+    pl = Bukkit.getServer().getPluginManager().getPlugin("AAC");
+    if (pl != null) {
+      registerNewExpression(ExprAacPing.class, Integer.class, ExpressionType.PROPERTY, new String[] { "AAC (ping of %player%|%player%'s ping)" });
+      registerNewExpression(ExprAacTps.class, Double.class, ExpressionType.PROPERTY, new String[] { "[AAC] tps" });
+      registerNewExpression(ExprHack.class, HackType.class, ExpressionType.SIMPLE, new String[] { "hack", "cheat", "violation" });
+    }
 
     pl = Bukkit.getServer().getPluginManager().getPlugin("Vault");
     if (pl != null) {
@@ -333,12 +364,26 @@ private static void registerNewExpression(Class cls, Class returnType, Expressio
 
 
 
-    pl = Bukkit.getServer().getPluginManager().getPlugin("UmbaskaAPI");
+  /*  pl = Bukkit.getServer().getPluginManager().getPlugin("UmbaskaAPI");
     if (pl != null) {
       registerNewExpression("Factions - Faction of Player ", ExprFactionOfPlayer.class, String.class, ExpressionType.PROPERTY, new String[] { "faction of %player%" });
-    }
+    }*/
     
-
+    registerNewExpression(ExprFullTime.class, Long.class, ExpressionType.SIMPLE, new String[] { "(full|total)[ ]time of %world%", "%world%'s (full|total)[ ]time" });
+    registerNewExpression(ExprJsonString.class, String.class, ExpressionType.SIMPLE, new String[] { "[large[sk]] json (string|text) %string% from [json] %string%" });
+    registerNewExpression(ExprLinkAsk.class, String.class, ExpressionType.SIMPLE, new String[] { "ask link (of|to) [search] %string%" });
+    registerNewExpression(ExprLinkBing.class, String.class, ExpressionType.SIMPLE, new String[] { "bing link (of|to) [search] %string%" });
+    registerNewExpression(ExprLinkDuckDuckGo.class, String.class, ExpressionType.SIMPLE, new String[] { "duckduckgo link (of|to) [search] %string%" });
+    registerNewExpression(ExprLinkGoogle.class, String.class, ExpressionType.SIMPLE, new String[] { "google link (of|to) [search] %string%" });
+    registerNewExpression(ExprNewChunk.class, Chunk.class, ExpressionType.SIMPLE, new String[] { "new chunk" });
+    registerNewExpression(ExprOldChunk.class, Chunk.class, ExpressionType.SIMPLE, new String[] { "old chunk" });
+    registerNewExpression(ExprPastebin.class, String.class, ExpressionType.SIMPLE, new String[] { "pastebin upload %string% [(named|[with] name) %-string%] [[with] expire date %-string%] [[with] paste (format|language) %-string%]" });
+    registerNewExpression(ExprPlayersFlying.class, Player.class, ExpressionType.SIMPLE, new String[] { "%players% flying", "flying %players%" });
+    registerNewExpression(ExprPlayersSneaking.class, Player.class, ExpressionType.SIMPLE, new String[] { "%players% sneaking", "sneaking %players%" });
+    registerNewExpression(ExprPlayersWithPermission.class, Player.class, ExpressionType.SIMPLE, new String[] { "%players% with perm[ission[[ ]node]] %string%" });
+    registerNewExpression(ExprUrlDecodedText.class, String.class, ExpressionType.SIMPLE, new String[] { "url decoded %string%" });
+    registerNewExpression(ExprUrlEncodedText.class, String.class, ExpressionType.SIMPLE, new String[] { "url encoded %string%" });
+    
     registerNewExpression("Spawner - Delay Time", uk.co.umbaska.Spawner.ExprDelayTime.class, Integer.class, ExpressionType.PROPERTY, new String[] { "delay time of %location%" });
     registerNewExpression("Spawner - Entity Type", uk.co.umbaska.Spawner.ExprSpawnedType.class, String.class, ExpressionType.PROPERTY, new String[] { "entity type of %location%" });
     
@@ -603,6 +648,7 @@ private static void registerNewExpression(Class cls, Class returnType, Expressio
     
     registerNewExpression("Server Ping IP", uk.co.umbaska.Misc.NotVersionAffected.ExprServerPingIP.class, String.class, ExpressionType.SIMPLE, new String[] { "server ping ip" });
     
+    registerNewExpression(ExprPotatoStateOfServer.class, Boolean.class, ExpressionType.SIMPLE, new String[] { "potato state of [(this|the)] server" });
 
     registerNewExpression(ExprBlitzkrieg.class, String.class, ExpressionType.SIMPLE, new String[] { "blitzkrieg" });
 

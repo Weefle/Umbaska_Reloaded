@@ -10,9 +10,8 @@ import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
 import me.konsolas.aac.api.AACAPIProvider;
 import me.konsolas.aac.api.HackType;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"enable [hack[ ]]check %hacktype%", "enable %hacktype% [hack[ ]]check"})
+
 public class EffEnableCheck
   extends Effect
 {

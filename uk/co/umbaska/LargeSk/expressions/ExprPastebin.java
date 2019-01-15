@@ -8,10 +8,8 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import uk.co.umbaska.Registration.Syntaxes;
 import uk.co.umbaska.LargeSk.util.Pastebin;
 
-@Syntaxes({"pastebin upload %string% [(named|[with] name) %-string%] [[with] expire date %-string%] [[with] paste (format|language) %-string%]"})
 public class ExprPastebin
   extends SimpleExpression<String>
 {

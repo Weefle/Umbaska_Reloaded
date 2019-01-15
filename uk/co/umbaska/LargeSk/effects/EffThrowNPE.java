@@ -8,9 +8,7 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import uk.co.umbaska.Registration.Syntaxes;
 
-@Syntaxes({"throw [a] (npe|null[ ]pointer[ ]exception)"})
 public class EffThrowNPE
   extends Effect
 {
