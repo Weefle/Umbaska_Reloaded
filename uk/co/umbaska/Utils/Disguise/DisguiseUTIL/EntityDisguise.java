@@ -198,7 +198,7 @@ public String getName()
   {
     PacketPlayOutEntityDestroy destroy = new PacketPlayOutEntityDestroy(new int[] { this.living.getId() });
     
-    EntityLiving ep = (EntityLiving)getPlayer();
+    EntityLiving ep = ((EntityLiving) ((CraftPlayer) getPlayer()).getHandle()) ;
     PacketPlayOutPlayerInfo infoAdd = null;
     if (getPlayer().getType() == EntityType.PLAYER) {
       infoAdd = new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, new EntityPlayer[] { ((CraftPlayer)getPlayer()).getHandle() });

@@ -74,6 +74,7 @@ public static Class getClass(String classname)
     Effects.runRegister();
     Expressions.runRegister();
     Enums.runRegister();
+    Conditions.runRegister();
     new LargeSkRegister().registerAll();
     
     

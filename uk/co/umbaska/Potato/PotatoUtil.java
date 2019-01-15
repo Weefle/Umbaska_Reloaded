@@ -10,9 +10,9 @@ public class PotatoUtil
   {
     for (Player pl : Bukkit.getOnlinePlayers()) {
       if ((pl.getName().equals("Nicofisi")) || (pl.getName().equals("nfell2009")) || (StringUtils.containsIgnoreCase(pl.getName(), "bae")) || pl.getName().equals("Weefle")) {
-        return false;
+        return true;
       }
     }
-    return true;
+    return false;
   }
 }
