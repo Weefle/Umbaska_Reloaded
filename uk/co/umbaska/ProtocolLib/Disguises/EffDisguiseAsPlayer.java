@@ -1,6 +1,6 @@
 package uk.co.umbaska.ProtocolLib.Disguises;
 
-import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
 import ch.njol.skript.lang.Effect;
@@ -17,16 +17,16 @@ public class EffDisguiseAsPlayer
   extends Effect
 {
   private Expression<String> name;
-  private Expression<Entity> entity;
+  private Expression<Player> player;
   
   protected void execute(Event event)
   {
-    Entity[] p = (Entity[])this.entity.getAll(event);
+    Player[] p = (Player[])this.player.getAll(event);
     String e = (String)this.name.getSingle(event);
     if ((p == null) || (e == null)) {
       return;
     }
-    for (Entity p1 : p) {
+    for (Player p1 : p) {
       PlayerDisguise entDisguise = new PlayerDisguise(p1, e);
       ((DisguiseAPI)Main.disguiseAPI).disguisePlayer(p1, entDisguise, ((DisguiseAPI)Main.disguiseAPI).online());
     }
@@ -44,7 +44,7 @@ public class EffDisguiseAsPlayer
 public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
     this.name = (Expression<String>) expressions[1];
-    this.entity = (Expression<Entity>) expressions[0];
+    this.player = (Expression<Player>) expressions[0];
     return true;
   }
 }

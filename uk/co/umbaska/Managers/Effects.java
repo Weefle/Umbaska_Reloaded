@@ -266,9 +266,9 @@ private static void registerNewEffect(String name, Class cls, String syntax) {
       Skript.registerExpression(uk.co.umbaska.ProtocolLib.ExprCanSee.class, Boolean.class, ch.njol.skript.lang.ExpressionType.PROPERTY, new String[] { "visibility of %entity% for %player%" });
       
 
-      registerNewEffect("Disguise", EffDisguiseAsEntity.class, "disguise %entity% as %entitydisguise% [with custom name %-string%]");
-      registerNewEffect("Disguise", EffDisguiseAsPlayer.class, "disguise %entity% as player %string%");
-      registerNewEffect("Undisguise", EffUndisguise.class, "undisguise %entity%");
+      registerNewEffect("Disguise", EffDisguiseAsEntity.class, "disguise %players% as %entitydisguise% [with custom name %-string%]");
+      registerNewEffect("Disguise", EffDisguiseAsPlayer.class, "disguise %players% as player %string%");
+      registerNewEffect("Undisguise", EffUndisguise.class, "undisguise %players%");
     }
     
 
