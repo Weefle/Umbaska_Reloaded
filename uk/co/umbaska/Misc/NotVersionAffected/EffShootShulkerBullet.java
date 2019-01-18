@@ -22,8 +22,12 @@ public class EffShootShulkerBullet
     Entity shooter = (Entity)this.shooter.getSingle(event);
     Entity target = (Entity)this.target.getSingle(event);
     ShulkerBullet bul = (ShulkerBullet)shooter.getWorld().spawnEntity(shooter.getLocation(), EntityType.SHULKER_BULLET);
-    bul.setTarget(target);
     bul.setShooter((ProjectileSource)shooter);
+    if(bul.getShooter() != target) {
+    	bul.setTarget(target);
+    }else {
+    	bul.remove();
+    }
   }
   
   public String toString(Event event, boolean b)
