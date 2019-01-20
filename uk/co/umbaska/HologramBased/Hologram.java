@@ -19,6 +19,8 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.wrappers.WrappedDataWatcher;
+import com.comphenix.protocol.wrappers.WrappedDataWatcher.Serializer;
+import com.comphenix.protocol.wrappers.WrappedDataWatcher.WrappedDataWatcherObject;
 import com.comphenix.protocol.wrappers.WrappedWatchableObject;
 
 public class Hologram {
@@ -41,9 +43,9 @@ public class Hologram {
         return -1;
     }
 
-    private PacketContainer destroyPacket1_7;
+   // private PacketContainer destroyPacket1_7;
     private PacketContainer destroyPacket1_8;
-    private PacketContainer[] displayPackets1_7;
+   // private PacketContainer[] displayPackets1_7;
     private PacketContainer[] displayPackets1_8;
     private ArrayList<Entry<Integer, Integer>> entityIds = new ArrayList<Entry<Integer, Integer>>();
     protected Location entityLastLocation;
@@ -86,7 +88,7 @@ public class Hologram {
         if (HologramCentral.is1_8(player)) {
             return destroyPacket1_8;
         }
-        return destroyPacket1_7;
+        return /*destroyPacket1_7*/null;
     }
 
     public Entity getEntityFollowed() {
@@ -131,7 +133,7 @@ public class Hologram {
         if (HologramCentral.is1_8(player)) {
             return displayPackets1_8;
         }
-        return displayPackets1_7;
+        return /*displayPackets1_7*/null;
     }
 
     public HologramTarget getTarget() {
@@ -184,15 +186,15 @@ public class Hologram {
             ids[i++] = entry.getKey();
             ids[i++] = entry.getValue();
         }
-        destroyPacket1_7 = new PacketContainer(PacketType.Play.Server.ENTITY_DESTROY);
-        destroyPacket1_7.getIntegerArrays().write(0, ids);
+       /* destroyPacket1_7 = new PacketContainer(PacketType.Play.Server.ENTITY_DESTROY);
+        destroyPacket1_7.getIntegerArrays().write(0, ids);*/
         destroyPacket1_8 = new PacketContainer(PacketType.Play.Server.ENTITY_DESTROY);
         destroyPacket1_8.getIntegerArrays().write(0, ids2);
     }
 
     private void makeSpawnPackets() {
         Iterator<Entry<Integer, Integer>> itel = entityIds.iterator();
-        displayPackets1_7 = new PacketContainer[lines.length * 3];
+        //displayPackets1_7 = new PacketContainer[lines.length * 3];
         displayPackets1_8 = new PacketContainer[lines.length * (this.isUsingWitherSkull() ? 2 : 1)];
         int b = 0;
         while (itel.hasNext()) {
@@ -201,10 +203,10 @@ public class Hologram {
             for (int a = 0; a < packets.length; a++) {
                 displayPackets1_8[(b * (this.isUsingWitherSkull() ? 2 : 1)) + a] = packets[a];
             }
-            packets = makeSpawnPackets1_7(b, entry.getKey(), entry.getValue(), lines[(lines.length - 1) - b]);
+           /* packets = makeSpawnPackets1_7(b, entry.getKey(), entry.getValue(), lines[(lines.length - 1) - b]);
             for (int a = 0; a < packets.length; a++) {
                 displayPackets1_7[(b * 3) + a] = packets[a];
-            }
+            }*/
             b++;
         }
     }
@@ -238,15 +240,17 @@ public class Hologram {
             ints.write(4, (int) (getLocation().getZ() * 32));
             // Setup datawatcher for armor stand
             WrappedDataWatcher watcher = new WrappedDataWatcher();
-            watcher.setObject(0, (byte) 32);
-            watcher.setObject(2, horseName);
-            watcher.setObject(3, (byte) 1);
+            Serializer stringSerializer = WrappedDataWatcher.Registry.get(String.class);
+            Serializer byteSerializer = WrappedDataWatcher.Registry.get(Byte.class);
+            watcher.setObject(new WrappedDataWatcherObject(0, byteSerializer), (byte) 32);
+            watcher.setObject(new WrappedDataWatcherObject(2, stringSerializer), horseName);
+            watcher.setObject(new WrappedDataWatcherObject(3, byteSerializer), (byte) 1);
             displayPacket.getDataWatcherModifier().write(0, watcher);
             return new PacketContainer[] { displayPacket };
         }
     }
 
-    private PacketContainer[] makeSpawnPackets1_7(int height, int witherId, int horseId, String horseName) {
+    /*private PacketContainer[] makeSpawnPackets1_7(int height, int witherId, int horseId, String horseName) {
         PacketContainer[] displayPackets = new PacketContainer[3];
         // Spawn wither skull
         displayPackets[0] = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY);
@@ -278,7 +282,7 @@ public class Hologram {
         ints.write(1, horseId);
         ints.write(2, witherId);
         return displayPackets;
-    }
+    }*/
 
     public Hologram moveHologram(Location location) {
         moveHologram(location, true);
@@ -475,8 +479,8 @@ public class Hologram {
                             Entry<Integer, Integer> entry = new HashMap.SimpleEntry<>(getId(), getId());
                             entityIds.add(entry);
                             // Make create packets
-                            PacketContainer[] packets1_7 = this
-                                    .makeSpawnPackets1_7(i, entry.getKey(), entry.getValue(), lines[i]);
+                           /* PacketContainer[] packets1_7 = this
+                                    .makeSpawnPackets1_7(i, entry.getKey(), entry.getValue(), lines[i]);*/
                             PacketContainer[] packet1_8 = this.makeSpawnPacket1_8(i, entry.getKey(), lines[i]);
                             for (Player p : players) {
                                 try {
@@ -484,10 +488,10 @@ public class Hologram {
                                         for (PacketContainer packet : packet1_8) {
                                             ProtocolLibrary.getProtocolManager().sendServerPacket(p, packet, false);
                                         }
-                                    else
+                                   /* else
                                         for (PacketContainer packet : packets1_7) {
                                             ProtocolLibrary.getProtocolManager().sendServerPacket(p, packet, false);
-                                        }
+                                        }*/
                                 } catch (InvocationTargetException e) {
                                     e.printStackTrace();
                                 }
