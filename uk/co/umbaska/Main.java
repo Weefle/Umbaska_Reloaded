@@ -54,7 +54,7 @@ public class Main extends JavaPlugin implements Listener
   public static ItemManager itemManager;
   public static String schemFolder;
   private ProtocolManager protocolManager;
-  public Debugger debugger = new Debugger(this, Boolean.valueOf(true));
+  public Debugger debugger;
   public ClientThread client;
   public List<String> oq = Collections.synchronizedList(new ArrayList<>());
   public Integer qc = Integer.valueOf(0);
@@ -96,6 +96,7 @@ public class Main extends JavaPlugin implements Listener
     if (getConfig().getString("umbaska_version") != getDescription().getVersion()) {
       getConfig().setDefaults(getConfig().getDefaults());
     }
+    debugger = new Debugger(this, Boolean.valueOf(true));
     getServer().getPluginManager().registerEvents(new uk.co.umbaska.Misc.ExprNetworking(), this);
     getServer().getPluginManager().registerEvents(new ca.thederpygolems.armorequip.ArmourListener(getConfig().getStringList("blocked")), this);
     if (((Register.getVersion().contains("1_7")) || (Register.getVersion().contains("1_8"))) && (!getConfig().getBoolean("enable_1.7_override"))) {

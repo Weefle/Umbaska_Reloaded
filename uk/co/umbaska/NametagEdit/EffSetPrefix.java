@@ -3,7 +3,8 @@ package uk.co.umbaska.NametagEdit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 
-import ca.wacos.nametagedit.NametagAPI;
+import com.nametagedit.plugin.NametagEdit;
+
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
@@ -30,7 +31,7 @@ public class EffSetPrefix
     if (ct == null) {
       return;
     }
-    NametagAPI.setPrefix(p, ct);
+    NametagEdit.getApi().setPrefix(p, ct);
   }
   
 

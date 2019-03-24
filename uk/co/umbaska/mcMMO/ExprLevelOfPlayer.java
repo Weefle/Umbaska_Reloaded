@@ -34,7 +34,7 @@ public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelaye
   
   protected Integer[] get(Event e)
   {
-    SkillType skill = (SkillType)this.skill.getSingle(e);
+	  SkillType skill = (SkillType)this.skill.getSingle(e);
     Player player = (Player)this.player.getSingle(e);
     
     return new Integer[] { new Integer(ExperienceAPI.getLevel(player, skill.getName())) };
@@ -58,7 +58,7 @@ public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelaye
   }
   
   public void change(Event e, Object[] delta, Changer.ChangeMode mode) {
-    SkillType skill = (SkillType)this.skill.getSingle(e);
+	  SkillType skill = (SkillType)this.skill.getSingle(e);
     Player player = (Player)this.player.getSingle(e);
     if (skill == null)
       return;

@@ -96,7 +96,6 @@ import uk.co.umbaska.Misc.NotVersionAffected.ExprOffhandItem;
 import uk.co.umbaska.Misc.NotVersionAffected.ExprOffhandItemPlayer;
 import uk.co.umbaska.Misc.UM2_0.ExprBlockSkullOwner;
 import uk.co.umbaska.Misc.UM2_0.ExprClosestEntity;
-import uk.co.umbaska.NametagEdit.ExprGetPrefix;
 import uk.co.umbaska.PlaceHolderAPI.EffParse;
 import uk.co.umbaska.Potato.ExprPotatoStateOfServer;
 import uk.co.umbaska.ProtocolLib.FakePlayer.ExprGetPlayer;
@@ -404,8 +403,6 @@ private static void registerNewExpression(Class cls, Class returnType, Expressio
     registerNewExpression("Enchants of Item", uk.co.umbaska.Misc.ExprEnchantsOfItem.class, String.class, ExpressionType.PROPERTY, new String[] { "enchants of %itemstack%" });
     pl = Bukkit.getServer().getPluginManager().getPlugin("NametagEdit");
     if (pl != null) {
-      registerNewExpression("NametagEdit - Prefix of Player", ExprGetPrefix.class, String.class, ExpressionType.PROPERTY, new String[] { "prefix of %player%" });
-      registerNewExpression("NametagEdit - Suffix of Player", uk.co.umbaska.NametagEdit.ExprGetSuffix.class, String.class, ExpressionType.PROPERTY, new String[] { "suffix of %player%" });
       registerNewExpression("NametagEdit - Name Tag of Player", uk.co.umbaska.NametagEdit.ExprGetNametag.class, String.class, ExpressionType.PROPERTY, new String[] { "name tag of %player%" });
     }
     

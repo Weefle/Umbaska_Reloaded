@@ -18,9 +18,7 @@ import org.bukkit.boss.BossBar;
 import org.bukkit.plugin.PluginBase;
 import org.bukkit.potion.PotionEffect;
 
-import com.gmail.nossr50.datatypes.party.Party;
 import com.gmail.nossr50.datatypes.skills.SkillType;
-import com.gmail.nossr50.party.PartyManager;
 import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.FactionColl;
@@ -299,31 +297,7 @@ public static void runRegister() {
 
 
       if (Bukkit.getPluginManager().getPlugin("mcMMO") != null) {
-        Classes.registerClass(new ClassInfo(Party.class, "party").name("Party").parser(new Parser()
-        {
-          @Nullable
-          public Party parse(String s, ParseContext context)
-          {
-            return PartyManager.getParty(s);
-          }
-          
-          public String toString(Object party, int flags)
-          {
-            return ((PluginBase) party).getName().toLowerCase();
-          }
-          
-          public String toVariableNameString(Object party)
-          {
-            return ((PluginBase) party).getName().toLowerCase();
-          }
-          
-          public String getVariableNamePattern()
-          {
-            return ".+";
-          }
-          
-
-        }));
+    	  
         Classes.registerClass(new ClassInfo(SkillType.class, "skill").name("Skill").parser(new Parser()
         {
           @Nullable
