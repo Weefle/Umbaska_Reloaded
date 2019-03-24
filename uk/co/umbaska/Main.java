@@ -17,7 +17,6 @@ import java.util.UUID;
 
 import org.bstats.Metrics;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -28,6 +27,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.dynmap.DynmapAPI;
+import org.fusesource.jansi.Ansi;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
@@ -324,7 +324,7 @@ public class Main extends JavaPlugin implements Listener
     }
     if (getConfig().getBoolean("Metrics")) {
       new Metrics(this);
-	getLogger().info(ChatColor.GREEN + "[Umbaska 4] Hooked into metrics! :)");
+	getLogger().info(Ansi.ansi().fg(Ansi.Color.GREEN).boldOff().toString() + "[Umbaska 4] Hooked into metrics! :)" + Ansi.ansi().fg(Ansi.Color.WHITE).boldOff().toString());
     }
   }
   
