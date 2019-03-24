@@ -279,7 +279,7 @@ private static void registerNewEffect(String name, Class cls, String syntax) {
 
 
 
-    pl = Bukkit.getServer().getPluginManager().getPlugin("JukeboxAPI");
+    pl = Bukkit.getServer().getPluginManager().getPlugin("MCJukebox");
     if (pl != null) {
       registerNewEffect("JukeboxAPI Send Song", EffPlaySong.class, "play song [from] [url] %string% to %players%");
       registerNewEffect("JukeboxAPI Send Song with Volume", uk.co.umbaska.Misc.JukeboxAPI.EffPlaySongVolume.class, "play song [from] [url] %string% to %players% [with] volume %number%");
