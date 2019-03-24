@@ -12,16 +12,14 @@ import ch.njol.util.coll.CollectionUtils;
 public class ExprBlockSkullOwner
   extends SimplePropertyExpression<Block, String>
 {
-  @SuppressWarnings("deprecation")
-public String convert(Block ent)
+  public String convert(Block ent)
   {
     if (ent == null)
       return null;
     return ((Skull)ent).getOwner();
   }
   
-  @SuppressWarnings("deprecation")
-public void change(Event e, Object[] delta, Changer.ChangeMode mode)
+  public void change(Event e, Object[] delta, Changer.ChangeMode mode)
   {
     Block ent = (Block)getExpr().getSingle(e);
     if (ent == null)
