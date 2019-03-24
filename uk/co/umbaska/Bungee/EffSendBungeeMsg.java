@@ -23,7 +23,7 @@ public class EffSendBungeeMsg extends ch.njol.skript.lang.Effect
 
   public String toString(Event event, boolean b)
   {
-    return "Change server";
+    return "Send message";
   }
   
 
