@@ -1,7 +1,7 @@
 name: Umbaska_Reloaded
 main: uk.co.umbaska.Main
 authors: [nfell2009, Gatt, Weefle]
-version: 4.0.0
+version: 4.0.1
 depend: [Skript]
 softdepend: [PlotSquared, PlotMe, Vault, Towny, NametagEdit, Dynmap, ProtocolLib, WorldEdit, mcMMO, WorldGuard, Factions, PlaceholderAPI, MCJukebox, AAC, SkinsRestorer, ViaVersion, MassiveCore, NoteBlockAPI]
 loadbefore: [SkQuery]

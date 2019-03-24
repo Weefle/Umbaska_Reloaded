@@ -50,7 +50,7 @@ public class UpdateChecker
     }
     if (!this.currentVersion.equalsIgnoreCase(version)) {
       for (int time = 0; time < 6; time++) {
-        Bukkit.getLogger().warning(ChatColor.translateAlternateColorCodes('&', "&3&lUmbaska 4.0.0 is out of date! The newest version is " + version + "! Please download the new version from https://github.com/Weefle/Umbaska_Reloaded/releases !"));
+        Bukkit.getLogger().warning(ChatColor.translateAlternateColorCodes('&', "&3&lUmbaska 4 is out of date! The newest version is " + version + "! Please download the new version from https://github.com/Weefle/Umbaska_Reloaded/releases !"));
       }
     }
   }

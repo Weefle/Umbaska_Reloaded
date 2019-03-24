@@ -104,7 +104,7 @@ public class Main extends JavaPlugin implements Listener
       Bukkit.getPluginManager().disablePlugin(this);
       return; }
     if (getConfig().getBoolean("enable_1.7_override")) {
-      Bukkit.getLogger().warning("Umbaska 4.0.0 has been enabled with 1.7/1.8 Override Mode Enabled. We take no responsibility for any damage done. We will ignore any reports regarding servers that enable the 1.7/1.8 override.");
+      Bukkit.getLogger().warning("Umbaska 4 has been enabled with 1.7/1.8 Override Mode Enabled. We take no responsibility for any damage done. We will ignore any reports regarding servers that enable the 1.7/1.8 override.");
       notEvil.setData("using1_7override", "true");
     }
     
@@ -324,7 +324,7 @@ public class Main extends JavaPlugin implements Listener
     }
     if (getConfig().getBoolean("Metrics")) {
       new Metrics(this);
-	getLogger().info(ChatColor.GREEN + "[Umbaska 4.0.0] Hooked into metrics! :)");
+	getLogger().info(ChatColor.GREEN + "[Umbaska 4] Hooked into metrics! :)");
     }
   }
   

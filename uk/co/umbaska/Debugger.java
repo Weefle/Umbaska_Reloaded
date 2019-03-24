@@ -29,7 +29,7 @@ public class Debugger
   }
   
   public void debug(String debug) {
-    System.out.println("[Umbaska 4.0.0] " + debug);
+    System.out.println("[Umbaska 4] " + debug);
     if (this.log.booleanValue()) {
       this.ps.println(new SimpleDateFormat("HH:mm:ss").format(Calendar.getInstance().getTime()) + ": " + debug);
     }
