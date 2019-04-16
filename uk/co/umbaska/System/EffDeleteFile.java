@@ -29,7 +29,7 @@ public class EffDeleteFile
 
   public String toString(Event event, boolean b)
   {
-    return "Set a spawner";
+    return "delete file";
   }
   
 

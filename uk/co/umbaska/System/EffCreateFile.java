@@ -29,7 +29,7 @@ public class EffCreateFile
 
   public String toString(Event event, boolean b)
   {
-    return "Set a spawner";
+    return "create file";
   }
   
 
