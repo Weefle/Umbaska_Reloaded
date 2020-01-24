@@ -24,7 +24,7 @@ public boolean init(Expression<?>[] exprs, int i, Kleenean kleenean, SkriptParse
   }
   
   public String toString(@Nullable Event arg0, boolean arg1) {
-    return "titles";
+    return "delete holograms";
   }
   
 

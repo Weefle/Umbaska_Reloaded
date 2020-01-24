@@ -415,7 +415,7 @@ private static void registerNewEffect(String name, Class cls, String syntax) {
     registerNewEffect("Do Nothing?", EffNothing_MFG.class, "do nothing");
     
 
-    registerNewEffect("Create Hologram", uk.co.umbaska.HologramBased.EffCreateHologram.class, "create [a ]new holo[gram] named %string%");
+    registerNewEffect("Create Hologram", uk.co.umbaska.HologramBased.EffCreateHologram.class, "create [a] new holo[gram] named %string%");
     registerNewEffect("Set Hologram Line", uk.co.umbaska.HologramBased.EffSetHoloLine.class, "set holo[gram] line %integer% of holo[gram] %string% to %string%");
     
     registerNewEffect("Add Hologram Line", EffAddHoloLine.class, "set lines of holo[gram] %string% to %strings%");

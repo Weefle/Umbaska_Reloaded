@@ -21,7 +21,7 @@ public class EffSetHoloType
     return true;
   }
   
-  public String toString(@Nullable Event arg0, boolean arg1) { return "titles"; }
+  public String toString(@Nullable Event arg0, boolean arg1) { return "hologram type"; }
   
 
 
