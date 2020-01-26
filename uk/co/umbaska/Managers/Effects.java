@@ -525,9 +525,9 @@ private static void registerNewEffect(String name, Class cls, String syntax) {
     
     registerNewEffect("1.9 - Shoot Shulker Bullet", EffShootShulkerBullet.class, "make %entity% (shoot|launch) shulker bullet at %entity%");
     
-    registerNewEffect("Area Effect Cloud - Spawn Area Effect Cloud", EffSpawnAreaEffectCloud.class, "spawn [a[n]] area effect cloud at %location%");
-    registerNewEffect("Area Effect Cloud - Add Potion", EffAddPotionToCloud.class, "add %umbpotioneffect% to [area][ ][effect][ ][cloud] %entity%");
-    registerNewEffect("Area Effect Cloud - Remove Potion", EffRemovePotionFromCloud.class, "remove %umbpotioneffect% from [area][ ][effect][ ][cloud] %entity%");
+    registerNewEffect("Area Effect Cloud - Spawn Area Effect Cloud", EffSpawnAreaEffectCloud.class, "spawn [a[n]] [area][ ][effect][ ][cloud] at %location%");
+    registerNewEffect("Area Effect Cloud - Add Potion", EffAddPotionToCloud.class, "add potion [[effect] [type]] %string% for duration %integer% with amplifier %integer% to [area][ ][effect][ ][cloud] %entity%");
+    registerNewEffect("Area Effect Cloud - Remove Potion", EffRemovePotionFromCloud.class, "remove %string% from [area][ ][effect][ ][cloud] %entity%");
     
 
 

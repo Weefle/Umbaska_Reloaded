@@ -40,7 +40,6 @@ import uk.co.umbaska.AreaEffectCloud.ExprEffectCloudRadiusPerTick;
 import uk.co.umbaska.AreaEffectCloud.ExprEffectCloudReapplicationDelay;
 import uk.co.umbaska.AreaEffectCloud.ExprEffectCloudWaitTime;
 import uk.co.umbaska.AreaEffectCloud.ExprNewBukkitColor;
-import uk.co.umbaska.AreaEffectCloud.ExprNewPotionEffect;
 import uk.co.umbaska.ArmourStands.ExprNoAI;
 import uk.co.umbaska.ArmourStands.ExprsHeadDirectionX;
 import uk.co.umbaska.ArmourStands.ExprsHeadDirectionY;
@@ -650,7 +649,6 @@ private static void registerNewExpression(Class cls, Class returnType, Expressio
     registerNewExpression(ExprBlitzkrieg.class, String.class, ExpressionType.SIMPLE, new String[] { "blitzkrieg" });
 
     registerNewSimpleExpression("1.9 - Glowing", uk.co.umbaska.ArmourStands.ExprGlowingEntity.class, Boolean.class, "glowing state", "entity", Boolean.valueOf(false));
-    registerNewExpression("New Potion Effect", ExprNewPotionEffect.class, PotionEffect.class, ExpressionType.COMBINED, new String[] { "new potion effect [of][ ][type] %potioneffecttype% [of][ ][tier][ ]%number% (to last|with durability|time) %number%" });
     registerNewExpression("New Bukkit Color", ExprNewBukkitColor.class, Color.class, ExpressionType.COMBINED, new String[] { "new color from [rgb] %number%, %number%(,| and) %number%" });
     
     registerNewSimpleExpression("1.9 - Offhand Item Player", ExprOffhandItemPlayer.class, ItemStack.class, "[player] (off[ ]hand|secondary) item", "player", Boolean.valueOf(false));

@@ -10,6 +10,7 @@ import org.bukkit.potion.PotionEffect;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
+import ch.njol.skript.util.PotionEffectUtils;
 import ch.njol.util.Kleenean;
 
 public class EffAddPotionToCloud
@@ -17,7 +18,9 @@ public class EffAddPotionToCloud
   implements Listener
 {
   private Expression<Entity> cloud;
-  private Expression<PotionEffect> potion;
+  private Expression<String> potion;
+  private Expression<Integer> duration;
+  private Expression<Integer> amplifier;
   
   protected void execute(Event event)
   {
@@ -25,7 +28,8 @@ public class EffAddPotionToCloud
     if (cloud.getType() != EntityType.AREA_EFFECT_CLOUD) {
       return;
     }
-    ((AreaEffectCloud)cloud).addCustomEffect((PotionEffect)this.potion.getSingle(event), true);
+    PotionEffect potioneffect = new PotionEffect(PotionEffectUtils.parseType(this.potion.getSingle(event)), duration.getSingle(event), amplifier.getSingle(event));
+    ((AreaEffectCloud)cloud).addCustomEffect(potioneffect, true);
   }
   
   public String toString(Event event, boolean b)
@@ -36,8 +40,10 @@ public class EffAddPotionToCloud
   @SuppressWarnings("unchecked")
 public boolean init(Expression<?>[] expressions, int i, Kleenean kleenean, SkriptParser.ParseResult parseResult)
   {
-    this.cloud = (Expression<Entity>) expressions[1];
-    this.potion = (Expression<PotionEffect>) expressions[0];
+	this.potion = (Expression<String>) expressions[0];
+	this.duration = (Expression<Integer>) expressions[1];
+	this.amplifier = (Expression<Integer>) expressions[2];
+    this.cloud = (Expression<Entity>) expressions[3];
     return true;
   }
 }
