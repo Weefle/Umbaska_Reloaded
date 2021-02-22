@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Umbaska_Reloaded:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Umbaska_Reloaded_jar</output-path>
+    <root id="archive" name="Umbaska_Reloaded.jar">
+      <element id="module-output" name="Umbaska_Reloaded" />
+    </root>
+  </artifact>
+</component>
