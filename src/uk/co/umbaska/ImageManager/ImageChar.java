@@ -6,10 +6,10 @@ package uk.co.umbaska.ImageManager;
 
 public enum ImageChar
 {
-  BLOCK('█', Integer.valueOf(1)), 
-  DARK_SHADE('▓', Integer.valueOf(2)), 
-  MEDIUM_SHADE('▒', Integer.valueOf(3)), 
-  LIGHT_SHADE('░', Integer.valueOf(4));
+  BLOCK('\u2013', Integer.valueOf(1)),
+  DARK_SHADE('\u201c', Integer.valueOf(2)),
+  MEDIUM_SHADE('\u2019', Integer.valueOf(3)),
+  LIGHT_SHADE('\u2018', Integer.valueOf(4));
   
   private char c;
   private Integer id;

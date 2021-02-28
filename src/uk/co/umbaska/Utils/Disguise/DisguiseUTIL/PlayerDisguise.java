@@ -135,9 +135,9 @@ public class PlayerDisguise extends Disguise {
 	public void move(Location old, Location newloc) {
 		PacketPlayOutRelEntityMoveLook moveLook = new PacketPlayOutRelEntityMoveLook(
 				this.ep.getId(),
-				(byte) ((newloc.getBlockX() - old.getBlockX()) * 32),
-				(byte) ((newloc.getBlockY() - old.getBlockY()) * 32),
-				(byte) ((newloc.getBlockZ() - old.getBlockZ()) * 32), (byte) 0,
+				(short) ((newloc.getX()*32 - old.getX()*32)*128),
+				(short) ((newloc.getY()*32 - old.getY()*32)*128),
+				(short) ((newloc.getZ()*32 - old.getZ()*32)*128), (byte) 0,
 				(byte) 0, ep.getBukkitEntity().isOnGround());
 		PacketPlayOutEntityLook look = new PacketPlayOutEntityLook(
 				this.ep.getId(), (byte) (newloc.getYaw() * 256 / 360),
